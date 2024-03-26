@@ -12,6 +12,11 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.ToTable("Users").HasKey(u => u.Id);
 
         builder.Property(u => u.Id).HasColumnName("Id").IsRequired();
+        builder.Property(x => x.UserName).HasColumnName("UserName").IsRequired();
+        builder.Property(x => x.FirstName).HasColumnName("FirstName").IsRequired();
+        builder.Property(x => x.LastName).HasColumnName("LastName").IsRequired();
+        builder.Property(x => x.DateOfBirth).HasColumnName("DateOfBirth").IsRequired();
+        builder.Property(x => x.NationalIdentity).HasColumnName("NationalIdentity").IsRequired();
         builder.Property(u => u.Email).HasColumnName("Email").IsRequired();
         builder.Property(u => u.PasswordSalt).HasColumnName("PasswordSalt").IsRequired();
         builder.Property(u => u.PasswordHash).HasColumnName("PasswordHash").IsRequired();
@@ -48,7 +53,12 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
                     Id = AdminId,
                     Email = "narch@kodlama.io",
                     PasswordHash = passwordHash,
-                    PasswordSalt = passwordSalt
+                    PasswordSalt = passwordSalt,
+                    UserName = "admin",
+                    FirstName = "Ays",
+                    LastName = "Ayd",
+                    NationalIdentity = "",
+                    CreatedDate = DateTime.Now
                 };
             yield return adminUser;
         }

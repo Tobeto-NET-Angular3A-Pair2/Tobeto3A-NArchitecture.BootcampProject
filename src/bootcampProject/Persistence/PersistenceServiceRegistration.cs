@@ -1,4 +1,4 @@
-﻿using Application.Services.Repositories;
+using Application.Services.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,7 +12,9 @@ public static class PersistenceServiceRegistration
 {
     public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContext<BaseDbContext>(options => options.UseInMemoryDatabase("BaseDb"));
+        services.AddDbContext<BaseDbContext>(options =>
+            options.UseSqlServer(configuration.GetConnectionString("BootcampProjectNArchitecture"))
+        );
         services.AddDbMigrationApplier(buildServices => buildServices.GetRequiredService<BaseDbContext>());
 
         services.AddScoped<IEmailAuthenticatorRepository, EmailAuthenticatorRepository>();
@@ -22,6 +24,14 @@ public static class PersistenceServiceRegistration
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IUserOperationClaimRepository, UserOperationClaimRepository>();
 
+        services.AddScoped<IApplicantRepository, ApplicantRepository>();
+        services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+        services.AddScoped<IInstructorRepository, InstructorRepository>();
+        services.AddScoped<IApplicationStateRepository, ApplicationStateRepository>();
+        services.AddScoped<IBootcampStateRepository, BootcampStateRepository>();
+        services.AddScoped<IApplicationInformationRepository, ApplicationInformationRepository>();
+        services.AddScoped<IBlacklistRepository, BlacklistRepository>();
+        services.AddScoped<IBootcampRepository, BootcampRepository>();
         return services;
     }
 }
