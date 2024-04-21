@@ -1,9 +1,11 @@
 using Application.Features.Applicants.Constants;
+using Application.Features.Users.Constants;
 using Application.Services.Repositories;
 using Domain.Entities;
 using NArchitecture.Core.Application.Rules;
 using NArchitecture.Core.CrossCuttingConcerns.Exception.Types;
 using NArchitecture.Core.Localization.Abstraction;
+using NArchitecture.Core.Security.Hashing;
 
 namespace Application.Features.Applicants.Rules;
 
@@ -38,5 +40,25 @@ public class ApplicantBusinessRules : BaseBusinessRules
             cancellationToken: cancellationToken
         );
         await ApplicantShouldExistWhenSelected(applicant);
+    }
+
+    public async Task ApplicantPasswordShouldBeMatched(Applicant applicant, string password)
+    {
+        if (!HashingHelper.VerifyPasswordHash(password, applicant.PasswordHash, applicant.PasswordSalt))
+            await throwBusinessException(ApplicantsBusinessMessages.PasswordDontMatch);
+    }
+
+    public async Task ApplicantEmailShouldNotExistsWhenInsert(string email)
+    {
+        bool doesExists = await _applicantRepository.AnyAsync(predicate: u => u.Email == email);
+        if (doesExists)
+            await throwBusinessException(ApplicantsBusinessMessages.UserMailAlreadyExists);
+    }
+
+    public async Task ApplicantEmailShouldNotExistsWhenUpdate(Guid id, string email)
+    {
+        bool doesExists = await _applicantRepository.AnyAsync(predicate: u => u.Id != id && u.Email == email);
+        if (doesExists)
+            await throwBusinessException(ApplicantsBusinessMessages.UserMailAlreadyExists);
     }
 }

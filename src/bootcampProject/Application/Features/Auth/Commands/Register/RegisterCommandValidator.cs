@@ -7,8 +7,16 @@ public class RegisterCommandValidator : AbstractValidator<RegisterCommand>
 {
     public RegisterCommandValidator()
     {
-        RuleFor(c => c.UserForRegisterDto.Email).NotEmpty().EmailAddress();
-        RuleFor(c => c.UserForRegisterDto.Password)
+        //RuleFor(c => c.UserForRegisterDto.Email).NotEmpty().EmailAddress();
+        //RuleFor(c => c.UserForRegisterDto.Password)
+        //    .NotEmpty()
+        //    .MinimumLength(6)
+        //    .Must(StrongPassword)
+        //    .WithMessage(
+        //        "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character."
+        //    );
+        RuleFor(c => c.Email).NotEmpty().EmailAddress();
+        RuleFor(c => c.Password)
             .NotEmpty()
             .MinimumLength(6)
             .Must(StrongPassword)

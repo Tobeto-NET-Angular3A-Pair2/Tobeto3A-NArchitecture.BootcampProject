@@ -8,6 +8,7 @@ using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Caching;
 using NArchitecture.Core.Application.Pipelines.Logging;
 using NArchitecture.Core.Application.Pipelines.Transaction;
+using NArchitecture.Core.Security.Hashing;
 using static Application.Features.Applicants.Constants.ApplicantsOperationClaims;
 
 namespace Application.Features.Applicants.Commands.Create;
@@ -25,7 +26,32 @@ public class CreateApplicantCommand
     public DateTime DateOfBirth { get; set; }
     public string NationalIdentity { get; set; }
     public string Email { get; set; }
+    public string Password { get; set; }
     public string About { get; set; }
+
+    public CreateApplicantCommand()
+    {
+        FirstName = string.Empty;
+        LastName = string.Empty;
+        UserName = string.Empty;
+        NationalIdentity = string.Empty;
+        Email = string.Empty;
+        About = string.Empty;
+        Password = string.Empty;
+
+    }
+
+    public CreateApplicantCommand(string userName, string firstName, string lastName, DateTime dateOfBirth, string nationalIdentity, string email, string password, string about)
+    {
+        UserName = userName;
+        FirstName = firstName;
+        LastName = lastName;
+        DateOfBirth = dateOfBirth;
+        NationalIdentity = nationalIdentity;
+        Email = email;
+        Password = password;
+        About = about;
+    }
 
     public string[] Roles => [Admin, Write, ApplicantsOperationClaims.Create];
 
@@ -52,11 +78,21 @@ public class CreateApplicantCommand
 
         public async Task<CreatedApplicantResponse> Handle(CreateApplicantCommand request, CancellationToken cancellationToken)
         {
+            await _applicantBusinessRules.ApplicantEmailShouldNotExistsWhenInsert(request.Email);
+
             Applicant applicant = _mapper.Map<Applicant>(request);
 
-            await _applicantRepository.AddAsync(applicant);
+            HashingHelper.CreatePasswordHash(
+                request.Password,
+                passwordHash: out byte[] passwordHash,
+                passwordSalt: out byte[] passwordSalt);
+            
+            applicant.PasswordHash = passwordHash;
+            applicant.PasswordSalt = passwordSalt;
 
-            CreatedApplicantResponse response = _mapper.Map<CreatedApplicantResponse>(applicant);
+            Applicant createdApplicant = await _applicantRepository.AddAsync(applicant);
+
+            CreatedApplicantResponse response = _mapper.Map<CreatedApplicantResponse>(createdApplicant);
             return response;
         }
     }

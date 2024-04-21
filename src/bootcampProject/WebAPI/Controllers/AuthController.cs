@@ -39,10 +39,18 @@ public class AuthController : BaseController
         return Ok(result.ToHttpResponse());
     }
 
+    //[HttpPost("Register")]
+    //public async Task<IActionResult> Register([FromBody] UserForRegisterDto userForRegisterDto)
+    //{
+    //    RegisterCommand registerCommand = new() { UserForRegisterDto = userForRegisterDto, IpAddress = getIpAddress() };
+    //    RegisteredResponse result = await Mediator.Send(registerCommand);
+    //    setRefreshTokenToCookie(result.RefreshToken);
+    //    return Created(uri: "", result.AccessToken);
+    //}
     [HttpPost("Register")]
-    public async Task<IActionResult> Register([FromBody] UserForRegisterDto userForRegisterDto)
+    public async Task<IActionResult> Register([FromBody] RegisterCommand registerCommand)
     {
-        RegisterCommand registerCommand = new() { UserForRegisterDto = userForRegisterDto, IpAddress = getIpAddress() };
+        registerCommand.IpAddress = getIpAddress();
         RegisteredResponse result = await Mediator.Send(registerCommand);
         setRefreshTokenToCookie(result.RefreshToken);
         return Created(uri: "", result.AccessToken);
