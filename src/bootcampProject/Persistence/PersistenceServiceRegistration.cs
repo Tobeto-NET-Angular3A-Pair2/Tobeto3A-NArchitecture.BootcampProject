@@ -32,6 +32,7 @@ public static class PersistenceServiceRegistration
         services.AddScoped<IApplicationInformationRepository, ApplicationInformationRepository>();
         services.AddScoped<IBlacklistRepository, BlacklistRepository>();
         services.AddScoped<IBootcampRepository, BootcampRepository>();
+        services.AddScoped<IContactRepository, ContactRepository>();
         return services;
     }
 }
