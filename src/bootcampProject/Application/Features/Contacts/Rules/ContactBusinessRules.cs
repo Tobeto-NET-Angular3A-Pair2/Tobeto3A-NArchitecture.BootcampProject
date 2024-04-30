@@ -39,4 +39,21 @@ public class ContactBusinessRules : BaseBusinessRules
         );
         await ContactShouldExistWhenSelected(contact);
     }
+    public async Task ContactEmailShoulBeExists(string email)
+    {
+        if (email == null)
+            await throwBusinessException(ContactsBusinessMessages.EmailNotExists);
+    }
+
+    public async Task ContactPhoneShouldBeExists(string phoneNumber)
+    {
+        if (phoneNumber == null)
+            await throwBusinessException(ContactsBusinessMessages.PhoneNotExists);
+    }
+
+    public async Task ContactMessageShouldExist(string message)
+    {
+        if (message == null)
+            await throwBusinessException(ContactsBusinessMessages.MessageNotExists);
+    }
 }

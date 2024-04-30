@@ -6,10 +6,10 @@ public class CreateContactCommandValidator : AbstractValidator<CreateContactComm
 {
     public CreateContactCommandValidator()
     {
-        RuleFor(c => c.FirstName).NotEmpty();
-        RuleFor(c => c.LastName).NotEmpty();
-        RuleFor(c => c.Email).NotEmpty();
-        RuleFor(c => c.PhoneNumber).NotEmpty();
-        RuleFor(c => c.Message).NotEmpty();
+        RuleFor(c => c.FirstName).NotEmpty().MaximumLength(50);
+        RuleFor(c => c.LastName).NotEmpty().MaximumLength(50);
+        RuleFor(c => c.Email).NotEmpty().EmailAddress();
+        RuleFor(c => c.PhoneNumber).NotEmpty().MaximumLength(11);
+        RuleFor(c => c.Message).NotEmpty().MaximumLength(250);
     }
 }

@@ -9,6 +9,7 @@ using NArchitecture.Core.Application.Pipelines.Logging;
 using NArchitecture.Core.Application.Pipelines.Transaction;
 using MediatR;
 using static Application.Features.Contacts.Constants.ContactsOperationClaims;
+using Application.Features.Applicants.Rules;
 
 namespace Application.Features.Contacts.Commands.Create;
 
@@ -19,6 +20,7 @@ public class CreateContactCommand : IRequest<CreatedContactResponse>, ISecuredRe
     public string Email { get; set; }
     public string PhoneNumber { get; set; }
     public string Message { get; set; }
+    public DateTime CreatedDate { get; set; }
 
     public string[] Roles => [Admin, Write, ContactsOperationClaims.Create];
 
@@ -42,6 +44,10 @@ public class CreateContactCommand : IRequest<CreatedContactResponse>, ISecuredRe
 
         public async Task<CreatedContactResponse> Handle(CreateContactCommand request, CancellationToken cancellationToken)
         {
+            await _contactBusinessRules.ContactEmailShoulBeExists(request.Email);
+            await _contactBusinessRules.ContactPhoneShouldBeExists(request.PhoneNumber);
+            await _contactBusinessRules.ContactMessageShouldExist(request.Message);
+
             Contact contact = _mapper.Map<Contact>(request);
 
             await _contactRepository.AddAsync(contact);

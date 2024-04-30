@@ -20,6 +20,7 @@ public class UpdateContactCommand : IRequest<UpdatedContactResponse>, ISecuredRe
     public string Email { get; set; }
     public string PhoneNumber { get; set; }
     public string Message { get; set; }
+    public DateTime? UpdatedDate { get; set; }
 
     public string[] Roles => [Admin, Write, ContactsOperationClaims.Update];
 
@@ -45,6 +46,9 @@ public class UpdateContactCommand : IRequest<UpdatedContactResponse>, ISecuredRe
         {
             Contact? contact = await _contactRepository.GetAsync(predicate: c => c.Id == request.Id, cancellationToken: cancellationToken);
             await _contactBusinessRules.ContactShouldExistWhenSelected(contact);
+            await _contactBusinessRules.ContactEmailShoulBeExists(request.Email);
+            await _contactBusinessRules.ContactPhoneShouldBeExists(request.PhoneNumber);
+            await _contactBusinessRules.ContactMessageShouldExist(request.Message);
             contact = _mapper.Map(request, contact);
 
             await _contactRepository.UpdateAsync(contact!);
