@@ -22,6 +22,7 @@ public class BaseDbContext : DbContext
     public DbSet<ApplicationInformation> ApplicationInformations { get; set; }
     public DbSet<Blacklist> Blacklists { get; set; }
     public DbSet<Bootcamp> Bootcamps { get; set; }
+    public DbSet<InstructorApplication> InstructorApplications { get; set; }
 
     public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration)
         : base(dbContextOptions)
