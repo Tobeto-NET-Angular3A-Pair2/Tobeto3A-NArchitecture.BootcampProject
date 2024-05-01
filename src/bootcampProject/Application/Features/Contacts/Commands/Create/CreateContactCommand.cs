@@ -1,19 +1,15 @@
-using Application.Features.Contacts.Constants;
 using Application.Features.Contacts.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
-using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Caching;
 using NArchitecture.Core.Application.Pipelines.Logging;
 using NArchitecture.Core.Application.Pipelines.Transaction;
 using MediatR;
-using static Application.Features.Contacts.Constants.ContactsOperationClaims;
-using Application.Features.Applicants.Rules;
 
 namespace Application.Features.Contacts.Commands.Create;
 
-public class CreateContactCommand : IRequest<CreatedContactResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
+public class CreateContactCommand : IRequest<CreatedContactResponse>,  ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }
@@ -22,7 +18,6 @@ public class CreateContactCommand : IRequest<CreatedContactResponse>, ISecuredRe
     public string Message { get; set; }
     public DateTime CreatedDate { get; set; }
 
-    public string[] Roles => [Admin, Write, ContactsOperationClaims.Create];
 
     public bool BypassCache { get; }
     public string? CacheKey { get; }
