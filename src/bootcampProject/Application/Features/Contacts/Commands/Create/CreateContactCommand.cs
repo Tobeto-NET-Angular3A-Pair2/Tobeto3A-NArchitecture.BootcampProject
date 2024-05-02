@@ -17,12 +17,10 @@ public class CreateContactCommand : IRequest<CreatedContactResponse>,  ICacheRem
     public string PhoneNumber { get; set; }
     public string Message { get; set; }
     public DateTime CreatedDate { get; set; }
-
-
     public bool BypassCache { get; }
     public string? CacheKey { get; }
     public string[]? CacheGroupKey => ["GetContacts"];
-
+    
     public class CreateContactCommandHandler : IRequestHandler<CreateContactCommand, CreatedContactResponse>
     {
         private readonly IMapper _mapper;
