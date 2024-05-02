@@ -3,16 +3,21 @@ using Application.Features.Contacts.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using MediatR;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Caching;
 using NArchitecture.Core.Application.Pipelines.Logging;
 using NArchitecture.Core.Application.Pipelines.Transaction;
-using MediatR;
 using static Application.Features.Contacts.Constants.ContactsOperationClaims;
 
 namespace Application.Features.Contacts.Commands.Update;
 
-public class UpdateContactCommand : IRequest<UpdatedContactResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
+public class UpdateContactCommand
+    : IRequest<UpdatedContactResponse>,
+        ISecuredRequest,
+        ICacheRemoverRequest,
+        ILoggableRequest,
+        ITransactionalRequest
 {
     public int Id { get; set; }
     public string FirstName { get; set; }
@@ -34,8 +39,11 @@ public class UpdateContactCommand : IRequest<UpdatedContactResponse>, ISecuredRe
         private readonly IContactRepository _contactRepository;
         private readonly ContactBusinessRules _contactBusinessRules;
 
-        public UpdateContactCommandHandler(IMapper mapper, IContactRepository contactRepository,
-                                         ContactBusinessRules contactBusinessRules)
+        public UpdateContactCommandHandler(
+            IMapper mapper,
+            IContactRepository contactRepository,
+            ContactBusinessRules contactBusinessRules
+        )
         {
             _mapper = mapper;
             _contactRepository = contactRepository;
@@ -44,7 +52,10 @@ public class UpdateContactCommand : IRequest<UpdatedContactResponse>, ISecuredRe
 
         public async Task<UpdatedContactResponse> Handle(UpdateContactCommand request, CancellationToken cancellationToken)
         {
-            Contact? contact = await _contactRepository.GetAsync(predicate: c => c.Id == request.Id, cancellationToken: cancellationToken);
+            Contact? contact = await _contactRepository.GetAsync(
+                predicate: c => c.Id == request.Id,
+                cancellationToken: cancellationToken
+            );
             await _contactBusinessRules.ContactShouldExistWhenSelected(contact);
             await _contactBusinessRules.ContactEmailShoulBeExists(request.Email);
             await _contactBusinessRules.ContactPhoneShouldBeExists(request.PhoneNumber);

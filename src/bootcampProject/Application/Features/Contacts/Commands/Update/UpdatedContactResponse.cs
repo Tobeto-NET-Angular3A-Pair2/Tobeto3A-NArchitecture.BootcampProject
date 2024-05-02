@@ -11,5 +11,4 @@ public class UpdatedContactResponse : IResponse
     public string PhoneNumber { get; set; }
     public string Message { get; set; }
     public DateTime? UpdatedDate { get; set; }
-
 }
