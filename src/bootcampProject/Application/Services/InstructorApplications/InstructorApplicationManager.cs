@@ -74,4 +74,11 @@ public class InstructorApplicationManager : IInstructorApplicationService
 
         return deletedInstructorApplication;
     }
+
+    public async Task<InstructorApplication> ApproveAsync(InstructorApplication instructorApplication)
+    {
+        InstructorApplication approvedInstructorApplication = await _instructorApplicationRepository.UpdateAsync(instructorApplication);
+        
+        return approvedInstructorApplication;
+    }
 }

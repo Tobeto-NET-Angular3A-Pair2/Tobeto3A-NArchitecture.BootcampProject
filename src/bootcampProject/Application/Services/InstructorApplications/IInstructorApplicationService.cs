@@ -27,4 +27,5 @@ public interface IInstructorApplicationService
     Task<InstructorApplication> AddAsync(InstructorApplication instructorApplication);
     Task<InstructorApplication> UpdateAsync(InstructorApplication instructorApplication);
     Task<InstructorApplication> DeleteAsync(InstructorApplication instructorApplication, bool permanent = false);
+    Task<InstructorApplication> ApproveAsync(InstructorApplication instructorApplication);
 }
