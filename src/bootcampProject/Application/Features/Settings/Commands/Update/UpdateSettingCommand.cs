@@ -3,17 +3,22 @@ using Application.Features.Settings.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using MediatR;
+using Microsoft.AspNetCore.Http;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Caching;
 using NArchitecture.Core.Application.Pipelines.Logging;
 using NArchitecture.Core.Application.Pipelines.Transaction;
-using MediatR;
 using static Application.Features.Settings.Constants.SettingsOperationClaims;
-using Microsoft.AspNetCore.Http;
 
 namespace Application.Features.Settings.Commands.Update;
 
-public class UpdateSettingCommand : IRequest<UpdatedSettingResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
+public class UpdateSettingCommand
+    : IRequest<UpdatedSettingResponse>,
+        ISecuredRequest,
+        ICacheRemoverRequest,
+        ILoggableRequest,
+        ITransactionalRequest
 {
     public int Id { get; set; }
     public string? Title { get; set; }
@@ -42,8 +47,11 @@ public class UpdateSettingCommand : IRequest<UpdatedSettingResponse>, ISecuredRe
         private readonly ISettingRepository _settingRepository;
         private readonly SettingBusinessRules _settingBusinessRules;
 
-        public UpdateSettingCommandHandler(IMapper mapper, ISettingRepository settingRepository,
-                                         SettingBusinessRules settingBusinessRules)
+        public UpdateSettingCommandHandler(
+            IMapper mapper,
+            ISettingRepository settingRepository,
+            SettingBusinessRules settingBusinessRules
+        )
         {
             _mapper = mapper;
             _settingRepository = settingRepository;
@@ -52,7 +60,10 @@ public class UpdateSettingCommand : IRequest<UpdatedSettingResponse>, ISecuredRe
 
         public async Task<UpdatedSettingResponse> Handle(UpdateSettingCommand request, CancellationToken cancellationToken)
         {
-            Setting? setting = await _settingRepository.GetAsync(predicate: s => s.Id == request.Id, cancellationToken: cancellationToken);
+            Setting? setting = await _settingRepository.GetAsync(
+                predicate: s => s.Id == request.Id,
+                cancellationToken: cancellationToken
+            );
             await _settingBusinessRules.SettingShouldExistWhenSelected(setting);
             setting = _mapper.Map(request, setting);
 

@@ -10,6 +10,5 @@ public class UpdateSettingCommandValidator : AbstractValidator<UpdateSettingComm
         RuleFor(c => c.Title).NotEmpty();
         RuleFor(c => c.Description).NotEmpty();
         RuleFor(c => c.Keywords).NotEmpty();
-        
     }
 }

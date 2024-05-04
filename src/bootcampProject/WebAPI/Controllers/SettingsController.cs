@@ -19,12 +19,10 @@ namespace WebAPI.Controllers
 
         [HttpPut]
         public async Task<IActionResult> Update([FromBody] UpdateSettingCommand updateSettingCommand)
-        {  
+        {
             UpdatedSettingResponse response = await Mediator.Send(updateSettingCommand);
             return Ok(response);
         }
-
-       
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
@@ -36,12 +34,8 @@ namespace WebAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(IFormFile formFile)
         {
-               
             var result = await _cloudinaryImageServiceAdapter.UploadAsync(formFile);
-            UpdatedSettingImageReponse settingsReponse = new UpdatedSettingImageReponse
-            {
-                Url = result
-            };
+            UpdatedSettingImageReponse settingsReponse = new UpdatedSettingImageReponse { Url = result };
             return Ok(settingsReponse);
         }
     }

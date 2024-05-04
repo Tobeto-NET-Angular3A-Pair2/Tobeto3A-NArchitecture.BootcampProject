@@ -38,10 +38,18 @@ public class CreateApplicantCommand
         Email = string.Empty;
         About = string.Empty;
         Password = string.Empty;
-
     }
 
-    public CreateApplicantCommand(string userName, string firstName, string lastName, DateTime dateOfBirth, string nationalIdentity, string email, string password, string about)
+    public CreateApplicantCommand(
+        string userName,
+        string firstName,
+        string lastName,
+        DateTime dateOfBirth,
+        string nationalIdentity,
+        string email,
+        string password,
+        string about
+    )
     {
         UserName = userName;
         FirstName = firstName;
@@ -85,8 +93,9 @@ public class CreateApplicantCommand
             HashingHelper.CreatePasswordHash(
                 request.Password,
                 passwordHash: out byte[] passwordHash,
-                passwordSalt: out byte[] passwordSalt);
-            
+                passwordSalt: out byte[] passwordSalt
+            );
+
             applicant.PasswordHash = passwordHash;
             applicant.PasswordSalt = passwordSalt;
 

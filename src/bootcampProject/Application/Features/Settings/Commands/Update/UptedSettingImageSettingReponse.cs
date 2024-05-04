@@ -3,5 +3,4 @@
 public class UpdatedSettingImageReponse
 {
     public string Url { get; set; }
-
 }

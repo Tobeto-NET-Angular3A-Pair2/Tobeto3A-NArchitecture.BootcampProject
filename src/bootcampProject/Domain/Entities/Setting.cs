@@ -1,11 +1,12 @@
-﻿using NArchitecture.Core.Persistence.Repositories;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NArchitecture.Core.Persistence.Repositories;
 
 namespace Domain.Entities;
+
 public class Setting : Entity<int>
 {
     public string? Title { get; set; }
@@ -22,7 +23,21 @@ public class Setting : Entity<int>
     public string TermsOfUse { get; set; }
     public string PrivacyPolicy { get; set; }
 
-    public Setting(string? title, string? description, string? keywords, string? email, string? phone, string? googleSiteKey, string? googleSecretKey, string? googleAnalytics, string logoUrl, string faviconUrl, bool maintenanceMode, string termsOfUse, string privacyPolicy)
+    public Setting(
+        string? title,
+        string? description,
+        string? keywords,
+        string? email,
+        string? phone,
+        string? googleSiteKey,
+        string? googleSecretKey,
+        string? googleAnalytics,
+        string logoUrl,
+        string faviconUrl,
+        bool maintenanceMode,
+        string termsOfUse,
+        string privacyPolicy
+    )
     {
         Title = title;
         Description = description;
@@ -39,7 +54,5 @@ public class Setting : Entity<int>
         PrivacyPolicy = privacyPolicy;
     }
 
-    public Setting()
-    {
-    }
+    public Setting() { }
 }

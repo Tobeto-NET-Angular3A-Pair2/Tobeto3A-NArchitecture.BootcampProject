@@ -8,13 +8,13 @@ using Application.Features.BootcampStates.Constants;
 using Application.Features.Employees.Constants;
 using Application.Features.Instructors.Constants;
 using Application.Features.OperationClaims.Constants;
+using Application.Features.Settings.Constants;
 using Application.Features.UserOperationClaims.Constants;
 using Application.Features.Users.Constants;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NArchitecture.Core.Security.Constants;
-using Application.Features.Settings.Constants;
 
 namespace Persistence.EntityConfigurations;
 
@@ -221,7 +221,7 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
         );
         #endregion
 
-        
+
         #region Settings
         featureOperationClaims.AddRange(
             [
@@ -234,9 +234,9 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
             ]
         );
         #endregion
-        
 
-        
+
+
         return featureOperationClaims;
     }
 #pragma warning restore S1854 // Unused assignments should be removed

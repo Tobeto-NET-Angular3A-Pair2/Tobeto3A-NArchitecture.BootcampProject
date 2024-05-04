@@ -9,6 +9,7 @@ using Application.Services.Bootcamps;
 using Application.Services.BootcampStates;
 using Application.Services.Employees;
 using Application.Services.Instructors;
+using Application.Services.Settings;
 using Application.Services.UsersService;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,7 +28,6 @@ using NArchitecture.Core.Localization.Resource.Yaml.DependencyInjection;
 using NArchitecture.Core.Mailing;
 using NArchitecture.Core.Mailing.MailKit;
 using NArchitecture.Core.Security.DependencyInjection;
-using Application.Services.Settings;
 
 namespace Application;
 

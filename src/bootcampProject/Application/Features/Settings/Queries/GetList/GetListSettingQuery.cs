@@ -2,12 +2,12 @@ using Application.Features.Settings.Constants;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using MediatR;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Caching;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
 using NArchitecture.Core.Persistence.Paging;
-using MediatR;
 using static Application.Features.Settings.Constants.SettingsOperationClaims;
 
 namespace Application.Features.Settings.Queries.GetList;
@@ -34,15 +34,20 @@ public class GetListSettingQuery : IRequest<GetListResponse<GetListSettingListIt
             _mapper = mapper;
         }
 
-        public async Task<GetListResponse<GetListSettingListItemDto>> Handle(GetListSettingQuery request, CancellationToken cancellationToken)
+        public async Task<GetListResponse<GetListSettingListItemDto>> Handle(
+            GetListSettingQuery request,
+            CancellationToken cancellationToken
+        )
         {
             IPaginate<Setting> settings = await _settingRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,
-                size: request.PageRequest.PageSize, 
+                size: request.PageRequest.PageSize,
                 cancellationToken: cancellationToken
             );
 
-            GetListResponse<GetListSettingListItemDto> response = _mapper.Map<GetListResponse<GetListSettingListItemDto>>(settings);
+            GetListResponse<GetListSettingListItemDto> response = _mapper.Map<GetListResponse<GetListSettingListItemDto>>(
+                settings
+            );
             return response;
         }
     }

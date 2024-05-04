@@ -10,7 +10,6 @@ namespace Application.Features.Auth.Commands.Register;
 
 public class RegisterCommand : IRequest<RegisteredResponse>
 {
-
     //public UserForRegisterDto UserForRegisterDto { get; set; }
     public string Email { get; set; }
     public string Password { get; set; }
@@ -49,9 +48,17 @@ public class RegisterCommand : IRequest<RegisteredResponse>
     //    NationalIdentity = nationalIdentity;
     //    IpAddress = ipAddress;
     //}
-    public RegisterCommand(string userName, string firstName, string lastName, DateTime dateOfBirth, string nationalIdentity, string ipAddress, string email = null, string password = null)
+    public RegisterCommand(
+        string userName,
+        string firstName,
+        string lastName,
+        DateTime dateOfBirth,
+        string nationalIdentity,
+        string ipAddress,
+        string email = null,
+        string password = null
+    )
     {
-
         UserName = userName;
         FirstName = firstName;
         LastName = lastName;

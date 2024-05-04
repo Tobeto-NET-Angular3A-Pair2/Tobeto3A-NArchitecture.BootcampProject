@@ -7,7 +7,6 @@ namespace Persistence.Repositories;
 
 public class SettingRepository : EfRepositoryBase<Setting, int, BaseDbContext>, ISettingRepository
 {
-    public SettingRepository(BaseDbContext context) : base(context)
-    {
-    }
+    public SettingRepository(BaseDbContext context)
+        : base(context) { }
 }
