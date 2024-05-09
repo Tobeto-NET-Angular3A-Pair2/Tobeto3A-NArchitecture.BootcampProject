@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence.Contexts;
 
@@ -11,9 +12,11 @@ using Persistence.Contexts;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
-    partial class BaseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240429103921_SettingsAdded")]
+    partial class SettingsAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -221,57 +224,6 @@ namespace Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("BootcampStates", (string)null);
-                });
-
-            modelBuilder.Entity("Domain.Entities.Contact", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("Id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CreatedDate");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("DeletedDate");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Email");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("FirstName");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("LastName");
-
-                    b.Property<string>("Message")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Message");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("PhoneNumber");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("UpdatedDate");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Contacts", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.EmailAuthenticator", b =>
@@ -773,133 +725,37 @@ namespace Persistence.Migrations
                         {
                             Id = 72,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-
-                            Name = "Contacts.Admin"
-
-                        },
-                        new
-                        {
-                            Id = 73,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-
-                            Name = "Contacts.Read"
-
-                        },
-                        new
-                        {
-                            Id = 74,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-
-                            Name = "Contacts.Write"
-
-                        },
-                        new
-                        {
-                            Id = 75,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-
-                            Name = "Contacts.Create"
-
-                        },
-                        new
-                        {
-                            Id = 76,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-
-                            Name = "Contacts.Update"
-
-                        },
-                        new
-                        {
-                            Id = 77,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-
-                            Name = "Contacts.Delete"
-
-                        },
-                        new
-                        {
-                            Id = 72,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-
                             Name = "Settings.Admin"
-
                         },
                         new
                         {
                             Id = 73,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-
                             Name = "Settings.Read"
-
                         },
                         new
                         {
                             Id = 74,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-
                             Name = "Settings.Write"
-
                         },
                         new
                         {
                             Id = 75,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-
                             Name = "Settings.Create"
-
                         },
                         new
                         {
                             Id = 76,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-
                             Name = "Settings.Update"
-
                         },
                         new
                         {
                             Id = 77,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-
                             Name = "Settings.Delete"
-                        },
-                        new
-                        {
-                            Id = 78,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "SettingsImages.Admin"
-                        },
-                        new
-                        {
-                            Id = 79,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "SettingsImages.Read"
-                        },
-                        new
-                        {
-                            Id = 80,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "SettingsImages.Write"
-                        },
-                        new
-                        {
-                            Id = 81,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "SettingsImages.Create"
-                        },
-                        new
-                        {
-                            Id = 82,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "SettingsImages.Update"
-                        },
-                        new
-                        {
-                            Id = 83,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "SettingsImages.Delete"
-
                         });
                 });
 
@@ -1087,7 +943,7 @@ namespace Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 5, 4, 22, 41, 15, 714, DateTimeKind.Local).AddTicks(8563),
+                            CreatedDate = new DateTime(2024, 4, 29, 13, 39, 21, 561, DateTimeKind.Local).AddTicks(8114),
                             Description = "Description",
                             Email = "Email",
                             FaviconUrl = "",
@@ -1102,41 +958,6 @@ namespace Persistence.Migrations
                             TermsOfUse = "",
                             Title = "Title"
                         });
-                });
-
-            modelBuilder.Entity("Domain.Entities.SettingsImage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("Id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CreatedDate");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("DeletedDate");
-
-                    b.Property<int>("ImageId")
-                        .HasColumnType("int")
-                        .HasColumnName("ImageId");
-
-                    b.Property<string>("ImagePath")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("ImagePath");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("UpdatedDate");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SettingsImages", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>
@@ -1210,19 +1031,16 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-
-                            Id = new Guid("2fac5251-67f4-4f6a-936c-ea4146ff1934"),
+                            Id = new Guid("e5b256c7-c360-4f33-888a-f0f3ba80c290"),
                             AuthenticatorType = 0,
-                            CreatedDate = new DateTime(2024, 5, 4, 22, 41, 15, 715, DateTimeKind.Local).AddTicks(5824),
+                            CreatedDate = new DateTime(2024, 4, 29, 13, 39, 21, 562, DateTimeKind.Local).AddTicks(3229),
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "narch@kodlama.io",
                             FirstName = "Ays",
                             LastName = "Ayd",
                             NationalIdentity = "",
-                            
-                            PasswordHash = new byte[] { 167, 36, 143, 199, 183, 175, 27, 197, 79, 182, 53, 90, 120, 171, 28, 229, 60, 107, 228, 202, 170, 188, 44, 172, 59, 78, 60, 92, 249, 189, 66, 205, 12, 34, 130, 23, 134, 241, 241, 181, 161, 190, 30, 186, 100, 137, 223, 198, 48, 71, 22, 184, 97, 127, 121, 21, 88, 130, 147, 171, 200, 249, 51, 86 },
-                            PasswordSalt = new byte[] { 185, 63, 39, 11, 2, 127, 79, 181, 242, 115, 221, 3, 15, 183, 204, 255, 1, 219, 59, 86, 100, 27, 163, 8, 82, 239, 113, 171, 109, 213, 105, 159, 103, 78, 215, 225, 222, 229, 182, 76, 2, 22, 236, 172, 26, 216, 27, 41, 148, 132, 25, 81, 68, 99, 137, 71, 165, 240, 206, 149, 96, 215, 186, 6, 204, 187, 253, 6, 91, 62, 150, 25, 157, 82, 167, 119, 252, 164, 33, 144, 179, 251, 121, 51, 61, 99, 159, 87, 44, 188, 169, 102, 233, 157, 30, 174, 58, 8, 40, 191, 47, 210, 54, 149, 246, 25, 112, 240, 212, 80, 168, 29, 104, 71, 42, 51, 218, 58, 121, 226, 230, 153, 16, 205, 149, 233, 213, 3 },
-
+                            PasswordHash = new byte[] { 25, 152, 141, 125, 233, 103, 167, 11, 49, 149, 110, 228, 118, 125, 127, 18, 224, 79, 207, 72, 196, 176, 47, 222, 150, 79, 238, 243, 247, 169, 111, 36, 216, 152, 167, 52, 197, 41, 137, 203, 26, 228, 126, 32, 46, 45, 174, 152, 49, 122, 172, 65, 247, 107, 218, 139, 51, 153, 197, 80, 96, 160, 130, 29 },
+                            PasswordSalt = new byte[] { 233, 41, 13, 82, 235, 5, 35, 254, 0, 125, 48, 143, 197, 214, 166, 61, 204, 122, 96, 211, 159, 144, 125, 183, 43, 92, 219, 125, 59, 51, 149, 32, 17, 162, 122, 36, 128, 163, 172, 214, 212, 180, 89, 238, 43, 14, 234, 25, 24, 45, 155, 5, 23, 174, 40, 88, 90, 140, 70, 228, 185, 241, 119, 94, 158, 253, 87, 215, 103, 242, 118, 97, 58, 21, 159, 55, 165, 124, 53, 57, 26, 117, 107, 214, 84, 43, 72, 240, 145, 243, 222, 82, 41, 139, 155, 130, 218, 51, 214, 214, 1, 199, 141, 167, 213, 99, 206, 99, 171, 193, 91, 32, 174, 208, 153, 156, 6, 232, 26, 95, 24, 175, 201, 167, 189, 91, 196, 9 },
                             UserName = "admin"
                         });
                 });
@@ -1265,11 +1083,10 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("8bce9d49-23f4-40f6-afbd-b7734e122949"),
+                            Id = new Guid("e136072c-aad2-46dc-9b8c-63c4554bccc1"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OperationClaimId = 1,
-                            UserId = new Guid("2fac5251-67f4-4f6a-936c-ea4146ff1934")
-
+                            UserId = new Guid("e5b256c7-c360-4f33-888a-f0f3ba80c290")
                         });
                 });
 

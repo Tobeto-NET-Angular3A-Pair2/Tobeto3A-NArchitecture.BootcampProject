@@ -23,6 +23,7 @@ public class BaseDbContext : DbContext
     public DbSet<Blacklist> Blacklists { get; set; }
     public DbSet<Bootcamp> Bootcamps { get; set; }
     public DbSet<Contact> Contacts { get; set; }
+    public DbSet<Setting> Settings { get; set; }
 
     public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration)
         : base(dbContextOptions)

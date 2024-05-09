@@ -9,6 +9,7 @@ using Application.Features.Contacts.Constants;
 using Application.Features.Employees.Constants;
 using Application.Features.Instructors.Constants;
 using Application.Features.OperationClaims.Constants;
+using Application.Features.Settings.Constants;
 using Application.Features.UserOperationClaims.Constants;
 using Application.Features.Users.Constants;
 using Domain.Entities;
@@ -222,6 +223,7 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
         #endregion
 
 
+
         #region Contacts
         featureOperationClaims.AddRange(
             [
@@ -231,6 +233,17 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
                 new() { Id = ++lastId, Name = ContactsOperationClaims.Create },
                 new() { Id = ++lastId, Name = ContactsOperationClaims.Update },
                 new() { Id = ++lastId, Name = ContactsOperationClaims.Delete },
+
+        #region Settings
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = SettingsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = SettingsOperationClaims.Read },
+                new() { Id = ++lastId, Name = SettingsOperationClaims.Write },
+                new() { Id = ++lastId, Name = SettingsOperationClaims.Create },
+                new() { Id = ++lastId, Name = SettingsOperationClaims.Update },
+                new() { Id = ++lastId, Name = SettingsOperationClaims.Delete },
+
             ]
         );
         #endregion

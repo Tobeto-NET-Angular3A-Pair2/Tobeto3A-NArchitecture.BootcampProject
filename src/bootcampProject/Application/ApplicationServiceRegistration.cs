@@ -10,6 +10,7 @@ using Application.Services.BootcampStates;
 using Application.Services.Contacts;
 using Application.Services.Employees;
 using Application.Services.Instructors;
+using Application.Services.Settings;
 using Application.Services.UsersService;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
@@ -76,7 +77,10 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IApplicationInformationService, ApplicationInformationManager>();
         services.AddScoped<IBlacklistService, BlacklistManager>();
         services.AddScoped<IBootcampService, BootcampManager>();
+      
         services.AddScoped<IContactService, ContactManager>();
+        services.AddScoped<ISettingService, SettingManager>();
+
         return services;
     }
 

@@ -1,4 +1,5 @@
 using Application.Services.Repositories;
+using Infrastructure.Adapters.ImageService;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -33,6 +34,9 @@ public static class PersistenceServiceRegistration
         services.AddScoped<IBlacklistRepository, BlacklistRepository>();
         services.AddScoped<IBootcampRepository, BootcampRepository>();
         services.AddScoped<IContactRepository, ContactRepository>();
+        services.AddScoped<ISettingRepository, SettingRepository>();
+        services.AddScoped<CloudinaryImageServiceAdapter>();
+
         return services;
     }
 }
