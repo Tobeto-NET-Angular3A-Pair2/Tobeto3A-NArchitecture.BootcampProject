@@ -1,4 +1,5 @@
-﻿using Application.Common.Services;
+﻿using Application.Common.Helpers;
+using Application.Common.Services;
 using Application.Features.Auth.Rules;
 using Application.Features.Instructors.Constants;
 using Application.Services.AuthService;
@@ -40,6 +41,7 @@ public class RegisterInstructorCommand : IRequest<RegisteredInstructorResponse> 
         private readonly IPasswordGenerateService _passwordGenerateService;
         private readonly IUserOperationClaimRepository _userOperationClaimRepository;
         private readonly IMailService _mailService;
+        private readonly IEmailTemplateFillerService _emailTemplateFillerService;
 
 
         public RegisterInstructorCommandHandler(
@@ -49,7 +51,8 @@ public class RegisterInstructorCommand : IRequest<RegisteredInstructorResponse> 
             IInstructorRepository instructorRepository,
             IPasswordGenerateService passwordGenerateService,
             IUserOperationClaimRepository userOperationClaimRepository,
-            IMailService mailService
+            IMailService mailService,
+            IEmailTemplateFillerService emailTemplateFillerService
         )
         {
             _userRepository = userRepository;
@@ -59,6 +62,7 @@ public class RegisterInstructorCommand : IRequest<RegisteredInstructorResponse> 
             _passwordGenerateService = passwordGenerateService;
             _userOperationClaimRepository = userOperationClaimRepository;
             _mailService = mailService;
+            _emailTemplateFillerService = emailTemplateFillerService;
         }
         public async Task<RegisteredInstructorResponse> Handle(RegisterInstructorCommand request, CancellationToken cancellationToken)
         {
@@ -98,7 +102,7 @@ public class RegisterInstructorCommand : IRequest<RegisteredInstructorResponse> 
             };
 
             await _userOperationClaimRepository.AddRangeAsync(userOperationClaims);
-            
+
 
             // Mail 
 
@@ -110,11 +114,14 @@ public class RegisterInstructorCommand : IRequest<RegisteredInstructorResponse> 
                 new(fullName, email)
             };
 
+            var htmlContent = _emailTemplateFillerService
+                .PopulateInstructorApplicationApproveEmail(createdUser.FirstName, createdUser.LastName, email, password);
+
             _mailService.SendMail(new Mail
             {
                 Subject = "New Instructor Account Information - Teach It Free",
                 TextBody = "",
-                HtmlBody = $"<p>Your instructor application has resulted in a positive way. Welcome to the Teachtfree family.\nHere is your account information:\nEmail: {email}\nPassword: {password}\nFor your safety, we recommend that you change your password as soon as possible.\n</p>",
+                HtmlBody = htmlContent,
                 ToList = toEmailList,
             });
 

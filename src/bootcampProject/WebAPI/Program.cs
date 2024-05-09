@@ -30,7 +30,7 @@ builder.Services.AddApplicationServices(
         ?? throw new InvalidOperationException("ElasticSearchConfig section cannot found in configuration.")
 );
 builder.Services.AddPersistenceServices(builder.Configuration);
-builder.Services.AddInfrastructureServices();
+builder.Services.AddInfrastructureServices(builder.Environment.WebRootPath);
 builder.Services.AddHttpContextAccessor();
 
 const string tokenOptionsConfigurationSection = "TokenOptions";
@@ -97,6 +97,8 @@ if (app.Environment.IsProduction())
     app.ConfigureCustomExceptionMiddleware();
 
 app.UseDbMigrationApplier();
+
+app.UseStaticFiles();
 
 app.UseAuthentication();
 app.UseAuthorization();
