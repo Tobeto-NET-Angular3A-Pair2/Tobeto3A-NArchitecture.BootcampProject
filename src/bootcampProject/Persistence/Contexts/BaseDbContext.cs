@@ -1,11 +1,12 @@
 using System.Reflection;
+using Application.Common.Interfaces;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace Persistence.Contexts;
 
-public class BaseDbContext : DbContext
+public class BaseDbContext : DbContext, IBaseDbContext
 {
     protected IConfiguration Configuration { get; set; }
     public DbSet<EmailAuthenticator> EmailAuthenticators { get; set; }
@@ -23,6 +24,7 @@ public class BaseDbContext : DbContext
     public DbSet<Blacklist> Blacklists { get; set; }
     public DbSet<Bootcamp> Bootcamps { get; set; }
     public DbSet<InstructorApplication> InstructorApplications { get; set; }
+    public DbSet<Message> Messages { get; set; }
 
     public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration)
         : base(dbContextOptions)

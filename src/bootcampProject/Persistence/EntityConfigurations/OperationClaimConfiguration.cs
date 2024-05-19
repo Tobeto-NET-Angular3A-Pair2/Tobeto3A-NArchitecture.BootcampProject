@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NArchitecture.Core.Security.Constants;
 using Application.Features.InstructorApplications.Constants;
+using Application.Features.Messages.Constants;
 
 namespace Persistence.EntityConfigurations;
 
@@ -231,6 +232,20 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
                 new() { Id = ++lastId, Name = InstructorApplicationsOperationClaims.Create },
                 new() { Id = ++lastId, Name = InstructorApplicationsOperationClaims.Update },
                 new() { Id = ++lastId, Name = InstructorApplicationsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+        
+        
+        #region Messages
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = MessagesOperationClaims.Admin },
+                new() { Id = ++lastId, Name = MessagesOperationClaims.Read },
+                new() { Id = ++lastId, Name = MessagesOperationClaims.Write },
+                new() { Id = ++lastId, Name = MessagesOperationClaims.Create },
+                new() { Id = ++lastId, Name = MessagesOperationClaims.Update },
+                new() { Id = ++lastId, Name = MessagesOperationClaims.Delete },
             ]
         );
         #endregion

@@ -29,6 +29,7 @@ using NArchitecture.Core.Mailing.MailKit;
 using NArchitecture.Core.Security.DependencyInjection;
 using Application.Services.InstructorApplications;
 using Application.Common.Services;
+using Application.Services.Messages;
 
 namespace Application;
 
@@ -83,6 +84,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IPasswordGenerateService, PasswordGenerateManager>();
 
 
+        services.AddScoped<IMessageService, MessageManager>();
         return services;
     }
 
