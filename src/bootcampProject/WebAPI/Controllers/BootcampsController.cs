@@ -3,9 +3,13 @@ using Application.Features.Bootcamps.Commands.Delete;
 using Application.Features.Bootcamps.Commands.Update;
 using Application.Features.Bootcamps.Queries.GetById;
 using Application.Features.Bootcamps.Queries.GetList;
-using Microsoft.AspNetCore.Mvc;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
+using Microsoft.AspNetCore.Mvc;
+using Application.Services.AuthService;
+using Nest;
+using System.Reflection.Metadata;
+using static Application.Features.Bootcamps.Queries.GetList.GetListInstructorBootcampQuery;
 
 namespace WebAPI.Controllers;
 
@@ -37,7 +41,7 @@ public class BootcampsController : BaseController
         return Ok(response);
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("bootcamp/{id}")]
     public async Task<IActionResult> GetById([FromRoute] int id)
     {
         GetByIdBootcampResponse response = await Mediator.Send(new GetByIdBootcampQuery { Id = id });
@@ -51,4 +55,14 @@ public class BootcampsController : BaseController
         GetListResponse<GetListBootcampListItemDto> response = await Mediator.Send(getListBootcampQuery);
         return Ok(response);
     }
+    [HttpGet("instructor/{InstructorId}")]
+    public async Task<IActionResult> GetListForInstructor([FromRoute] Guid InstructorId, [FromQuery] PageRequest pageRequest)
+    {
+        GetListInstructorBootcampQuery getListInstructorBootcampQuery = new GetListInstructorBootcampQuery { InstructorId = InstructorId, PageRequest = pageRequest };
+        GetListResponse<GetListInstructorBootcampListItemDto> response = await Mediator.Send(getListInstructorBootcampQuery);
+        return Ok(response);
+    }
+
+
+
 }

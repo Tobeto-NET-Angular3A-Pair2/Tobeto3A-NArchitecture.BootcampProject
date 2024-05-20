@@ -5,8 +5,6 @@ using Application.Services.ApplicationStates;
 using Application.Services.AuthenticatorService;
 using Application.Services.AuthService;
 using Application.Services.Blacklists;
-using Application.Services.Bootcamps;
-using Application.Services.BootcampStates;
 using Application.Services.Employees;
 using Application.Services.Instructors;
 using Application.Services.Settings;
@@ -28,6 +26,13 @@ using NArchitecture.Core.Localization.Resource.Yaml.DependencyInjection;
 using NArchitecture.Core.Mailing;
 using NArchitecture.Core.Mailing.MailKit;
 using NArchitecture.Core.Security.DependencyInjection;
+using Application.Services.Evaluations;
+using Application.Services.Lessons;
+using Application.Services.LessonContents;
+using Application.Services.LessonVideos;
+using Application.Services.MiniQuizs;
+using Application.Services.Assignments;
+using Application.Services.Bootcamps;
 
 namespace Application;
 
@@ -72,11 +77,16 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IEmployeeService, EmployeeManager>();
         services.AddScoped<IInstructorService, InstructorManager>();
         services.AddScoped<IApplicationStateService, ApplicationStateManager>();
-        services.AddScoped<IBootcampStateService, BootcampStateManager>();
         services.AddScoped<IApplicationInformationService, ApplicationInformationManager>();
         services.AddScoped<IBlacklistService, BlacklistManager>();
-        services.AddScoped<IBootcampService, BootcampManager>();
         services.AddScoped<ISettingService, SettingManager>();
+        services.AddScoped<IEvaluationService, EvaluationManager>();
+        services.AddScoped<ILessonService, LessonManager>();
+        services.AddScoped<ILessonContentService, LessonContentManager>();
+        services.AddScoped<ILessonVideoService, LessonVideoManager>();
+        services.AddScoped<IMiniQuizService, MiniQuizManager>();
+        services.AddScoped<IAssignmentService, AssignmentManager>();
+        services.AddScoped<IBootcampService, BootcampManager>();
         return services;
     }
 

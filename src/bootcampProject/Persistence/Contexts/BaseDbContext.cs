@@ -18,11 +18,16 @@ public class BaseDbContext : DbContext
     public DbSet<Employee> Employees { get; set; }
     public DbSet<Instructor> Instructors { get; set; }
     public DbSet<ApplicationState> ApplicationStates { get; set; }
-    public DbSet<BootcampState> BootcampStates { get; set; }
     public DbSet<ApplicationInformation> ApplicationInformations { get; set; }
     public DbSet<Blacklist> Blacklists { get; set; }
     public DbSet<Bootcamp> Bootcamps { get; set; }
     public DbSet<Setting> Settings { get; set; }
+    public DbSet<Evaluation> Evaluations { get; set; }
+    public DbSet<Lesson> Lessons { get; set; }
+    public DbSet<LessonContent> LessonContents { get; set; }
+    public DbSet<LessonVideo> LessonVideos { get; set; }
+    public DbSet<MiniQuiz> MiniQuizs { get; set; }
+    public DbSet<Assignment> Assignments { get; set; }
 
     public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration)
         : base(dbContextOptions)
