@@ -33,6 +33,8 @@ using NArchitecture.Core.Localization.Resource.Yaml.DependencyInjection;
 using NArchitecture.Core.Mailing;
 using NArchitecture.Core.Mailing.MailKit;
 using NArchitecture.Core.Security.DependencyInjection;
+using Application.Services.Announcements;
+using Application.Services.Contacts;
 
 namespace Application;
 
@@ -87,6 +89,8 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IMiniQuizService, MiniQuizManager>();
         services.AddScoped<IAssignmentService, AssignmentManager>();
         services.AddScoped<IBootcampService, BootcampManager>();
+        services.AddScoped<IAnnouncementService, AnnouncementManager>();
+        services.AddScoped<IContactService, ContactManager>();
         return services;
     }
 

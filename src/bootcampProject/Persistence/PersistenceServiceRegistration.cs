@@ -40,6 +40,8 @@ public static class PersistenceServiceRegistration
         services.AddScoped<IMiniQuizRepository, MiniQuizRepository>();
         services.AddScoped<IAssignmentRepository, AssignmentRepository>();
         services.AddScoped<IBootcampRepository, BootcampRepository>();
+        services.AddScoped<IAnnouncementRepository, AnnouncementRepository>();
+        services.AddScoped<IContactRepository, ContactRepository>();
         return services;
     }
 }

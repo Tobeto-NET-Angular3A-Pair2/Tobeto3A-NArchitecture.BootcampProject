@@ -28,6 +28,8 @@ public class BaseDbContext : DbContext
     public DbSet<LessonVideo> LessonVideos { get; set; }
     public DbSet<MiniQuiz> MiniQuizs { get; set; }
     public DbSet<Assignment> Assignments { get; set; }
+    public DbSet<Announcement> Announcements { get; set; }
+    public DbSet<Contact> Contacts { get; set; }
 
     public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration)
         : base(dbContextOptions)
