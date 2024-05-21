@@ -8,4 +8,5 @@ public class GetByIdBootcampResponse : IResponse
     public string Name { get; set; }
     public Guid InstructorId { get; set; }
     public Boolean BootcampState { get; set; }
+    public string BootcampImage { get; set; }
 }

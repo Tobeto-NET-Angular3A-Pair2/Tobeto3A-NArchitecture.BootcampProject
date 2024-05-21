@@ -21,6 +21,7 @@ public class MappingProfiles : Profile
         CreateMap<Bootcamp, DeleteBootcampCommand>().ReverseMap();
         CreateMap<Bootcamp, DeletedBootcampResponse>().ReverseMap();
         CreateMap<Bootcamp, GetListBootcampListItemDto>().ReverseMap();
+        CreateMap<Bootcamp, GetByIdBootcampResponse>().ReverseMap();
         CreateMap<Bootcamp, GetListInstructorBootcampListItemDto>().ReverseMap();
         CreateMap<IPaginate<Bootcamp>, GetListResponse<GetListInstructorBootcampListItemDto>>().ReverseMap();
         CreateMap<IPaginate<Bootcamp>, GetListResponse<GetListBootcampListItemDto>>().ReverseMap();

@@ -9,6 +9,7 @@ using NArchitecture.Core.Application.Pipelines.Logging;
 using NArchitecture.Core.Application.Pipelines.Transaction;
 using MediatR;
 using static Application.Features.Bootcamps.Constants.BootcampsOperationClaims;
+using Application.Features.Instructors.Constants;
 
 namespace Application.Features.Bootcamps.Commands.Update;
 
@@ -18,8 +19,15 @@ public class UpdateBootcampCommand : IRequest<UpdatedBootcampResponse>, ISecured
     public string Name { get; set; }
     public Guid InstructorId { get; set; }
     public Boolean BootcampState { get; set; }
+    public string BootcampImage { get; set; }
 
-    public string[] Roles => [Admin, Write, BootcampsOperationClaims.Update];
+    public string[] Roles => new[]
+            {
+            BootcampsOperationClaims.Admin,
+            BootcampsOperationClaims.Write,
+            BootcampsOperationClaims.Create,
+            InstructorsOperationClaims.Admin
+        };
 
     public bool BypassCache { get; }
     public string? CacheKey { get; }

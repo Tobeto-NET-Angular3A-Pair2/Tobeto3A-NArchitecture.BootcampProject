@@ -10,6 +10,8 @@ using Application.Services.AuthService;
 using Nest;
 using System.Reflection.Metadata;
 using static Application.Features.Bootcamps.Queries.GetList.GetListInstructorBootcampQuery;
+using Application.Features.Settings.Commands.Update;
+using Infrastructure.Adapters.ImageService;
 
 namespace WebAPI.Controllers;
 
@@ -17,6 +19,14 @@ namespace WebAPI.Controllers;
 [ApiController]
 public class BootcampsController : BaseController
 {
+
+    private readonly CloudinaryImageServiceAdapter _cloudinaryImageServiceAdapter;
+
+    public BootcampsController(CloudinaryImageServiceAdapter cloudinaryImageService)
+    {
+        _cloudinaryImageServiceAdapter = cloudinaryImageService;
+    }
+
     [HttpPost]
     public async Task<IActionResult> Add([FromBody] CreateBootcampCommand createBootcampCommand)
     {
@@ -62,7 +72,22 @@ public class BootcampsController : BaseController
         GetListResponse<GetListInstructorBootcampListItemDto> response = await Mediator.Send(getListInstructorBootcampQuery);
         return Ok(response);
     }
+    [HttpPost("Image")]
+    public async Task<IActionResult> Update(IFormFile formFile)
+    {
+        if (formFile == null || formFile.Length == 0)
+            return BadRequest("No file uploaded");
 
+        var result = await _cloudinaryImageServiceAdapter.UploadAsync(formFile);
 
+        AddBootcampImageReponse addImageResponse = new AddBootcampImageReponse { Url = result };
+        return Ok(addImageResponse);
+    }
+    [HttpPost("DeleteImage")]
+    public async Task<IActionResult> DeleteImage(DeleteBootcampImageRequest deleteBootcampImageRequest)
+    {
+        await _cloudinaryImageServiceAdapter.DeleteAsync(deleteBootcampImageRequest.Url);
+        return Ok(new DeleteBootcampImageResponse { Response = "Image deleted successfully" });
+    }
 
 }
