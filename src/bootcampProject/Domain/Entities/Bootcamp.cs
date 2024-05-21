@@ -12,7 +12,7 @@ public class Bootcamp : Entity<int>
     public virtual ICollection<ApplicationInformation>? Applications { get; set; }
     public virtual Instructor Instructor { get; set; }
 
-    public Bootcamp(string name, Guid ınstructorId, Boolean bootcampState,string bootcampImage)
+    public Bootcamp(string name, Guid ınstructorId, Boolean bootcampState, string bootcampImage)
         : this()
     {
         Name = name;

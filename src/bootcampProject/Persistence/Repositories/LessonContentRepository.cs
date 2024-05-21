@@ -7,7 +7,6 @@ namespace Persistence.Repositories;
 
 public class LessonContentRepository : EfRepositoryBase<LessonContent, int, BaseDbContext>, ILessonContentRepository
 {
-    public LessonContentRepository(BaseDbContext context) : base(context)
-    {
-    }
+    public LessonContentRepository(BaseDbContext context)
+        : base(context) { }
 }

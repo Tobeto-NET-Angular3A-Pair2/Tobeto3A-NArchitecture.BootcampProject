@@ -2,12 +2,12 @@ using Application.Features.Evaluations.Constants;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using MediatR;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Caching;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
 using NArchitecture.Core.Persistence.Paging;
-using MediatR;
 using static Application.Features.Evaluations.Constants.EvaluationsOperationClaims;
 
 namespace Application.Features.Evaluations.Queries.GetList;
@@ -23,7 +23,8 @@ public class GetListEvaluationQuery : IRequest<GetListResponse<GetListEvaluation
     public string? CacheGroupKey => "GetEvaluations";
     public TimeSpan? SlidingExpiration { get; }
 
-    public class GetListEvaluationQueryHandler : IRequestHandler<GetListEvaluationQuery, GetListResponse<GetListEvaluationListItemDto>>
+    public class GetListEvaluationQueryHandler
+        : IRequestHandler<GetListEvaluationQuery, GetListResponse<GetListEvaluationListItemDto>>
     {
         private readonly IEvaluationRepository _evaluationRepository;
         private readonly IMapper _mapper;
@@ -34,15 +35,20 @@ public class GetListEvaluationQuery : IRequest<GetListResponse<GetListEvaluation
             _mapper = mapper;
         }
 
-        public async Task<GetListResponse<GetListEvaluationListItemDto>> Handle(GetListEvaluationQuery request, CancellationToken cancellationToken)
+        public async Task<GetListResponse<GetListEvaluationListItemDto>> Handle(
+            GetListEvaluationQuery request,
+            CancellationToken cancellationToken
+        )
         {
             IPaginate<Evaluation> evaluations = await _evaluationRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,
-                size: request.PageRequest.PageSize, 
+                size: request.PageRequest.PageSize,
                 cancellationToken: cancellationToken
             );
 
-            GetListResponse<GetListEvaluationListItemDto> response = _mapper.Map<GetListResponse<GetListEvaluationListItemDto>>(evaluations);
+            GetListResponse<GetListEvaluationListItemDto> response = _mapper.Map<GetListResponse<GetListEvaluationListItemDto>>(
+                evaluations
+            );
             return response;
         }
     }

@@ -1,9 +1,9 @@
+using System.Linq.Expressions;
 using Application.Features.MiniQuizs.Rules;
 using Application.Services.Repositories;
-using NArchitecture.Core.Persistence.Paging;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore.Query;
-using System.Linq.Expressions;
+using NArchitecture.Core.Persistence.Paging;
 
 namespace Application.Services.MiniQuizs;
 
@@ -26,7 +26,13 @@ public class MiniQuizManager : IMiniQuizService
         CancellationToken cancellationToken = default
     )
     {
-        MiniQuiz? miniQuiz = await _miniQuizRepository.GetAsync(predicate, include, withDeleted, enableTracking, cancellationToken);
+        MiniQuiz? miniQuiz = await _miniQuizRepository.GetAsync(
+            predicate,
+            include,
+            withDeleted,
+            enableTracking,
+            cancellationToken
+        );
         return miniQuiz;
     }
 

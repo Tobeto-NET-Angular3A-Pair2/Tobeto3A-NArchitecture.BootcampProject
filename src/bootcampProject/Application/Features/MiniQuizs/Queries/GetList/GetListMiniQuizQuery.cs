@@ -2,12 +2,12 @@ using Application.Features.MiniQuizs.Constants;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using MediatR;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Caching;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
 using NArchitecture.Core.Persistence.Paging;
-using MediatR;
 using static Application.Features.MiniQuizs.Constants.MiniQuizsOperationClaims;
 
 namespace Application.Features.MiniQuizs.Queries.GetList;
@@ -34,15 +34,20 @@ public class GetListMiniQuizQuery : IRequest<GetListResponse<GetListMiniQuizList
             _mapper = mapper;
         }
 
-        public async Task<GetListResponse<GetListMiniQuizListItemDto>> Handle(GetListMiniQuizQuery request, CancellationToken cancellationToken)
+        public async Task<GetListResponse<GetListMiniQuizListItemDto>> Handle(
+            GetListMiniQuizQuery request,
+            CancellationToken cancellationToken
+        )
         {
             IPaginate<MiniQuiz> miniQuizs = await _miniQuizRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,
-                size: request.PageRequest.PageSize, 
+                size: request.PageRequest.PageSize,
                 cancellationToken: cancellationToken
             );
 
-            GetListResponse<GetListMiniQuizListItemDto> response = _mapper.Map<GetListResponse<GetListMiniQuizListItemDto>>(miniQuizs);
+            GetListResponse<GetListMiniQuizListItemDto> response = _mapper.Map<GetListResponse<GetListMiniQuizListItemDto>>(
+                miniQuizs
+            );
             return response;
         }
     }

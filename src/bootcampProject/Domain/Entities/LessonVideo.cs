@@ -1,11 +1,12 @@
-﻿using NArchitecture.Core.Persistence.Repositories;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NArchitecture.Core.Persistence.Repositories;
 
 namespace Domain.Entities;
+
 public class LessonVideo : Entity<int>
 {
     public string Url { get; set; }
@@ -19,7 +20,5 @@ public class LessonVideo : Entity<int>
         LessonId = lessonId;
     }
 
-    public LessonVideo()
-    {
-    }
+    public LessonVideo() { }
 }

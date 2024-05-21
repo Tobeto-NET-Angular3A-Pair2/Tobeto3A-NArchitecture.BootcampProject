@@ -1,9 +1,9 @@
+using System.Linq.Expressions;
 using Application.Features.Evaluations.Rules;
 using Application.Services.Repositories;
-using NArchitecture.Core.Persistence.Paging;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore.Query;
-using System.Linq.Expressions;
+using NArchitecture.Core.Persistence.Paging;
 
 namespace Application.Services.Evaluations;
 
@@ -26,7 +26,13 @@ public class EvaluationManager : IEvaluationService
         CancellationToken cancellationToken = default
     )
     {
-        Evaluation? evaluation = await _evaluationRepository.GetAsync(predicate, include, withDeleted, enableTracking, cancellationToken);
+        Evaluation? evaluation = await _evaluationRepository.GetAsync(
+            predicate,
+            include,
+            withDeleted,
+            enableTracking,
+            cancellationToken
+        );
         return evaluation;
     }
 

@@ -3,9 +3,9 @@ using Application.Features.MiniQuizs.Commands.Delete;
 using Application.Features.MiniQuizs.Commands.Update;
 using Application.Features.MiniQuizs.Queries.GetById;
 using Application.Features.MiniQuizs.Queries.GetList;
+using Microsoft.AspNetCore.Mvc;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
-using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
 

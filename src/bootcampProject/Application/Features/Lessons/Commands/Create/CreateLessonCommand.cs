@@ -3,16 +3,21 @@ using Application.Features.Lessons.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using MediatR;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Caching;
 using NArchitecture.Core.Application.Pipelines.Logging;
 using NArchitecture.Core.Application.Pipelines.Transaction;
-using MediatR;
 using static Application.Features.Lessons.Constants.LessonsOperationClaims;
 
 namespace Application.Features.Lessons.Commands.Create;
 
-public class CreateLessonCommand : IRequest<CreatedLessonResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
+public class CreateLessonCommand
+    : IRequest<CreatedLessonResponse>,
+        ISecuredRequest,
+        ICacheRemoverRequest,
+        ILoggableRequest,
+        ITransactionalRequest
 {
     public string Title { get; set; }
 
@@ -28,8 +33,11 @@ public class CreateLessonCommand : IRequest<CreatedLessonResponse>, ISecuredRequ
         private readonly ILessonRepository _lessonRepository;
         private readonly LessonBusinessRules _lessonBusinessRules;
 
-        public CreateLessonCommandHandler(IMapper mapper, ILessonRepository lessonRepository,
-                                         LessonBusinessRules lessonBusinessRules)
+        public CreateLessonCommandHandler(
+            IMapper mapper,
+            ILessonRepository lessonRepository,
+            LessonBusinessRules lessonBusinessRules
+        )
         {
             _mapper = mapper;
             _lessonRepository = lessonRepository;

@@ -16,7 +16,6 @@ public class GetByIdUserQuery : IRequest<GetByIdUserResponse>, ISecuredRequest
 
     public string[] Roles => [UsersOperationClaims.Read, InstructorsOperationClaims.Read];
 
-
     public class GetByIdUserQueryHandler : IRequestHandler<GetByIdUserQuery, GetByIdUserResponse>
     {
         private readonly IUserRepository _userRepository;

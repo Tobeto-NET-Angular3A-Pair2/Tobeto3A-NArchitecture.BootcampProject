@@ -4,16 +4,21 @@ using Application.Features.Evaluations.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using MediatR;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Caching;
 using NArchitecture.Core.Application.Pipelines.Logging;
 using NArchitecture.Core.Application.Pipelines.Transaction;
-using MediatR;
 using static Application.Features.Evaluations.Constants.EvaluationsOperationClaims;
 
 namespace Application.Features.Evaluations.Commands.Delete;
 
-public class DeleteEvaluationCommand : IRequest<DeletedEvaluationResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
+public class DeleteEvaluationCommand
+    : IRequest<DeletedEvaluationResponse>,
+        ISecuredRequest,
+        ICacheRemoverRequest,
+        ILoggableRequest,
+        ITransactionalRequest
 {
     public int Id { get; set; }
 
@@ -29,8 +34,11 @@ public class DeleteEvaluationCommand : IRequest<DeletedEvaluationResponse>, ISec
         private readonly IEvaluationRepository _evaluationRepository;
         private readonly EvaluationBusinessRules _evaluationBusinessRules;
 
-        public DeleteEvaluationCommandHandler(IMapper mapper, IEvaluationRepository evaluationRepository,
-                                         EvaluationBusinessRules evaluationBusinessRules)
+        public DeleteEvaluationCommandHandler(
+            IMapper mapper,
+            IEvaluationRepository evaluationRepository,
+            EvaluationBusinessRules evaluationBusinessRules
+        )
         {
             _mapper = mapper;
             _evaluationRepository = evaluationRepository;
@@ -39,7 +47,10 @@ public class DeleteEvaluationCommand : IRequest<DeletedEvaluationResponse>, ISec
 
         public async Task<DeletedEvaluationResponse> Handle(DeleteEvaluationCommand request, CancellationToken cancellationToken)
         {
-            Evaluation? evaluation = await _evaluationRepository.GetAsync(predicate: e => e.Id == request.Id, cancellationToken: cancellationToken);
+            Evaluation? evaluation = await _evaluationRepository.GetAsync(
+                predicate: e => e.Id == request.Id,
+                cancellationToken: cancellationToken
+            );
             await _evaluationBusinessRules.EvaluationShouldExistWhenSelected(evaluation);
 
             await _evaluationRepository.DeleteAsync(evaluation!);

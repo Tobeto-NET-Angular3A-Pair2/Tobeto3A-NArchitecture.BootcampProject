@@ -2,12 +2,12 @@ using Application.Features.LessonVideos.Constants;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using MediatR;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Caching;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
 using NArchitecture.Core.Persistence.Paging;
-using MediatR;
 using static Application.Features.LessonVideos.Constants.LessonVideosOperationClaims;
 
 namespace Application.Features.LessonVideos.Queries.GetList;
@@ -23,7 +23,8 @@ public class GetListLessonVideoQuery : IRequest<GetListResponse<GetListLessonVid
     public string? CacheGroupKey => "GetLessonVideos";
     public TimeSpan? SlidingExpiration { get; }
 
-    public class GetListLessonVideoQueryHandler : IRequestHandler<GetListLessonVideoQuery, GetListResponse<GetListLessonVideoListItemDto>>
+    public class GetListLessonVideoQueryHandler
+        : IRequestHandler<GetListLessonVideoQuery, GetListResponse<GetListLessonVideoListItemDto>>
     {
         private readonly ILessonVideoRepository _lessonVideoRepository;
         private readonly IMapper _mapper;
@@ -34,15 +35,20 @@ public class GetListLessonVideoQuery : IRequest<GetListResponse<GetListLessonVid
             _mapper = mapper;
         }
 
-        public async Task<GetListResponse<GetListLessonVideoListItemDto>> Handle(GetListLessonVideoQuery request, CancellationToken cancellationToken)
+        public async Task<GetListResponse<GetListLessonVideoListItemDto>> Handle(
+            GetListLessonVideoQuery request,
+            CancellationToken cancellationToken
+        )
         {
             IPaginate<LessonVideo> lessonVideos = await _lessonVideoRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,
-                size: request.PageRequest.PageSize, 
+                size: request.PageRequest.PageSize,
                 cancellationToken: cancellationToken
             );
 
-            GetListResponse<GetListLessonVideoListItemDto> response = _mapper.Map<GetListResponse<GetListLessonVideoListItemDto>>(lessonVideos);
+            GetListResponse<GetListLessonVideoListItemDto> response = _mapper.Map<GetListResponse<GetListLessonVideoListItemDto>>(
+                lessonVideos
+            );
             return response;
         }
     }

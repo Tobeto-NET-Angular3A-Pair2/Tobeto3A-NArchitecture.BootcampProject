@@ -3,16 +3,21 @@ using Application.Features.Assignments.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using MediatR;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Caching;
 using NArchitecture.Core.Application.Pipelines.Logging;
 using NArchitecture.Core.Application.Pipelines.Transaction;
-using MediatR;
 using static Application.Features.Assignments.Constants.AssignmentsOperationClaims;
 
 namespace Application.Features.Assignments.Commands.Update;
 
-public class UpdateAssignmentCommand : IRequest<UpdatedAssignmentResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
+public class UpdateAssignmentCommand
+    : IRequest<UpdatedAssignmentResponse>,
+        ISecuredRequest,
+        ICacheRemoverRequest,
+        ILoggableRequest,
+        ITransactionalRequest
 {
     public int Id { get; set; }
     public string Title { get; set; }
@@ -32,8 +37,11 @@ public class UpdateAssignmentCommand : IRequest<UpdatedAssignmentResponse>, ISec
         private readonly IAssignmentRepository _assignmentRepository;
         private readonly AssignmentBusinessRules _assignmentBusinessRules;
 
-        public UpdateAssignmentCommandHandler(IMapper mapper, IAssignmentRepository assignmentRepository,
-                                         AssignmentBusinessRules assignmentBusinessRules)
+        public UpdateAssignmentCommandHandler(
+            IMapper mapper,
+            IAssignmentRepository assignmentRepository,
+            AssignmentBusinessRules assignmentBusinessRules
+        )
         {
             _mapper = mapper;
             _assignmentRepository = assignmentRepository;
@@ -42,7 +50,10 @@ public class UpdateAssignmentCommand : IRequest<UpdatedAssignmentResponse>, ISec
 
         public async Task<UpdatedAssignmentResponse> Handle(UpdateAssignmentCommand request, CancellationToken cancellationToken)
         {
-            Assignment? assignment = await _assignmentRepository.GetAsync(predicate: a => a.Id == request.Id, cancellationToken: cancellationToken);
+            Assignment? assignment = await _assignmentRepository.GetAsync(
+                predicate: a => a.Id == request.Id,
+                cancellationToken: cancellationToken
+            );
             await _assignmentBusinessRules.AssignmentShouldExistWhenSelected(assignment);
             assignment = _mapper.Map(request, assignment);
 

@@ -3,8 +3,8 @@ using Application.Features.MiniQuizs.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
-using NArchitecture.Core.Application.Pipelines.Authorization;
 using MediatR;
+using NArchitecture.Core.Application.Pipelines.Authorization;
 using static Application.Features.MiniQuizs.Constants.MiniQuizsOperationClaims;
 
 namespace Application.Features.MiniQuizs.Queries.GetById;
@@ -21,7 +21,11 @@ public class GetByIdMiniQuizQuery : IRequest<GetByIdMiniQuizResponse>, ISecuredR
         private readonly IMiniQuizRepository _miniQuizRepository;
         private readonly MiniQuizBusinessRules _miniQuizBusinessRules;
 
-        public GetByIdMiniQuizQueryHandler(IMapper mapper, IMiniQuizRepository miniQuizRepository, MiniQuizBusinessRules miniQuizBusinessRules)
+        public GetByIdMiniQuizQueryHandler(
+            IMapper mapper,
+            IMiniQuizRepository miniQuizRepository,
+            MiniQuizBusinessRules miniQuizBusinessRules
+        )
         {
             _mapper = mapper;
             _miniQuizRepository = miniQuizRepository;
@@ -30,7 +34,10 @@ public class GetByIdMiniQuizQuery : IRequest<GetByIdMiniQuizResponse>, ISecuredR
 
         public async Task<GetByIdMiniQuizResponse> Handle(GetByIdMiniQuizQuery request, CancellationToken cancellationToken)
         {
-            MiniQuiz? miniQuiz = await _miniQuizRepository.GetAsync(predicate: mq => mq.Id == request.Id, cancellationToken: cancellationToken);
+            MiniQuiz? miniQuiz = await _miniQuizRepository.GetAsync(
+                predicate: mq => mq.Id == request.Id,
+                cancellationToken: cancellationToken
+            );
             await _miniQuizBusinessRules.MiniQuizShouldExistWhenSelected(miniQuiz);
 
             GetByIdMiniQuizResponse response = _mapper.Map<GetByIdMiniQuizResponse>(miniQuiz);

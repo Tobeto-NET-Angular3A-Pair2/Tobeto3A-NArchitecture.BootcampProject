@@ -3,16 +3,21 @@ using Application.Features.MiniQuizs.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using MediatR;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Caching;
 using NArchitecture.Core.Application.Pipelines.Logging;
 using NArchitecture.Core.Application.Pipelines.Transaction;
-using MediatR;
 using static Application.Features.MiniQuizs.Constants.MiniQuizsOperationClaims;
 
 namespace Application.Features.MiniQuizs.Commands.Update;
 
-public class UpdateMiniQuizCommand : IRequest<UpdatedMiniQuizResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
+public class UpdateMiniQuizCommand
+    : IRequest<UpdatedMiniQuizResponse>,
+        ISecuredRequest,
+        ICacheRemoverRequest,
+        ILoggableRequest,
+        ITransactionalRequest
 {
     public int Id { get; set; }
     public string Question { get; set; }
@@ -31,8 +36,11 @@ public class UpdateMiniQuizCommand : IRequest<UpdatedMiniQuizResponse>, ISecured
         private readonly IMiniQuizRepository _miniQuizRepository;
         private readonly MiniQuizBusinessRules _miniQuizBusinessRules;
 
-        public UpdateMiniQuizCommandHandler(IMapper mapper, IMiniQuizRepository miniQuizRepository,
-                                         MiniQuizBusinessRules miniQuizBusinessRules)
+        public UpdateMiniQuizCommandHandler(
+            IMapper mapper,
+            IMiniQuizRepository miniQuizRepository,
+            MiniQuizBusinessRules miniQuizBusinessRules
+        )
         {
             _mapper = mapper;
             _miniQuizRepository = miniQuizRepository;
@@ -41,7 +49,10 @@ public class UpdateMiniQuizCommand : IRequest<UpdatedMiniQuizResponse>, ISecured
 
         public async Task<UpdatedMiniQuizResponse> Handle(UpdateMiniQuizCommand request, CancellationToken cancellationToken)
         {
-            MiniQuiz? miniQuiz = await _miniQuizRepository.GetAsync(predicate: mq => mq.Id == request.Id, cancellationToken: cancellationToken);
+            MiniQuiz? miniQuiz = await _miniQuizRepository.GetAsync(
+                predicate: mq => mq.Id == request.Id,
+                cancellationToken: cancellationToken
+            );
             await _miniQuizBusinessRules.MiniQuizShouldExistWhenSelected(miniQuiz);
             miniQuiz = _mapper.Map(request, miniQuiz);
 

@@ -1,17 +1,17 @@
+using System.Reflection.Metadata;
 using Application.Features.Bootcamps.Commands.Create;
 using Application.Features.Bootcamps.Commands.Delete;
 using Application.Features.Bootcamps.Commands.Update;
 using Application.Features.Bootcamps.Queries.GetById;
 using Application.Features.Bootcamps.Queries.GetList;
+using Application.Features.Settings.Commands.Update;
+using Application.Services.AuthService;
+using Infrastructure.Adapters.ImageService;
+using Microsoft.AspNetCore.Mvc;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
-using Microsoft.AspNetCore.Mvc;
-using Application.Services.AuthService;
 using Nest;
-using System.Reflection.Metadata;
 using static Application.Features.Bootcamps.Queries.GetList.GetListInstructorBootcampQuery;
-using Application.Features.Settings.Commands.Update;
-using Infrastructure.Adapters.ImageService;
 
 namespace WebAPI.Controllers;
 
@@ -19,7 +19,6 @@ namespace WebAPI.Controllers;
 [ApiController]
 public class BootcampsController : BaseController
 {
-
     private readonly CloudinaryImageServiceAdapter _cloudinaryImageServiceAdapter;
 
     public BootcampsController(CloudinaryImageServiceAdapter cloudinaryImageService)
@@ -65,13 +64,19 @@ public class BootcampsController : BaseController
         GetListResponse<GetListBootcampListItemDto> response = await Mediator.Send(getListBootcampQuery);
         return Ok(response);
     }
+
     [HttpGet("instructor/{InstructorId}")]
     public async Task<IActionResult> GetListForInstructor([FromRoute] Guid InstructorId, [FromQuery] PageRequest pageRequest)
     {
-        GetListInstructorBootcampQuery getListInstructorBootcampQuery = new GetListInstructorBootcampQuery { InstructorId = InstructorId, PageRequest = pageRequest };
+        GetListInstructorBootcampQuery getListInstructorBootcampQuery = new GetListInstructorBootcampQuery
+        {
+            InstructorId = InstructorId,
+            PageRequest = pageRequest
+        };
         GetListResponse<GetListInstructorBootcampListItemDto> response = await Mediator.Send(getListInstructorBootcampQuery);
         return Ok(response);
     }
+
     [HttpPost("Image")]
     public async Task<IActionResult> Update(IFormFile formFile)
     {
@@ -83,11 +88,11 @@ public class BootcampsController : BaseController
         AddBootcampImageReponse addImageResponse = new AddBootcampImageReponse { Url = result };
         return Ok(addImageResponse);
     }
+
     [HttpPost("DeleteImage")]
     public async Task<IActionResult> DeleteImage(DeleteBootcampImageRequest deleteBootcampImageRequest)
     {
         await _cloudinaryImageServiceAdapter.DeleteAsync(deleteBootcampImageRequest.Url);
         return Ok(new DeleteBootcampImageResponse { Response = "Image deleted successfully" });
     }
-
 }

@@ -4,16 +4,21 @@ using Application.Features.Lessons.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using MediatR;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Caching;
 using NArchitecture.Core.Application.Pipelines.Logging;
 using NArchitecture.Core.Application.Pipelines.Transaction;
-using MediatR;
 using static Application.Features.Lessons.Constants.LessonsOperationClaims;
 
 namespace Application.Features.Lessons.Commands.Delete;
 
-public class DeleteLessonCommand : IRequest<DeletedLessonResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
+public class DeleteLessonCommand
+    : IRequest<DeletedLessonResponse>,
+        ISecuredRequest,
+        ICacheRemoverRequest,
+        ILoggableRequest,
+        ITransactionalRequest
 {
     public int Id { get; set; }
 
@@ -29,8 +34,11 @@ public class DeleteLessonCommand : IRequest<DeletedLessonResponse>, ISecuredRequ
         private readonly ILessonRepository _lessonRepository;
         private readonly LessonBusinessRules _lessonBusinessRules;
 
-        public DeleteLessonCommandHandler(IMapper mapper, ILessonRepository lessonRepository,
-                                         LessonBusinessRules lessonBusinessRules)
+        public DeleteLessonCommandHandler(
+            IMapper mapper,
+            ILessonRepository lessonRepository,
+            LessonBusinessRules lessonBusinessRules
+        )
         {
             _mapper = mapper;
             _lessonRepository = lessonRepository;
@@ -39,7 +47,10 @@ public class DeleteLessonCommand : IRequest<DeletedLessonResponse>, ISecuredRequ
 
         public async Task<DeletedLessonResponse> Handle(DeleteLessonCommand request, CancellationToken cancellationToken)
         {
-            Lesson? lesson = await _lessonRepository.GetAsync(predicate: l => l.Id == request.Id, cancellationToken: cancellationToken);
+            Lesson? lesson = await _lessonRepository.GetAsync(
+                predicate: l => l.Id == request.Id,
+                cancellationToken: cancellationToken
+            );
             await _lessonBusinessRules.LessonShouldExistWhenSelected(lesson);
 
             await _lessonRepository.DeleteAsync(lesson!);

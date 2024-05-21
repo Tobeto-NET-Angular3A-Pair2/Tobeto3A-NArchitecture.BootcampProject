@@ -3,16 +3,21 @@ using Application.Features.Evaluations.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using MediatR;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Caching;
 using NArchitecture.Core.Application.Pipelines.Logging;
 using NArchitecture.Core.Application.Pipelines.Transaction;
-using MediatR;
 using static Application.Features.Evaluations.Constants.EvaluationsOperationClaims;
 
 namespace Application.Features.Evaluations.Commands.Create;
 
-public class CreateEvaluationCommand : IRequest<CreatedEvaluationResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
+public class CreateEvaluationCommand
+    : IRequest<CreatedEvaluationResponse>,
+        ISecuredRequest,
+        ICacheRemoverRequest,
+        ILoggableRequest,
+        ITransactionalRequest
 {
     public string Criteria { get; set; }
     public int LessonId { get; set; }
@@ -29,8 +34,11 @@ public class CreateEvaluationCommand : IRequest<CreatedEvaluationResponse>, ISec
         private readonly IEvaluationRepository _evaluationRepository;
         private readonly EvaluationBusinessRules _evaluationBusinessRules;
 
-        public CreateEvaluationCommandHandler(IMapper mapper, IEvaluationRepository evaluationRepository,
-                                         EvaluationBusinessRules evaluationBusinessRules)
+        public CreateEvaluationCommandHandler(
+            IMapper mapper,
+            IEvaluationRepository evaluationRepository,
+            EvaluationBusinessRules evaluationBusinessRules
+        )
         {
             _mapper = mapper;
             _evaluationRepository = evaluationRepository;

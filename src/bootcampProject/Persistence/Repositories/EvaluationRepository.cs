@@ -7,7 +7,6 @@ namespace Persistence.Repositories;
 
 public class EvaluationRepository : EfRepositoryBase<Evaluation, int, BaseDbContext>, IEvaluationRepository
 {
-    public EvaluationRepository(BaseDbContext context) : base(context)
-    {
-    }
+    public EvaluationRepository(BaseDbContext context)
+        : base(context) { }
 }

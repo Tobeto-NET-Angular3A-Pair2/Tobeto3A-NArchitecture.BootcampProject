@@ -1,9 +1,9 @@
+using System.Linq.Expressions;
 using Application.Features.LessonVideos.Rules;
 using Application.Services.Repositories;
-using NArchitecture.Core.Persistence.Paging;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore.Query;
-using System.Linq.Expressions;
+using NArchitecture.Core.Persistence.Paging;
 
 namespace Application.Services.LessonVideos;
 
@@ -26,7 +26,13 @@ public class LessonVideoManager : ILessonVideoService
         CancellationToken cancellationToken = default
     )
     {
-        LessonVideo? lessonVideo = await _lessonVideoRepository.GetAsync(predicate, include, withDeleted, enableTracking, cancellationToken);
+        LessonVideo? lessonVideo = await _lessonVideoRepository.GetAsync(
+            predicate,
+            include,
+            withDeleted,
+            enableTracking,
+            cancellationToken
+        );
         return lessonVideo;
     }
 

@@ -3,9 +3,9 @@ using Application.Features.LessonVideos.Commands.Delete;
 using Application.Features.LessonVideos.Commands.Update;
 using Application.Features.LessonVideos.Queries.GetById;
 using Application.Features.LessonVideos.Queries.GetList;
+using Microsoft.AspNetCore.Mvc;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
-using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
 

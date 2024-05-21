@@ -1,9 +1,9 @@
+using System.Linq.Expressions;
 using Application.Features.LessonContents.Rules;
 using Application.Services.Repositories;
-using NArchitecture.Core.Persistence.Paging;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore.Query;
-using System.Linq.Expressions;
+using NArchitecture.Core.Persistence.Paging;
 
 namespace Application.Services.LessonContents;
 
@@ -12,7 +12,10 @@ public class LessonContentManager : ILessonContentService
     private readonly ILessonContentRepository _lessonContentRepository;
     private readonly LessonContentBusinessRules _lessonContentBusinessRules;
 
-    public LessonContentManager(ILessonContentRepository lessonContentRepository, LessonContentBusinessRules lessonContentBusinessRules)
+    public LessonContentManager(
+        ILessonContentRepository lessonContentRepository,
+        LessonContentBusinessRules lessonContentBusinessRules
+    )
     {
         _lessonContentRepository = lessonContentRepository;
         _lessonContentBusinessRules = lessonContentBusinessRules;
@@ -26,7 +29,13 @@ public class LessonContentManager : ILessonContentService
         CancellationToken cancellationToken = default
     )
     {
-        LessonContent? lessonContent = await _lessonContentRepository.GetAsync(predicate, include, withDeleted, enableTracking, cancellationToken);
+        LessonContent? lessonContent = await _lessonContentRepository.GetAsync(
+            predicate,
+            include,
+            withDeleted,
+            enableTracking,
+            cancellationToken
+        );
         return lessonContent;
     }
 

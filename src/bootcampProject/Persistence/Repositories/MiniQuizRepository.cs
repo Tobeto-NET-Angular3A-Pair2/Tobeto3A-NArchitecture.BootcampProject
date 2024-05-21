@@ -7,7 +7,6 @@ namespace Persistence.Repositories;
 
 public class MiniQuizRepository : EfRepositoryBase<MiniQuiz, int, BaseDbContext>, IMiniQuizRepository
 {
-    public MiniQuizRepository(BaseDbContext context) : base(context)
-    {
-    }
+    public MiniQuizRepository(BaseDbContext context)
+        : base(context) { }
 }

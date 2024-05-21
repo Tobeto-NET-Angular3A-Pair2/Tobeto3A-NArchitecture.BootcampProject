@@ -1,11 +1,12 @@
-﻿using NArchitecture.Core.Persistence.Repositories;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NArchitecture.Core.Persistence.Repositories;
 
 namespace Domain.Entities;
+
 public class LessonContent : Entity<int>
 {
     public string Text { get; set; }
@@ -13,13 +14,11 @@ public class LessonContent : Entity<int>
     public virtual Lesson Lesson { get; set; }
 
     public LessonContent(string text, int lessonId)
-            : this()
+        : this()
     {
         Text = text;
         LessonId = lessonId;
     }
 
-    public LessonContent()
-    {
-    }
+    public LessonContent() { }
 }

@@ -3,8 +3,8 @@ using Application.Features.Assignments.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
-using NArchitecture.Core.Application.Pipelines.Authorization;
 using MediatR;
+using NArchitecture.Core.Application.Pipelines.Authorization;
 using static Application.Features.Assignments.Constants.AssignmentsOperationClaims;
 
 namespace Application.Features.Assignments.Queries.GetById;
@@ -21,7 +21,11 @@ public class GetByIdAssignmentQuery : IRequest<GetByIdAssignmentResponse>, ISecu
         private readonly IAssignmentRepository _assignmentRepository;
         private readonly AssignmentBusinessRules _assignmentBusinessRules;
 
-        public GetByIdAssignmentQueryHandler(IMapper mapper, IAssignmentRepository assignmentRepository, AssignmentBusinessRules assignmentBusinessRules)
+        public GetByIdAssignmentQueryHandler(
+            IMapper mapper,
+            IAssignmentRepository assignmentRepository,
+            AssignmentBusinessRules assignmentBusinessRules
+        )
         {
             _mapper = mapper;
             _assignmentRepository = assignmentRepository;
@@ -30,7 +34,10 @@ public class GetByIdAssignmentQuery : IRequest<GetByIdAssignmentResponse>, ISecu
 
         public async Task<GetByIdAssignmentResponse> Handle(GetByIdAssignmentQuery request, CancellationToken cancellationToken)
         {
-            Assignment? assignment = await _assignmentRepository.GetAsync(predicate: a => a.Id == request.Id, cancellationToken: cancellationToken);
+            Assignment? assignment = await _assignmentRepository.GetAsync(
+                predicate: a => a.Id == request.Id,
+                cancellationToken: cancellationToken
+            );
             await _assignmentBusinessRules.AssignmentShouldExistWhenSelected(assignment);
 
             GetByIdAssignmentResponse response = _mapper.Map<GetByIdAssignmentResponse>(assignment);

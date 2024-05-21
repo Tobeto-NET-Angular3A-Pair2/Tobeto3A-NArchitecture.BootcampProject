@@ -7,7 +7,6 @@ namespace Persistence.Repositories;
 
 public class AssignmentRepository : EfRepositoryBase<Assignment, int, BaseDbContext>, IAssignmentRepository
 {
-    public AssignmentRepository(BaseDbContext context) : base(context)
-    {
-    }
+    public AssignmentRepository(BaseDbContext context)
+        : base(context) { }
 }

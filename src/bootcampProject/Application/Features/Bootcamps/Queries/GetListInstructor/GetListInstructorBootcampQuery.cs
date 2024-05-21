@@ -1,15 +1,15 @@
 using Application.Features.Bootcamps.Constants;
+using Application.Features.Instructors.Constants;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using MediatR;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Caching;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
 using NArchitecture.Core.Persistence.Paging;
-using MediatR;
 using static Application.Features.Bootcamps.Constants.BootcampsOperationClaims;
-using Application.Features.Instructors.Constants;
 
 namespace Application.Features.Bootcamps.Queries.GetList;
 
@@ -18,8 +18,9 @@ public class GetListInstructorBootcampQuery : IRequest<GetListResponse<GetListIn
     public Guid InstructorId { get; set; }
     public PageRequest PageRequest { get; set; }
 
-    public string[] Roles => new[]
-           {
+    public string[] Roles =>
+        new[]
+        {
             BootcampsOperationClaims.Admin,
             BootcampsOperationClaims.Write,
             BootcampsOperationClaims.Create,
@@ -31,7 +32,8 @@ public class GetListInstructorBootcampQuery : IRequest<GetListResponse<GetListIn
     public string? CacheGroupKey => "GetInstructorBootcamps";
     public TimeSpan? SlidingExpiration { get; }
 
-    public class GetListInstructorBootcampQueryHandler : IRequestHandler<GetListInstructorBootcampQuery, GetListResponse<GetListInstructorBootcampListItemDto>>
+    public class GetListInstructorBootcampQueryHandler
+        : IRequestHandler<GetListInstructorBootcampQuery, GetListResponse<GetListInstructorBootcampListItemDto>>
     {
         private readonly IBootcampRepository _bootcampRepository;
         private readonly IMapper _mapper;
@@ -42,7 +44,10 @@ public class GetListInstructorBootcampQuery : IRequest<GetListResponse<GetListIn
             _mapper = mapper;
         }
 
-        public async Task<GetListResponse<GetListInstructorBootcampListItemDto>> Handle(GetListInstructorBootcampQuery request, CancellationToken cancellationToken)
+        public async Task<GetListResponse<GetListInstructorBootcampListItemDto>> Handle(
+            GetListInstructorBootcampQuery request,
+            CancellationToken cancellationToken
+        )
         {
             IPaginate<Bootcamp> bootcamps = await _bootcampRepository.GetListAsync(
                 predicate: b => b.InstructorId == request.InstructorId,
@@ -52,7 +57,9 @@ public class GetListInstructorBootcampQuery : IRequest<GetListResponse<GetListIn
             );
             Console.WriteLine($"Retrieved Bootcamps Count: {bootcamps.Items.Count}");
 
-            GetListResponse<GetListInstructorBootcampListItemDto> response = _mapper.Map<GetListResponse<GetListInstructorBootcampListItemDto>>(bootcamps);
+            GetListResponse<GetListInstructorBootcampListItemDto> response = _mapper.Map<
+                GetListResponse<GetListInstructorBootcampListItemDto>
+            >(bootcamps);
             return response;
         }
     }

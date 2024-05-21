@@ -4,16 +4,21 @@ using Application.Features.Assignments.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using MediatR;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Caching;
 using NArchitecture.Core.Application.Pipelines.Logging;
 using NArchitecture.Core.Application.Pipelines.Transaction;
-using MediatR;
 using static Application.Features.Assignments.Constants.AssignmentsOperationClaims;
 
 namespace Application.Features.Assignments.Commands.Delete;
 
-public class DeleteAssignmentCommand : IRequest<DeletedAssignmentResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
+public class DeleteAssignmentCommand
+    : IRequest<DeletedAssignmentResponse>,
+        ISecuredRequest,
+        ICacheRemoverRequest,
+        ILoggableRequest,
+        ITransactionalRequest
 {
     public int Id { get; set; }
 
@@ -29,8 +34,11 @@ public class DeleteAssignmentCommand : IRequest<DeletedAssignmentResponse>, ISec
         private readonly IAssignmentRepository _assignmentRepository;
         private readonly AssignmentBusinessRules _assignmentBusinessRules;
 
-        public DeleteAssignmentCommandHandler(IMapper mapper, IAssignmentRepository assignmentRepository,
-                                         AssignmentBusinessRules assignmentBusinessRules)
+        public DeleteAssignmentCommandHandler(
+            IMapper mapper,
+            IAssignmentRepository assignmentRepository,
+            AssignmentBusinessRules assignmentBusinessRules
+        )
         {
             _mapper = mapper;
             _assignmentRepository = assignmentRepository;
@@ -39,7 +47,10 @@ public class DeleteAssignmentCommand : IRequest<DeletedAssignmentResponse>, ISec
 
         public async Task<DeletedAssignmentResponse> Handle(DeleteAssignmentCommand request, CancellationToken cancellationToken)
         {
-            Assignment? assignment = await _assignmentRepository.GetAsync(predicate: a => a.Id == request.Id, cancellationToken: cancellationToken);
+            Assignment? assignment = await _assignmentRepository.GetAsync(
+                predicate: a => a.Id == request.Id,
+                cancellationToken: cancellationToken
+            );
             await _assignmentBusinessRules.AssignmentShouldExistWhenSelected(assignment);
 
             await _assignmentRepository.DeleteAsync(assignment!);

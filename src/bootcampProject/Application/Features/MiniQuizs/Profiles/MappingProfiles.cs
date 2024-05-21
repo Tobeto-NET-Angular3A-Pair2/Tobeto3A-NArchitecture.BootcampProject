@@ -4,8 +4,8 @@ using Application.Features.MiniQuizs.Commands.Update;
 using Application.Features.MiniQuizs.Queries.GetById;
 using Application.Features.MiniQuizs.Queries.GetList;
 using AutoMapper;
-using NArchitecture.Core.Application.Responses;
 using Domain.Entities;
+using NArchitecture.Core.Application.Responses;
 using NArchitecture.Core.Persistence.Paging;
 
 namespace Application.Features.MiniQuizs.Profiles;

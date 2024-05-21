@@ -1,11 +1,12 @@
-﻿using NArchitecture.Core.Persistence.Repositories;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NArchitecture.Core.Persistence.Repositories;
 
 namespace Domain.Entities;
+
 public class Assignment : Entity<int>
 {
     public string Title { get; set; }
@@ -15,7 +16,7 @@ public class Assignment : Entity<int>
     public virtual Lesson Lesson { get; set; }
 
     public Assignment(string title, string description, DateTime deadline, int lessonId)
-            : this()
+        : this()
     {
         Title = title;
         Description = description;
@@ -23,7 +24,5 @@ public class Assignment : Entity<int>
         LessonId = lessonId;
     }
 
-    public Assignment()
-    {
-    }
+    public Assignment() { }
 }

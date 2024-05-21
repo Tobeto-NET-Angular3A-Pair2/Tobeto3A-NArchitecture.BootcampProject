@@ -2,12 +2,12 @@ using Application.Features.Lessons.Constants;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using MediatR;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Caching;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
 using NArchitecture.Core.Persistence.Paging;
-using MediatR;
 using static Application.Features.Lessons.Constants.LessonsOperationClaims;
 
 namespace Application.Features.Lessons.Queries.GetList;
@@ -34,11 +34,14 @@ public class GetListLessonQuery : IRequest<GetListResponse<GetListLessonListItem
             _mapper = mapper;
         }
 
-        public async Task<GetListResponse<GetListLessonListItemDto>> Handle(GetListLessonQuery request, CancellationToken cancellationToken)
+        public async Task<GetListResponse<GetListLessonListItemDto>> Handle(
+            GetListLessonQuery request,
+            CancellationToken cancellationToken
+        )
         {
             IPaginate<Lesson> lessons = await _lessonRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,
-                size: request.PageRequest.PageSize, 
+                size: request.PageRequest.PageSize,
                 cancellationToken: cancellationToken
             );
 

@@ -3,16 +3,21 @@ using Application.Features.Assignments.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using MediatR;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Caching;
 using NArchitecture.Core.Application.Pipelines.Logging;
 using NArchitecture.Core.Application.Pipelines.Transaction;
-using MediatR;
 using static Application.Features.Assignments.Constants.AssignmentsOperationClaims;
 
 namespace Application.Features.Assignments.Commands.Create;
 
-public class CreateAssignmentCommand : IRequest<CreatedAssignmentResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
+public class CreateAssignmentCommand
+    : IRequest<CreatedAssignmentResponse>,
+        ISecuredRequest,
+        ICacheRemoverRequest,
+        ILoggableRequest,
+        ITransactionalRequest
 {
     public string Title { get; set; }
     public string Description { get; set; }
@@ -31,8 +36,11 @@ public class CreateAssignmentCommand : IRequest<CreatedAssignmentResponse>, ISec
         private readonly IAssignmentRepository _assignmentRepository;
         private readonly AssignmentBusinessRules _assignmentBusinessRules;
 
-        public CreateAssignmentCommandHandler(IMapper mapper, IAssignmentRepository assignmentRepository,
-                                         AssignmentBusinessRules assignmentBusinessRules)
+        public CreateAssignmentCommandHandler(
+            IMapper mapper,
+            IAssignmentRepository assignmentRepository,
+            AssignmentBusinessRules assignmentBusinessRules
+        )
         {
             _mapper = mapper;
             _assignmentRepository = assignmentRepository;

@@ -3,6 +3,4 @@ using NArchitecture.Core.Persistence.Repositories;
 
 namespace Application.Services.Repositories;
 
-public interface IMiniQuizRepository : IAsyncRepository<MiniQuiz, int>, IRepository<MiniQuiz, int>
-{
-}
+public interface IMiniQuizRepository : IAsyncRepository<MiniQuiz, int>, IRepository<MiniQuiz, int> { }
