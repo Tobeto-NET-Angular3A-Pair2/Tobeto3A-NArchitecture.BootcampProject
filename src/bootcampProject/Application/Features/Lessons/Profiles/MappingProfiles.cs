@@ -1,3 +1,4 @@
+using Application.Features.Bootcamps.Queries.GetList;
 using Application.Features.Lessons.Commands.Create;
 using Application.Features.Lessons.Commands.Delete;
 using Application.Features.Lessons.Commands.Update;
@@ -22,6 +23,10 @@ public class MappingProfiles : Profile
         CreateMap<Lesson, DeletedLessonResponse>().ReverseMap();
         CreateMap<Lesson, GetByIdLessonResponse>().ReverseMap();
         CreateMap<Lesson, GetListLessonListItemDto>().ReverseMap();
+        CreateMap<Lesson, GetListBootcampLessonItemDto>().ReverseMap();
+        CreateMap<Paginate<Lesson>, GetListResponse<GetListBootcampLessonItemDto>>();
         CreateMap<IPaginate<Lesson>, GetListResponse<GetListLessonListItemDto>>().ReverseMap();
+     
+
     }
 }

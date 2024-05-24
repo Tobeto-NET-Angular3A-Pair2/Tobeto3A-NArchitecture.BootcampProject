@@ -1,3 +1,5 @@
+using Application.Features.Bootcamps.Constants;
+using Application.Features.Instructors.Constants;
 using Application.Features.Lessons.Constants;
 using Application.Features.Lessons.Rules;
 using Application.Services.Repositories;
@@ -20,8 +22,16 @@ public class CreateLessonCommand
         ITransactionalRequest
 {
     public string Title { get; set; }
+    public int BootcampId { get; set; }
 
-    public string[] Roles => [Admin, Write, LessonsOperationClaims.Create];
+    public string[] Roles =>
+        new[]
+        {
+            LessonsOperationClaims.Admin,
+            LessonsOperationClaims.Write,
+            LessonsOperationClaims.Create,
+            InstructorsOperationClaims.Admin
+        };
 
     public bool BypassCache { get; }
     public string? CacheKey { get; }

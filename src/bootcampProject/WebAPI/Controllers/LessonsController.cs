@@ -1,3 +1,4 @@
+using Application.Features.Bootcamps.Queries.GetList;
 using Application.Features.Lessons.Commands.Create;
 using Application.Features.Lessons.Commands.Delete;
 using Application.Features.Lessons.Commands.Update;
@@ -49,6 +50,18 @@ public class LessonsController : BaseController
     {
         GetListLessonQuery getListLessonQuery = new() { PageRequest = pageRequest };
         GetListResponse<GetListLessonListItemDto> response = await Mediator.Send(getListLessonQuery);
+        return Ok(response);
+    }
+
+    [HttpGet("bootcamp/{BootcampId}")]
+    public async Task<IActionResult> GetListForBootcamp([FromRoute] int BootcampId, [FromQuery] PageRequest pageRequest)
+    {
+        GetListBootcampLessonQuery getListBootcampLessonQuery = new GetListBootcampLessonQuery
+        {
+            BootcampId = BootcampId,
+            PageRequest = pageRequest
+        };
+        GetListResponse<GetListBootcampLessonItemDto> response = await Mediator.Send(getListBootcampLessonQuery);
         return Ok(response);
     }
 }

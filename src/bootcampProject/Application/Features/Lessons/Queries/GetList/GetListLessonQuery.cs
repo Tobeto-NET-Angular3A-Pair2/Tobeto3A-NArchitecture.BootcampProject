@@ -1,3 +1,6 @@
+using Application.Features.Bootcamps.Constants;
+using Application.Features.Instructors.Constants;
+using Application.Features.LessonContents.Constants;
 using Application.Features.Lessons.Constants;
 using Application.Services.Repositories;
 using AutoMapper;
@@ -15,8 +18,16 @@ namespace Application.Features.Lessons.Queries.GetList;
 public class GetListLessonQuery : IRequest<GetListResponse<GetListLessonListItemDto>>, ISecuredRequest, ICachableRequest
 {
     public PageRequest PageRequest { get; set; }
+    public int BootcampId { get; set; }
 
-    public string[] Roles => [Admin, Read];
+    public string[] Roles =>
+       new[]
+       {
+            LessonContentsOperationClaims.Admin,
+            LessonContentsOperationClaims.Write,
+            LessonContentsOperationClaims.Create,
+            InstructorsOperationClaims.Admin
+       };
 
     public bool BypassCache { get; }
     public string? CacheKey => $"GetListLessons({PageRequest.PageIndex},{PageRequest.PageSize})";
@@ -40,10 +51,12 @@ public class GetListLessonQuery : IRequest<GetListResponse<GetListLessonListItem
         )
         {
             IPaginate<Lesson> lessons = await _lessonRepository.GetListAsync(
-                index: request.PageRequest.PageIndex,
-                size: request.PageRequest.PageSize,
-                cancellationToken: cancellationToken
+                 predicate: b => b.BootcampId == request.BootcampId,
+                 index: request.PageRequest.PageIndex,
+                 size: request.PageRequest.PageSize,
+                 cancellationToken: cancellationToken
             );
+           
 
             GetListResponse<GetListLessonListItemDto> response = _mapper.Map<GetListResponse<GetListLessonListItemDto>>(lessons);
             return response;

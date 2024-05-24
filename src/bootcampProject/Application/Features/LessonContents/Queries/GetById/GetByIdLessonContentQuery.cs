@@ -1,3 +1,5 @@
+using Application.Features.Bootcamps.Constants;
+using Application.Features.Instructors.Constants;
 using Application.Features.LessonContents.Constants;
 using Application.Features.LessonContents.Rules;
 using Application.Services.Repositories;
@@ -13,7 +15,14 @@ public class GetByIdLessonContentQuery : IRequest<GetByIdLessonContentResponse>,
 {
     public int Id { get; set; }
 
-    public string[] Roles => [Admin, Read];
+    public string[] Roles =>
+       new[]
+       {
+            LessonContentsOperationClaims.Admin,
+            LessonContentsOperationClaims.Write,
+            LessonContentsOperationClaims.Create,
+            InstructorsOperationClaims.Admin
+       };
 
     public class GetByIdLessonContentQueryHandler : IRequestHandler<GetByIdLessonContentQuery, GetByIdLessonContentResponse>
     {
