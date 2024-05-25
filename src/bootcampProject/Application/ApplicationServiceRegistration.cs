@@ -1,11 +1,14 @@
 using System.Reflection;
+using Application.Services.Announcements;
 using Application.Services.Applicants;
 using Application.Services.ApplicationInformations;
 using Application.Services.ApplicationStates;
 using Application.Services.AuthenticatorService;
 using Application.Services.AuthService;
 using Application.Services.Blacklists;
+using Application.Services.BootcampComments;
 using Application.Services.Bootcamps;
+using Application.Services.Contacts;
 using Application.Services.Employees;
 using Application.Services.Evaluations;
 using Application.Services.Instructors;
@@ -30,9 +33,6 @@ using NArchitecture.Core.Localization.Resource.Yaml.DependencyInjection;
 using NArchitecture.Core.Mailing;
 using NArchitecture.Core.Mailing.MailKit;
 using NArchitecture.Core.Security.DependencyInjection;
-using Application.Services.Announcements;
-using Application.Services.Contacts;
-using Application.Services.BootcampComments;
 
 namespace Application;
 

@@ -3,8 +3,8 @@ using Application.Features.BootcampComments.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
-using NArchitecture.Core.Application.Pipelines.Authorization;
 using MediatR;
+using NArchitecture.Core.Application.Pipelines.Authorization;
 using static Application.Features.BootcampComments.Constants.BootcampCommentsOperationClaims;
 
 namespace Application.Features.BootcampComments.Queries.GetById;
@@ -21,16 +21,26 @@ public class GetByIdBootcampCommentQuery : IRequest<GetByIdBootcampCommentRespon
         private readonly IBootcampCommentRepository _bootcampCommentRepository;
         private readonly BootcampCommentBusinessRules _bootcampCommentBusinessRules;
 
-        public GetByIdBootcampCommentQueryHandler(IMapper mapper, IBootcampCommentRepository bootcampCommentRepository, BootcampCommentBusinessRules bootcampCommentBusinessRules)
+        public GetByIdBootcampCommentQueryHandler(
+            IMapper mapper,
+            IBootcampCommentRepository bootcampCommentRepository,
+            BootcampCommentBusinessRules bootcampCommentBusinessRules
+        )
         {
             _mapper = mapper;
             _bootcampCommentRepository = bootcampCommentRepository;
             _bootcampCommentBusinessRules = bootcampCommentBusinessRules;
         }
 
-        public async Task<GetByIdBootcampCommentResponse> Handle(GetByIdBootcampCommentQuery request, CancellationToken cancellationToken)
+        public async Task<GetByIdBootcampCommentResponse> Handle(
+            GetByIdBootcampCommentQuery request,
+            CancellationToken cancellationToken
+        )
         {
-            BootcampComment? bootcampComment = await _bootcampCommentRepository.GetAsync(predicate: bc => bc.Id == request.Id, cancellationToken: cancellationToken);
+            BootcampComment? bootcampComment = await _bootcampCommentRepository.GetAsync(
+                predicate: bc => bc.Id == request.Id,
+                cancellationToken: cancellationToken
+            );
             await _bootcampCommentBusinessRules.BootcampCommentShouldExistWhenSelected(bootcampComment);
 
             GetByIdBootcampCommentResponse response = _mapper.Map<GetByIdBootcampCommentResponse>(bootcampComment);

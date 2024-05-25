@@ -1,9 +1,9 @@
+using System.Linq.Expressions;
 using Application.Features.Announcements.Rules;
 using Application.Services.Repositories;
-using NArchitecture.Core.Persistence.Paging;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore.Query;
-using System.Linq.Expressions;
+using NArchitecture.Core.Persistence.Paging;
 
 namespace Application.Services.Announcements;
 
@@ -12,7 +12,10 @@ public class AnnouncementManager : IAnnouncementService
     private readonly IAnnouncementRepository _announcementRepository;
     private readonly AnnouncementBusinessRules _announcementBusinessRules;
 
-    public AnnouncementManager(IAnnouncementRepository announcementRepository, AnnouncementBusinessRules announcementBusinessRules)
+    public AnnouncementManager(
+        IAnnouncementRepository announcementRepository,
+        AnnouncementBusinessRules announcementBusinessRules
+    )
     {
         _announcementRepository = announcementRepository;
         _announcementBusinessRules = announcementBusinessRules;
@@ -26,7 +29,13 @@ public class AnnouncementManager : IAnnouncementService
         CancellationToken cancellationToken = default
     )
     {
-        Announcement? announcement = await _announcementRepository.GetAsync(predicate, include, withDeleted, enableTracking, cancellationToken);
+        Announcement? announcement = await _announcementRepository.GetAsync(
+            predicate,
+            include,
+            withDeleted,
+            enableTracking,
+            cancellationToken
+        );
         return announcement;
     }
 

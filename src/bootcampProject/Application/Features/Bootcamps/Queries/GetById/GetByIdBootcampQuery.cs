@@ -15,13 +15,14 @@ public class GetByIdBootcampQuery : IRequest<GetByIdBootcampResponse>, ISecuredR
     public int Id { get; set; }
 
     public string[] Roles =>
-       new[]
-       {
+        new[]
+        {
             BootcampsOperationClaims.Admin,
             BootcampsOperationClaims.Write,
             BootcampsOperationClaims.Create,
             InstructorsOperationClaims.Admin
-       };
+        };
+
     public class GetByIdBootcampQueryHandler : IRequestHandler<GetByIdBootcampQuery, GetByIdBootcampResponse>
     {
         private readonly IMapper _mapper;

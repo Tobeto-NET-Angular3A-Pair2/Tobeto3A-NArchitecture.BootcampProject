@@ -3,6 +3,4 @@ using NArchitecture.Core.Persistence.Repositories;
 
 namespace Application.Services.Repositories;
 
-public interface IBootcampCommentRepository : IAsyncRepository<BootcampComment, int>, IRepository<BootcampComment, int>
-{
-}
+public interface IBootcampCommentRepository : IAsyncRepository<BootcampComment, int>, IRepository<BootcampComment, int> { }

@@ -14,5 +14,4 @@ public class User : NArchitecture.Core.Security.Entities.User<Guid>
     public virtual ICollection<OtpAuthenticator> OtpAuthenticators { get; set; } = default!;
     public virtual ICollection<EmailAuthenticator> EmailAuthenticators { get; set; } = default!;
     public virtual ICollection<BootcampComment> BootcampComments { get; set; }
-
 }

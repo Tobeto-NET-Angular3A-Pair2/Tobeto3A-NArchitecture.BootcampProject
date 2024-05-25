@@ -2,12 +2,12 @@ using Application.Features.Contacts.Constants;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using MediatR;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Caching;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
 using NArchitecture.Core.Persistence.Paging;
-using MediatR;
 using static Application.Features.Contacts.Constants.ContactsOperationClaims;
 
 namespace Application.Features.Contacts.Queries.GetList;
@@ -34,15 +34,20 @@ public class GetListContactQuery : IRequest<GetListResponse<GetListContactListIt
             _mapper = mapper;
         }
 
-        public async Task<GetListResponse<GetListContactListItemDto>> Handle(GetListContactQuery request, CancellationToken cancellationToken)
+        public async Task<GetListResponse<GetListContactListItemDto>> Handle(
+            GetListContactQuery request,
+            CancellationToken cancellationToken
+        )
         {
             IPaginate<Contact> contacts = await _contactRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,
-                size: request.PageRequest.PageSize, 
+                size: request.PageRequest.PageSize,
                 cancellationToken: cancellationToken
             );
 
-            GetListResponse<GetListContactListItemDto> response = _mapper.Map<GetListResponse<GetListContactListItemDto>>(contacts);
+            GetListResponse<GetListContactListItemDto> response = _mapper.Map<GetListResponse<GetListContactListItemDto>>(
+                contacts
+            );
             return response;
         }
     }

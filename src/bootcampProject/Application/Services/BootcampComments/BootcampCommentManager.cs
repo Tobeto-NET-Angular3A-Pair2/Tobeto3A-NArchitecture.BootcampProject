@@ -1,9 +1,9 @@
+using System.Linq.Expressions;
 using Application.Features.BootcampComments.Rules;
 using Application.Services.Repositories;
-using NArchitecture.Core.Persistence.Paging;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore.Query;
-using System.Linq.Expressions;
+using NArchitecture.Core.Persistence.Paging;
 
 namespace Application.Services.BootcampComments;
 
@@ -12,7 +12,10 @@ public class BootcampCommentManager : IBootcampCommentService
     private readonly IBootcampCommentRepository _bootcampCommentRepository;
     private readonly BootcampCommentBusinessRules _bootcampCommentBusinessRules;
 
-    public BootcampCommentManager(IBootcampCommentRepository bootcampCommentRepository, BootcampCommentBusinessRules bootcampCommentBusinessRules)
+    public BootcampCommentManager(
+        IBootcampCommentRepository bootcampCommentRepository,
+        BootcampCommentBusinessRules bootcampCommentBusinessRules
+    )
     {
         _bootcampCommentRepository = bootcampCommentRepository;
         _bootcampCommentBusinessRules = bootcampCommentBusinessRules;
@@ -26,7 +29,13 @@ public class BootcampCommentManager : IBootcampCommentService
         CancellationToken cancellationToken = default
     )
     {
-        BootcampComment? bootcampComment = await _bootcampCommentRepository.GetAsync(predicate, include, withDeleted, enableTracking, cancellationToken);
+        BootcampComment? bootcampComment = await _bootcampCommentRepository.GetAsync(
+            predicate,
+            include,
+            withDeleted,
+            enableTracking,
+            cancellationToken
+        );
         return bootcampComment;
     }
 

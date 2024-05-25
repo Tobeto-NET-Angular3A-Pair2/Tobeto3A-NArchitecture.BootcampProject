@@ -1,9 +1,12 @@
+using Application.Features.Announcements.Constants;
 using Application.Features.Applicants.Constants;
 using Application.Features.ApplicationInformations.Constants;
 using Application.Features.ApplicationStates.Constants;
 using Application.Features.Auth.Constants;
 using Application.Features.Blacklists.Constants;
+using Application.Features.BootcampComments.Constants;
 using Application.Features.Bootcamps.Constants;
+using Application.Features.Contacts.Constants;
 using Application.Features.Employees.Constants;
 using Application.Features.Evaluations.Constants;
 using Application.Features.Instructors.Constants;
@@ -17,9 +20,6 @@ using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NArchitecture.Core.Security.Constants;
-using Application.Features.Announcements.Constants;
-using Application.Features.Contacts.Constants;
-using Application.Features.BootcampComments.Constants;
 
 namespace Persistence.EntityConfigurations;
 
@@ -268,7 +268,7 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
         );
         #endregion
 
-        
+
         #region Announcements
         featureOperationClaims.AddRange(
             [
@@ -281,8 +281,8 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
             ]
         );
         #endregion
-        
-        
+
+
         #region Contacts
         featureOperationClaims.AddRange(
             [
@@ -295,8 +295,8 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
             ]
         );
         #endregion
-        
-        
+
+
         #region BootcampComments
         featureOperationClaims.AddRange(
             [
@@ -309,7 +309,7 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
             ]
         );
         #endregion
-        
+
         return featureOperationClaims;
     }
 #pragma warning restore S1854 // Unused assignments should be removed

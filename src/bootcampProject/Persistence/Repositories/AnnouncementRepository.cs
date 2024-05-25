@@ -7,7 +7,6 @@ namespace Persistence.Repositories;
 
 public class AnnouncementRepository : EfRepositoryBase<Announcement, int, BaseDbContext>, IAnnouncementRepository
 {
-    public AnnouncementRepository(BaseDbContext context) : base(context)
-    {
-    }
+    public AnnouncementRepository(BaseDbContext context)
+        : base(context) { }
 }

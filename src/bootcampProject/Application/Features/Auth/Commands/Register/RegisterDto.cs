@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Application.Features.Auth.Commands.RefreshToken;
+
 public class RegisterDto
 {
     public string FirstName { get; set; }

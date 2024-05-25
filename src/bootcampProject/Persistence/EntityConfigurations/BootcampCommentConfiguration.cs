@@ -20,13 +20,8 @@ public class BootcampCommentConfiguration : IEntityTypeConfiguration<BootcampCom
 
         builder.HasQueryFilter(bc => !bc.DeletedDate.HasValue);
 
-        builder.HasOne(x => x.User)
-            .WithMany(x => x.BootcampComments)
-            .HasForeignKey(x => x.UserId);
+        builder.HasOne(x => x.User).WithMany(x => x.BootcampComments).HasForeignKey(x => x.UserId);
 
-        builder.HasOne(x => x.Bootcamp)
-            .WithMany(x => x.BootcampComments)
-            .HasForeignKey(x => x.BootcampId);
-
+        builder.HasOne(x => x.Bootcamp).WithMany(x => x.BootcampComments).HasForeignKey(x => x.BootcampId);
     }
 }

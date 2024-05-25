@@ -1,10 +1,10 @@
+using Application.Features.Announcements.Constants;
 using Application.Features.BootcampComments.Constants;
 using Application.Services.Repositories;
+using Domain.Entities;
 using NArchitecture.Core.Application.Rules;
 using NArchitecture.Core.CrossCuttingConcerns.Exception.Types;
 using NArchitecture.Core.Localization.Abstraction;
-using Domain.Entities;
-using Application.Features.Announcements.Constants;
 
 namespace Application.Features.BootcampComments.Rules;
 
@@ -13,7 +13,10 @@ public class BootcampCommentBusinessRules : BaseBusinessRules
     private readonly IBootcampCommentRepository _bootcampCommentRepository;
     private readonly ILocalizationService _localizationService;
 
-    public BootcampCommentBusinessRules(IBootcampCommentRepository bootcampCommentRepository, ILocalizationService localizationService)
+    public BootcampCommentBusinessRules(
+        IBootcampCommentRepository bootcampCommentRepository,
+        ILocalizationService localizationService
+    )
     {
         _bootcampCommentRepository = bootcampCommentRepository;
         _localizationService = localizationService;
@@ -41,9 +44,9 @@ public class BootcampCommentBusinessRules : BaseBusinessRules
         await BootcampCommentShouldExistWhenSelected(bootcampComment);
     }
 
-    public async Task BootcampContextShouldBeExist(string context) 
-    { 
-        if(context == null)
+    public async Task BootcampContextShouldBeExist(string context)
+    {
+        if (context == null)
             await throwBusinessException(BootcampCommentsBusinessMessages.ContextShouldExists);
     }
 }
