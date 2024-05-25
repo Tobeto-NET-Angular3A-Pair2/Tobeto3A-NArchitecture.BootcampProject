@@ -51,6 +51,7 @@ public class LessonContentsController : BaseController
         GetListResponse<GetListLessonContentListItemDto> response = await Mediator.Send(getListLessonContentQuery);
         return Ok(response);
     }
+
     [HttpGet("lesson/{LessonId}")]
     public async Task<IActionResult> GetByLessonId([FromRoute] int LessonId)
     {

@@ -22,13 +22,13 @@ public class GetListLessonContentQuery
     public PageRequest PageRequest { get; set; }
 
     public string[] Roles =>
-       new[]
-       {
+        new[]
+        {
             LessonContentsOperationClaims.Admin,
             LessonContentsOperationClaims.Write,
             LessonContentsOperationClaims.Create,
             InstructorsOperationClaims.Admin
-       };
+        };
 
     public bool BypassCache { get; }
     public string? CacheKey => $"GetListLessonContents({PageRequest.PageIndex},{PageRequest.PageSize})";

@@ -19,5 +19,7 @@ public class AnnouncementConfiguration : IEntityTypeConfiguration<Announcement>
         builder.Property(a => a.DeletedDate).HasColumnName("DeletedDate");
 
         builder.HasQueryFilter(a => !a.DeletedDate.HasValue);
+
+        builder.HasOne(a => a.Instructor);
     }
 }

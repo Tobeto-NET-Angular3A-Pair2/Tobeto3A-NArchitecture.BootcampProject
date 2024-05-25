@@ -18,13 +18,13 @@ public class GetListBootcampQuery : IRequest<GetListResponse<GetListBootcampList
     public PageRequest PageRequest { get; set; }
 
     public string[] Roles =>
-          new[]
-          {
+        new[]
+        {
             BootcampsOperationClaims.Admin,
             BootcampsOperationClaims.Write,
             BootcampsOperationClaims.Create,
             InstructorsOperationClaims.Admin
-          };
+        };
 
     public bool BypassCache { get; }
     public string? CacheKey => $"GetListBootcamps({PageRequest.PageIndex},{PageRequest.PageSize})";

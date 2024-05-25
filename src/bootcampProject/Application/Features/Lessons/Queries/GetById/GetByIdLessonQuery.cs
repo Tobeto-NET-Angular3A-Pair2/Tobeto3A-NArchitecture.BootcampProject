@@ -17,13 +17,13 @@ public class GetByIdLessonQuery : IRequest<GetByIdLessonResponse>, ISecuredReque
     public int Id { get; set; }
 
     public string[] Roles =>
-       new[]
-       {
+        new[]
+        {
             LessonContentsOperationClaims.Admin,
             LessonContentsOperationClaims.Write,
             LessonContentsOperationClaims.Create,
             InstructorsOperationClaims.Admin
-       };
+        };
 
     public class GetByIdLessonQueryHandler : IRequestHandler<GetByIdLessonQuery, GetByIdLessonResponse>
     {

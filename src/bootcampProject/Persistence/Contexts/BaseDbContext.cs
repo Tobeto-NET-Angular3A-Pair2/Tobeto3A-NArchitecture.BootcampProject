@@ -27,6 +27,7 @@ public class BaseDbContext : DbContext
     public DbSet<LessonContent> LessonContents { get; set; }
     public DbSet<Announcement> Announcements { get; set; }
     public DbSet<Contact> Contacts { get; set; }
+    public DbSet<BootcampComment> BootcampComments { get; set; }
 
     public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration)
         : base(dbContextOptions)

@@ -37,7 +37,8 @@ public class InstructorRegisterCommand : IRequest<RegisteredResponse>
             IUserRepository userRepository,
             IAuthService authService,
             AuthBusinessRules authBusinessRules,
-            IInstructorRepository ınstructorRepository)
+            IInstructorRepository ınstructorRepository
+        )
         {
             _userRepository = userRepository;
             _authService = authService;

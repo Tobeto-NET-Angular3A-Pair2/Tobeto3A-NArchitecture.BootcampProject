@@ -1,9 +1,9 @@
 using Application.Features.Contacts.Constants;
 using Application.Services.Repositories;
+using Domain.Entities;
 using NArchitecture.Core.Application.Rules;
 using NArchitecture.Core.CrossCuttingConcerns.Exception.Types;
 using NArchitecture.Core.Localization.Abstraction;
-using Domain.Entities;
 
 namespace Application.Features.Contacts.Rules;
 
@@ -57,5 +57,4 @@ public class ContactBusinessRules : BaseBusinessRules
         if (message == null)
             await throwBusinessException(ContactsBusinessMessages.MessageNotExists);
     }
-
 }
