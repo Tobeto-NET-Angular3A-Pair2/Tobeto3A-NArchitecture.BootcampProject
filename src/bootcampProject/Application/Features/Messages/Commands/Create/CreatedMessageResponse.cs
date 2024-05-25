@@ -8,5 +8,6 @@ public class CreatedMessageResponse : IResponse
     public Guid SenderId { get; set; }
     public Guid ReceiverId { get; set; }
     public string Content { get; set; }
+    public DateTime CreatedDate { get; set; }
     public bool IsRead { get; set; }
 }

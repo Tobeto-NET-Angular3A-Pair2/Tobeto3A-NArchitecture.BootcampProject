@@ -8,6 +8,7 @@ using NArchitecture.Core.Application.Pipelines.Logging;
 using NArchitecture.Core.Application.Pipelines.Transaction;
 using MediatR;
 using static Application.Features.Messages.Constants.MessagesOperationClaims;
+using Application.Common.Interfaces;
 
 namespace Application.Features.Messages.Commands.Create;
 
@@ -24,13 +25,15 @@ public class CreateMessageCommand : IRequest<CreatedMessageResponse>, ISecuredRe
         private readonly IMapper _mapper;
         private readonly IMessageRepository _messageRepository;
         private readonly MessageBusinessRules _messageBusinessRules;
+        private readonly IChatHubService _chatHubService;
 
         public CreateMessageCommandHandler(IMapper mapper, IMessageRepository messageRepository,
-                                         MessageBusinessRules messageBusinessRules)
+                                         MessageBusinessRules messageBusinessRules, IChatHubService chatHubService)
         {
             _mapper = mapper;
             _messageRepository = messageRepository;
             _messageBusinessRules = messageBusinessRules;
+            _chatHubService = chatHubService;
         }
 
         public async Task<CreatedMessageResponse> Handle(CreateMessageCommand request, CancellationToken cancellationToken)
@@ -38,9 +41,12 @@ public class CreateMessageCommand : IRequest<CreatedMessageResponse>, ISecuredRe
             Message message = _mapper.Map<Message>(request);
             message.IsRead = false;
 
-            await _messageRepository.AddAsync(message);
+            var createdMessage = await _messageRepository.AddAsync(message);
 
-            CreatedMessageResponse response = _mapper.Map<CreatedMessageResponse>(message);
+            CreatedMessageResponse response = _mapper.Map<CreatedMessageResponse>(createdMessage);
+
+            await _chatHubService.SendMessageAsync(response, cancellationToken);
+
             return response;
         }
     }
