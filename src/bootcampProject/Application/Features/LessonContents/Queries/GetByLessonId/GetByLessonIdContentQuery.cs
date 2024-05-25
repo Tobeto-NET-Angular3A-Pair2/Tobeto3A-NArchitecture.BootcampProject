@@ -11,9 +11,9 @@ using static Application.Features.LessonContents.Constants.LessonContentsOperati
 
 namespace Application.Features.LessonContents.Queries.GetById;
 
-public class GetByIdLessonContentQuery : IRequest<GetByIdLessonContentResponse>, ISecuredRequest
+public class GetByLessonIdContentQuery : IRequest<GetByLessonIdContentResponse>, ISecuredRequest
 {
-    public int Id { get; set; }
+    public int LessonId { get; set; }
 
     public string[] Roles =>
        new[]
@@ -24,13 +24,13 @@ public class GetByIdLessonContentQuery : IRequest<GetByIdLessonContentResponse>,
             InstructorsOperationClaims.Admin
        };
 
-    public class GetByIdLessonContentQueryHandler : IRequestHandler<GetByIdLessonContentQuery, GetByIdLessonContentResponse>
+    public class GetByLessonIdContentQueryHandler : IRequestHandler<GetByLessonIdContentQuery, GetByLessonIdContentResponse>
     {
         private readonly IMapper _mapper;
         private readonly ILessonContentRepository _lessonContentRepository;
         private readonly LessonContentBusinessRules _lessonContentBusinessRules;
 
-        public GetByIdLessonContentQueryHandler(
+        public GetByLessonIdContentQueryHandler(
             IMapper mapper,
             ILessonContentRepository lessonContentRepository,
             LessonContentBusinessRules lessonContentBusinessRules
@@ -41,18 +41,15 @@ public class GetByIdLessonContentQuery : IRequest<GetByIdLessonContentResponse>,
             _lessonContentBusinessRules = lessonContentBusinessRules;
         }
 
-        public async Task<GetByIdLessonContentResponse> Handle(
-            GetByIdLessonContentQuery request,
-            CancellationToken cancellationToken
-        )
+        public async Task<GetByLessonIdContentResponse> Handle(GetByLessonIdContentQuery request, CancellationToken cancellationToken)
         {
             LessonContent? lessonContent = await _lessonContentRepository.GetAsync(
-                predicate: lc => lc.Id == request.Id,
+                predicate: lc => lc.LessonId == request.LessonId,
                 cancellationToken: cancellationToken
             );
             await _lessonContentBusinessRules.LessonContentShouldExistWhenSelected(lessonContent);
 
-            GetByIdLessonContentResponse response = _mapper.Map<GetByIdLessonContentResponse>(lessonContent);
+            GetByLessonIdContentResponse response = _mapper.Map<GetByLessonIdContentResponse>(lessonContent);
             return response;
         }
     }

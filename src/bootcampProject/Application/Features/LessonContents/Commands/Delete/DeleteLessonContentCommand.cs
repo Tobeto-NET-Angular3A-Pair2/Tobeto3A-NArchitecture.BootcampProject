@@ -20,7 +20,7 @@ public class DeleteLessonContentCommand
         ILoggableRequest,
         ITransactionalRequest
 {
-    public int Id { get; set; }
+    public int LessonId { get; set; }
 
     public string[] Roles => [Admin, Write, LessonContentsOperationClaims.Delete];
 
@@ -51,12 +51,12 @@ public class DeleteLessonContentCommand
         )
         {
             LessonContent? lessonContent = await _lessonContentRepository.GetAsync(
-                predicate: lc => lc.Id == request.Id,
+                predicate: lc => lc.LessonId == request.LessonId,
                 cancellationToken: cancellationToken
             );
             await _lessonContentBusinessRules.LessonContentShouldExistWhenSelected(lessonContent);
 
-            await _lessonContentRepository.DeleteAsync(lessonContent!);
+            await _lessonContentRepository.DeleteAsync(lessonContent!, permanent: true);
 
             DeletedLessonContentResponse response = _mapper.Map<DeletedLessonContentResponse>(lessonContent);
             return response;

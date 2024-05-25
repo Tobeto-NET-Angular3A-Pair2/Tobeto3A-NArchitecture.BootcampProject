@@ -162,9 +162,8 @@ namespace Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    VideoUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EvalationId = table.Column<int>(type: "int", nullable: false),
+                    Text = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    VideoUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LessonId = table.Column<int>(type: "int", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -557,17 +556,17 @@ namespace Persistence.Migrations
             migrationBuilder.InsertData(
                 table: "Settings",
                 columns: new[] { "Id", "CreatedDate", "DeletedDate", "Description", "Email", "FaviconUrl", "GoogleAnalytics", "GoogleSecretKey", "GoogleSiteKey", "Keywords", "LogoUrl", "MaintenanceMode", "Phone", "PrivacyPolicy", "TermsOfUse", "Title", "UpdatedDate" },
-                values: new object[] { 1, new DateTime(2024, 5, 24, 18, 45, 58, 810, DateTimeKind.Local).AddTicks(5474), null, "Description", "Email", "", "", "", "", "Keywords", "", false, "5555 555 55", "", "", "Title", null });
+                values: new object[] { 1, new DateTime(2024, 5, 25, 4, 31, 41, 635, DateTimeKind.Local).AddTicks(2174), null, "Description", "Email", "", "", "", "", "Keywords", "", false, "5555 555 55", "", "", "Title", null });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "AuthenticatorType", "CreatedDate", "DateOfBirth", "DeletedDate", "Email", "FirstName", "LastName", "NationalIdentity", "PasswordHash", "PasswordSalt", "UpdatedDate", "UserName" },
-                values: new object[] { new Guid("03554a67-a742-429b-b955-f9633393400f"), 0, new DateTime(2024, 5, 24, 18, 45, 58, 811, DateTimeKind.Local).AddTicks(810), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "narch@kodlama.io", "Ays", "Ayd", "", new byte[] { 121, 232, 195, 16, 82, 222, 139, 197, 148, 85, 237, 207, 107, 63, 96, 240, 157, 60, 61, 253, 174, 33, 7, 104, 34, 15, 205, 117, 168, 85, 152, 49, 210, 139, 68, 195, 165, 103, 214, 229, 214, 154, 157, 27, 246, 155, 42, 48, 159, 197, 128, 102, 50, 121, 251, 158, 128, 229, 224, 210, 149, 87, 207, 60 }, new byte[] { 183, 235, 153, 101, 170, 247, 238, 43, 235, 205, 34, 105, 37, 138, 160, 54, 193, 77, 135, 249, 16, 149, 238, 34, 202, 173, 175, 89, 238, 140, 38, 151, 61, 62, 103, 91, 175, 192, 81, 193, 173, 124, 45, 115, 142, 123, 204, 92, 66, 212, 142, 228, 79, 134, 240, 48, 187, 179, 55, 45, 186, 61, 120, 2, 142, 40, 180, 148, 194, 176, 97, 229, 90, 52, 96, 164, 199, 164, 6, 95, 152, 46, 103, 186, 120, 31, 20, 118, 254, 108, 171, 192, 109, 252, 58, 191, 116, 143, 221, 254, 23, 202, 247, 63, 96, 123, 20, 55, 215, 212, 134, 188, 15, 21, 81, 61, 118, 232, 145, 230, 215, 229, 230, 3, 140, 171, 6, 207 }, null, "admin" });
+                values: new object[] { new Guid("b5b08dc2-7c67-46cf-9c77-c7fc3f834325"), 0, new DateTime(2024, 5, 25, 4, 31, 41, 635, DateTimeKind.Local).AddTicks(7324), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "narch@kodlama.io", "Ays", "Ayd", "", new byte[] { 148, 9, 215, 199, 128, 158, 77, 148, 230, 87, 112, 100, 118, 119, 149, 190, 78, 166, 168, 33, 219, 177, 198, 255, 115, 25, 226, 125, 104, 169, 152, 122, 1, 115, 130, 37, 3, 87, 121, 135, 63, 197, 196, 111, 25, 154, 78, 73, 201, 140, 148, 175, 13, 157, 170, 21, 186, 218, 138, 96, 21, 71, 127, 135 }, new byte[] { 155, 255, 40, 79, 144, 15, 61, 15, 85, 78, 210, 129, 251, 153, 95, 16, 103, 116, 91, 163, 184, 27, 71, 66, 216, 176, 140, 243, 55, 138, 182, 186, 103, 212, 8, 57, 35, 251, 159, 65, 196, 158, 192, 2, 119, 148, 85, 134, 218, 217, 28, 133, 102, 208, 247, 188, 89, 30, 192, 23, 143, 201, 179, 225, 77, 7, 192, 230, 35, 104, 48, 67, 105, 132, 114, 219, 178, 124, 175, 225, 61, 105, 117, 11, 137, 173, 49, 98, 191, 119, 3, 230, 85, 115, 178, 46, 25, 122, 145, 164, 85, 64, 44, 180, 220, 132, 75, 152, 114, 145, 123, 21, 201, 144, 191, 245, 134, 47, 170, 209, 229, 184, 58, 82, 4, 252, 39, 36 }, null, "admin" });
 
             migrationBuilder.InsertData(
                 table: "UserOperationClaims",
                 columns: new[] { "Id", "CreatedDate", "DeletedDate", "OperationClaimId", "UpdatedDate", "UserId" },
-                values: new object[] { new Guid("09d4f5f0-554d-4d8a-a70d-0777a44e62bc"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, 1, null, new Guid("03554a67-a742-429b-b955-f9633393400f") });
+                values: new object[] { new Guid("8c504d0f-3c2a-4a48-ad7a-775874f4cc53"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, 1, null, new Guid("b5b08dc2-7c67-46cf-9c77-c7fc3f834325") });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Announcements_InstructorId",

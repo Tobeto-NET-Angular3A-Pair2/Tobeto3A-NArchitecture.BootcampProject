@@ -21,6 +21,7 @@ public class UpdateLessonContentCommand
 {
     public int Id { get; set; }
     public string Text { get; set; }
+    public string VideoUrl { get; set; }
     public int LessonId { get; set; }
 
     public string[] Roles => [Admin, Write, LessonContentsOperationClaims.Update];

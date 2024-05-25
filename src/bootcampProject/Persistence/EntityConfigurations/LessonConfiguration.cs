@@ -17,5 +17,9 @@ public class LessonConfiguration : IEntityTypeConfiguration<Lesson>
         builder.Property(l => l.DeletedDate).HasColumnName("DeletedDate");
 
         builder.HasQueryFilter(l => !l.DeletedDate.HasValue);
+
+        builder.HasMany(l => l.Contents) 
+               .WithOne(c => c.Lesson)    
+               .HasForeignKey(c => c.LessonId); 
     }
 }

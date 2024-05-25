@@ -29,10 +29,10 @@ public class LessonContentsController : BaseController
         return Ok(response);
     }
 
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete([FromRoute] int id)
+    [HttpDelete("{LessonId}")]
+    public async Task<IActionResult> Delete([FromRoute] int LessonId)
     {
-        DeletedLessonContentResponse response = await Mediator.Send(new DeleteLessonContentCommand { Id = id });
+        DeletedLessonContentResponse response = await Mediator.Send(new DeleteLessonContentCommand { LessonId = LessonId });
 
         return Ok(response);
     }
@@ -49,6 +49,12 @@ public class LessonContentsController : BaseController
     {
         GetListLessonContentQuery getListLessonContentQuery = new() { PageRequest = pageRequest };
         GetListResponse<GetListLessonContentListItemDto> response = await Mediator.Send(getListLessonContentQuery);
+        return Ok(response);
+    }
+    [HttpGet("lesson/{LessonId}")]
+    public async Task<IActionResult> GetByLessonId([FromRoute] int LessonId)
+    {
+        GetByLessonIdContentResponse response = await Mediator.Send(new GetByLessonIdContentQuery { LessonId = LessonId });
         return Ok(response);
     }
 }

@@ -11,7 +11,6 @@ public class LessonContent : Entity<int>
 {
     public string? Text { get; set; }
     public string? VideoUrl { get; set; }
-    public int? EvalationId { get; set; }
     public int LessonId { get; set; }
     public virtual Lesson Lesson { get; set; }
 
@@ -21,7 +20,6 @@ public class LessonContent : Entity<int>
         Text = text;
         LessonId = lessonId;
         VideoUrl = videoUrl;
-        EvalationId = evalationId;
     }
 
     public LessonContent() { }
