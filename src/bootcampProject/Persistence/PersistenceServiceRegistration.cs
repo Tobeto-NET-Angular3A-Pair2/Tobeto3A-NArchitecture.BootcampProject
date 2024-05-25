@@ -36,9 +36,6 @@ public static class PersistenceServiceRegistration
         services.AddScoped<IEvaluationRepository, EvaluationRepository>();
         services.AddScoped<ILessonRepository, LessonRepository>();
         services.AddScoped<ILessonContentRepository, LessonContentRepository>();
-        services.AddScoped<ILessonVideoRepository, LessonVideoRepository>();
-        services.AddScoped<IMiniQuizRepository, MiniQuizRepository>();
-        services.AddScoped<IAssignmentRepository, AssignmentRepository>();
         services.AddScoped<IBootcampRepository, BootcampRepository>();
         services.AddScoped<IAnnouncementRepository, AnnouncementRepository>();
         services.AddScoped<IContactRepository, ContactRepository>();

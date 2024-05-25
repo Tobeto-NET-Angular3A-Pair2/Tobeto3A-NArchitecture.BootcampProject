@@ -25,9 +25,6 @@ public class BaseDbContext : DbContext
     public DbSet<Evaluation> Evaluations { get; set; }
     public DbSet<Lesson> Lessons { get; set; }
     public DbSet<LessonContent> LessonContents { get; set; }
-    public DbSet<LessonVideo> LessonVideos { get; set; }
-    public DbSet<MiniQuiz> MiniQuizs { get; set; }
-    public DbSet<Assignment> Assignments { get; set; }
     public DbSet<Announcement> Announcements { get; set; }
     public DbSet<Contact> Contacts { get; set; }
     public DbSet<BootcampComment> BootcampComments { get; set; }

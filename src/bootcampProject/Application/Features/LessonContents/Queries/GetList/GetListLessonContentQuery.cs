@@ -1,3 +1,5 @@
+using Application.Features.Bootcamps.Constants;
+using Application.Features.Instructors.Constants;
 using Application.Features.LessonContents.Constants;
 using Application.Services.Repositories;
 using AutoMapper;
@@ -19,7 +21,14 @@ public class GetListLessonContentQuery
 {
     public PageRequest PageRequest { get; set; }
 
-    public string[] Roles => [Admin, Read];
+    public string[] Roles =>
+       new[]
+       {
+            LessonContentsOperationClaims.Admin,
+            LessonContentsOperationClaims.Write,
+            LessonContentsOperationClaims.Create,
+            InstructorsOperationClaims.Admin
+       };
 
     public bool BypassCache { get; }
     public string? CacheKey => $"GetListLessonContents({PageRequest.PageIndex},{PageRequest.PageSize})";

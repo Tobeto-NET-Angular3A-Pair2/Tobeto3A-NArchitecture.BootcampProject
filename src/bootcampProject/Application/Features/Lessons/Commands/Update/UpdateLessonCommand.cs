@@ -21,6 +21,7 @@ public class UpdateLessonCommand
 {
     public int Id { get; set; }
     public string Title { get; set; }
+    public int BootcampId { get; set; }
 
     public string[] Roles => [Admin, Write, LessonsOperationClaims.Update];
 

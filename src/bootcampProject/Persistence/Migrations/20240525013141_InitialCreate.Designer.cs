@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence.Contexts;
 
@@ -11,9 +12,11 @@ using Persistence.Contexts;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
-    partial class BaseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240525013141_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -225,49 +228,6 @@ namespace Persistence.Migrations
                     b.HasIndex("InstructorId");
 
                     b.ToTable("Bootcamps", (string)null);
-                });
-
-            modelBuilder.Entity("Domain.Entities.BootcampComment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("Id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BootcampId")
-                        .HasColumnType("int")
-                        .HasColumnName("BootcampId");
-
-                    b.Property<string>("Context")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Context");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CreatedDate");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("DeletedDate");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("UpdatedDate");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BootcampId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("BootcampComments", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Contact", b =>
@@ -1105,42 +1065,6 @@ namespace Persistence.Migrations
                             Id = 101,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Contacts.Delete"
-                        },
-                        new
-                        {
-                            Id = 120,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "BootcampComments.Admin"
-                        },
-                        new
-                        {
-                            Id = 121,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "BootcampComments.Read"
-                        },
-                        new
-                        {
-                            Id = 122,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "BootcampComments.Write"
-                        },
-                        new
-                        {
-                            Id = 123,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "BootcampComments.Create"
-                        },
-                        new
-                        {
-                            Id = 124,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "BootcampComments.Update"
-                        },
-                        new
-                        {
-                            Id = 125,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "BootcampComments.Delete"
                         });
                 });
 
@@ -1514,7 +1438,7 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.Announcement", b =>
                 {
                     b.HasOne("Domain.Entities.Instructor", "Instructor")
-                        .WithMany("Announcements")
+                        .WithMany()
                         .HasForeignKey("InstructorId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -1569,25 +1493,6 @@ namespace Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Instructor");
-                });
-
-            modelBuilder.Entity("Domain.Entities.BootcampComment", b =>
-                {
-                    b.HasOne("Domain.Entities.Bootcamp", "Bootcamp")
-                        .WithMany("BootcampComments")
-                        .HasForeignKey("BootcampId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.User", "User")
-                        .WithMany("BootcampComments")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Bootcamp");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Domain.Entities.EmailAuthenticator", b =>
@@ -1699,8 +1604,6 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.Bootcamp", b =>
                 {
                     b.Navigation("Applications");
-
-                    b.Navigation("BootcampComments");
                 });
 
             modelBuilder.Entity("Domain.Entities.Lesson", b =>
@@ -1712,8 +1615,6 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.User", b =>
                 {
-                    b.Navigation("BootcampComments");
-
                     b.Navigation("EmailAuthenticators");
 
                     b.Navigation("OtpAuthenticators");
@@ -1732,8 +1633,6 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.Instructor", b =>
                 {
-                    b.Navigation("Announcements");
-
                     b.Navigation("Bootcamps");
                 });
 #pragma warning restore 612, 618

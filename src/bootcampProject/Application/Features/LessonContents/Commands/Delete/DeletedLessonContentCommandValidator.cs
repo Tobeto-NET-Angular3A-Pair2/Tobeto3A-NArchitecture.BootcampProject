@@ -6,6 +6,6 @@ public class DeleteLessonContentCommandValidator : AbstractValidator<DeleteLesso
 {
     public DeleteLessonContentCommandValidator()
     {
-        RuleFor(c => c.Id).NotEmpty();
+        RuleFor(c => c.LessonId).NotEmpty();
     }
 }

@@ -21,6 +21,7 @@ public class MappingProfiles : Profile
         CreateMap<LessonContent, DeleteLessonContentCommand>().ReverseMap();
         CreateMap<LessonContent, DeletedLessonContentResponse>().ReverseMap();
         CreateMap<LessonContent, GetByIdLessonContentResponse>().ReverseMap();
+        CreateMap<LessonContent, GetByLessonIdContentResponse>().ReverseMap();
         CreateMap<LessonContent, GetListLessonContentListItemDto>().ReverseMap();
         CreateMap<IPaginate<LessonContent>, GetListResponse<GetListLessonContentListItemDto>>().ReverseMap();
     }

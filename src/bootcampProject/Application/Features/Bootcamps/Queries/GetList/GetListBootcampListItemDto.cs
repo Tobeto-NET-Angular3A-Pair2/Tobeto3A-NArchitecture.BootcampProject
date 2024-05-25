@@ -8,4 +8,5 @@ public class GetListBootcampListItemDto : IDto
     public string Name { get; set; }
     public Guid InstructorId { get; set; }
     public Boolean BootcampState { get; set; }
+    public int Count { get; set; }
 }

@@ -53,7 +53,7 @@ public class DeleteLessonCommand
             );
             await _lessonBusinessRules.LessonShouldExistWhenSelected(lesson);
 
-            await _lessonRepository.DeleteAsync(lesson!);
+            await _lessonRepository.DeleteAsync(lesson!, permanent: true);
 
             DeletedLessonResponse response = _mapper.Map<DeletedLessonResponse>(lesson);
             return response;

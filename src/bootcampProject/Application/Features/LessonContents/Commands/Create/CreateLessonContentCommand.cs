@@ -21,6 +21,7 @@ public class CreateLessonContentCommand
 {
     public string Text { get; set; }
     public int LessonId { get; set; }
+    public string VideoUrl { get; set; }
 
     public string[] Roles => [Admin, Write, LessonContentsOperationClaims.Create];
 

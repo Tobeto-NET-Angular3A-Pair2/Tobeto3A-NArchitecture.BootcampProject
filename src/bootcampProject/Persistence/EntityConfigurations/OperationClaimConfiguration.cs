@@ -1,7 +1,6 @@
 using Application.Features.Applicants.Constants;
 using Application.Features.ApplicationInformations.Constants;
 using Application.Features.ApplicationStates.Constants;
-using Application.Features.Assignments.Constants;
 using Application.Features.Auth.Constants;
 using Application.Features.Blacklists.Constants;
 using Application.Features.Bootcamps.Constants;
@@ -10,8 +9,6 @@ using Application.Features.Evaluations.Constants;
 using Application.Features.Instructors.Constants;
 using Application.Features.LessonContents.Constants;
 using Application.Features.Lessons.Constants;
-using Application.Features.LessonVideos.Constants;
-using Application.Features.MiniQuizs.Constants;
 using Application.Features.OperationClaims.Constants;
 using Application.Features.Settings.Constants;
 using Application.Features.UserOperationClaims.Constants;
@@ -253,48 +250,6 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
                 new() { Id = ++lastId, Name = LessonContentsOperationClaims.Create },
                 new() { Id = ++lastId, Name = LessonContentsOperationClaims.Update },
                 new() { Id = ++lastId, Name = LessonContentsOperationClaims.Delete },
-            ]
-        );
-        #endregion
-
-
-        #region LessonVideos
-        featureOperationClaims.AddRange(
-            [
-                new() { Id = ++lastId, Name = LessonVideosOperationClaims.Admin },
-                new() { Id = ++lastId, Name = LessonVideosOperationClaims.Read },
-                new() { Id = ++lastId, Name = LessonVideosOperationClaims.Write },
-                new() { Id = ++lastId, Name = LessonVideosOperationClaims.Create },
-                new() { Id = ++lastId, Name = LessonVideosOperationClaims.Update },
-                new() { Id = ++lastId, Name = LessonVideosOperationClaims.Delete },
-            ]
-        );
-        #endregion
-
-
-        #region MiniQuizs
-        featureOperationClaims.AddRange(
-            [
-                new() { Id = ++lastId, Name = MiniQuizsOperationClaims.Admin },
-                new() { Id = ++lastId, Name = MiniQuizsOperationClaims.Read },
-                new() { Id = ++lastId, Name = MiniQuizsOperationClaims.Write },
-                new() { Id = ++lastId, Name = MiniQuizsOperationClaims.Create },
-                new() { Id = ++lastId, Name = MiniQuizsOperationClaims.Update },
-                new() { Id = ++lastId, Name = MiniQuizsOperationClaims.Delete },
-            ]
-        );
-        #endregion
-
-
-        #region Assignments
-        featureOperationClaims.AddRange(
-            [
-                new() { Id = ++lastId, Name = AssignmentsOperationClaims.Admin },
-                new() { Id = ++lastId, Name = AssignmentsOperationClaims.Read },
-                new() { Id = ++lastId, Name = AssignmentsOperationClaims.Write },
-                new() { Id = ++lastId, Name = AssignmentsOperationClaims.Create },
-                new() { Id = ++lastId, Name = AssignmentsOperationClaims.Update },
-                new() { Id = ++lastId, Name = AssignmentsOperationClaims.Delete },
             ]
         );
         #endregion
