@@ -35,6 +35,7 @@ using NArchitecture.Core.Mailing.MailKit;
 using NArchitecture.Core.Security.DependencyInjection;
 using Application.Services.Announcements;
 using Application.Services.Contacts;
+using Application.Services.BootcampComments;
 
 namespace Application;
 
@@ -91,6 +92,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IBootcampService, BootcampManager>();
         services.AddScoped<IAnnouncementService, AnnouncementManager>();
         services.AddScoped<IContactService, ContactManager>();
+        services.AddScoped<IBootcampCommentService, BootcampCommentManager>();
         return services;
     }
 

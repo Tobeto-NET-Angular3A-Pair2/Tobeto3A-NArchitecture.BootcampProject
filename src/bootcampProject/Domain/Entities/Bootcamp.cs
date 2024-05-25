@@ -10,6 +10,7 @@ public class Bootcamp : Entity<int>
     public Boolean BootcampState { get; set; }
 
     public virtual ICollection<ApplicationInformation>? Applications { get; set; }
+    public virtual ICollection<BootcampComment>? BootcampComments { get; set; }
     public virtual Instructor Instructor { get; set; }
 
     public Bootcamp(string name, Guid ınstructorId, Boolean bootcampState, string bootcampImage)

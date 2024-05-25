@@ -22,6 +22,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NArchitecture.Core.Security.Constants;
 using Application.Features.Announcements.Constants;
 using Application.Features.Contacts.Constants;
+using Application.Features.BootcampComments.Constants;
 
 namespace Persistence.EntityConfigurations;
 
@@ -336,6 +337,20 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
                 new() { Id = ++lastId, Name = ContactsOperationClaims.Create },
                 new() { Id = ++lastId, Name = ContactsOperationClaims.Update },
                 new() { Id = ++lastId, Name = ContactsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+        
+        
+        #region BootcampComments
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = BootcampCommentsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = BootcampCommentsOperationClaims.Read },
+                new() { Id = ++lastId, Name = BootcampCommentsOperationClaims.Write },
+                new() { Id = ++lastId, Name = BootcampCommentsOperationClaims.Create },
+                new() { Id = ++lastId, Name = BootcampCommentsOperationClaims.Update },
+                new() { Id = ++lastId, Name = BootcampCommentsOperationClaims.Delete },
             ]
         );
         #endregion
