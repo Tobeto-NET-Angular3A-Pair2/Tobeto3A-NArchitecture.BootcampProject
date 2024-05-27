@@ -1,11 +1,9 @@
 ﻿using Application.Features.Messages.Commands.Create;
+using Application.Features.Messages.Commands.Delete;
+using Application.Features.Messages.Commands.DeleteChat;
 using Application.Features.Messages.Queries.GetChatUserList;
 using Application.Features.Messages.Queries.GetList;
-using Azure;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
 using Nest;
 
@@ -36,5 +34,21 @@ public class ChatsController : BaseController
         CreatedMessageResponse response = await Mediator.Send(createMessageCommand);
 
         return Created(uri: "", response);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteMessage([FromRoute] int id)
+    {
+        DeletedMessageResponse response = await Mediator.Send(new DeleteMessageCommand { Id = id });
+
+        return Ok(response);
+    }
+
+    [HttpDelete]
+    public async Task<IActionResult> DeleteChat([FromBody] DeleteChatCommand command, CancellationToken cancellationToken)
+    {
+        DeletedChatResponse response = await Mediator.Send(command);
+
+        return Ok(response);
     }
 }

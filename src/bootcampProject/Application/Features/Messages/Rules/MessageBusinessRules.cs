@@ -29,6 +29,11 @@ public class MessageBusinessRules : BaseBusinessRules
         if (message == null)
             await throwBusinessException(MessagesBusinessMessages.MessageNotExists);
     }
+    public async Task ChatShouldContainsMessageWhenSelected(List<Message>? messages)
+    {
+        if (messages == null)
+            await throwBusinessException(MessagesBusinessMessages.ChatNotContainsAnyMessage);
+    }
 
     public async Task MessageIdShouldExistWhenSelected(int id, CancellationToken cancellationToken)
     {

@@ -1,5 +1,4 @@
 using Application.Features.Messages.Constants;
-using Application.Features.Messages.Constants;
 using Application.Features.Messages.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
@@ -37,7 +36,7 @@ public class DeleteMessageCommand : IRequest<DeletedMessageResponse>, ISecuredRe
             Message? message = await _messageRepository.GetAsync(predicate: m => m.Id == request.Id, cancellationToken: cancellationToken);
             await _messageBusinessRules.MessageShouldExistWhenSelected(message);
 
-            await _messageRepository.DeleteAsync(message!);
+            await _messageRepository.DeleteAsync(message!, permanent: true);
 
             DeletedMessageResponse response = _mapper.Map<DeletedMessageResponse>(message);
             return response;

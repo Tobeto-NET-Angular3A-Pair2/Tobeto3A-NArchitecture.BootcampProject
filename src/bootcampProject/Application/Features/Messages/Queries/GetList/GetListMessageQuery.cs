@@ -1,4 +1,3 @@
-using Application.Features.Messages.Constants;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
@@ -49,7 +48,7 @@ public class GetListMessageQuery : IRequest<GetListResponse<GetListMessageListIt
                 size: request.PageRequest.PageSize, 
                 cancellationToken: cancellationToken
             );
-
+            messages.Items.OrderByDescending(p => p.CreatedDate);
 
             GetListResponse <GetListMessageListItemDto> response = _mapper.Map<GetListResponse<GetListMessageListItemDto>>(messages);
             return response;
