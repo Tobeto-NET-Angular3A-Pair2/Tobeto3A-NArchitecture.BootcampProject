@@ -33,6 +33,9 @@ using NArchitecture.Core.Localization.Resource.Yaml.DependencyInjection;
 using NArchitecture.Core.Mailing;
 using NArchitecture.Core.Mailing.MailKit;
 using NArchitecture.Core.Security.DependencyInjection;
+using Application.Services.InstructorApplications;
+using Application.Common.Services;
+using Application.Services.Messages;
 
 namespace Application;
 
@@ -84,9 +87,15 @@ public static class ApplicationServiceRegistration
         services.AddScoped<ILessonService, LessonManager>();
         services.AddScoped<ILessonContentService, LessonContentManager>();
         services.AddScoped<IBootcampService, BootcampManager>();
+        services.AddScoped<IInstructorApplicationService, InstructorApplicationManager>();
+      
+        services.AddScoped<IPasswordGenerateService, PasswordGenerateManager>();
+      
+        services.AddScoped<IMessageService, MessageManager>();
         services.AddScoped<IAnnouncementService, AnnouncementManager>();
         services.AddScoped<IContactService, ContactManager>();
         services.AddScoped<IBootcampCommentService, BootcampCommentManager>();
+      
         return services;
     }
 

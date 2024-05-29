@@ -359,7 +359,9 @@ namespace Persistence.Migrations
                     b.ToTable("EmailAuthenticators", (string)null);
                 });
 
+
             modelBuilder.Entity("Domain.Entities.Evaluation", b =>
+
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -368,18 +370,22 @@ namespace Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2")
                         .HasColumnName("CreatedDate");
+
 
                     b.Property<string>("Criteria")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Criteria");
 
+
                     b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2")
                         .HasColumnName("DeletedDate");
+
 
                     b.Property<int>("LessonId")
                         .HasColumnType("int")
@@ -421,16 +427,19 @@ namespace Persistence.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Title");
 
+
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2")
                         .HasColumnName("UpdatedDate");
 
                     b.HasKey("Id");
 
+
                     b.ToTable("Lessons", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.LessonContent", b =>
+
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -438,6 +447,7 @@ namespace Persistence.Migrations
                         .HasColumnName("Id");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2")
@@ -447,6 +457,7 @@ namespace Persistence.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("DeletedDate");
 
+
                     b.Property<int>("LessonId")
                         .HasColumnType("int")
                         .HasColumnName("LessonId");
@@ -455,9 +466,11 @@ namespace Persistence.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Text");
 
+
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2")
                         .HasColumnName("UpdatedDate");
+
 
                     b.Property<string>("VideoUrl")
                         .HasColumnType("nvarchar(max)");
@@ -467,6 +480,7 @@ namespace Persistence.Migrations
                     b.HasIndex("LessonId");
 
                     b.ToTable("LessonContents", (string)null);
+
                 });
 
             modelBuilder.Entity("Domain.Entities.OperationClaim", b =>
@@ -1036,6 +1050,7 @@ namespace Persistence.Migrations
                         },
                         new
                         {
+
                             Id = 90,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Announcements.Admin"
@@ -1141,6 +1156,7 @@ namespace Persistence.Migrations
                             Id = 125,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "BootcampComments.Delete"
+
                         });
                 });
 
@@ -1416,16 +1432,20 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
+
                             Id = new Guid("b5b08dc2-7c67-46cf-9c77-c7fc3f834325"),
                             AuthenticatorType = 0,
                             CreatedDate = new DateTime(2024, 5, 25, 4, 31, 41, 635, DateTimeKind.Local).AddTicks(7324),
+
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "narch@kodlama.io",
                             FirstName = "Ays",
                             LastName = "Ayd",
                             NationalIdentity = "",
+
                             PasswordHash = new byte[] { 148, 9, 215, 199, 128, 158, 77, 148, 230, 87, 112, 100, 118, 119, 149, 190, 78, 166, 168, 33, 219, 177, 198, 255, 115, 25, 226, 125, 104, 169, 152, 122, 1, 115, 130, 37, 3, 87, 121, 135, 63, 197, 196, 111, 25, 154, 78, 73, 201, 140, 148, 175, 13, 157, 170, 21, 186, 218, 138, 96, 21, 71, 127, 135 },
                             PasswordSalt = new byte[] { 155, 255, 40, 79, 144, 15, 61, 15, 85, 78, 210, 129, 251, 153, 95, 16, 103, 116, 91, 163, 184, 27, 71, 66, 216, 176, 140, 243, 55, 138, 182, 186, 103, 212, 8, 57, 35, 251, 159, 65, 196, 158, 192, 2, 119, 148, 85, 134, 218, 217, 28, 133, 102, 208, 247, 188, 89, 30, 192, 23, 143, 201, 179, 225, 77, 7, 192, 230, 35, 104, 48, 67, 105, 132, 114, 219, 178, 124, 175, 225, 61, 105, 117, 11, 137, 173, 49, 98, 191, 119, 3, 230, 85, 115, 178, 46, 25, 122, 145, 164, 85, 64, 44, 180, 220, 132, 75, 152, 114, 145, 123, 21, 201, 144, 191, 245, 134, 47, 170, 209, 229, 184, 58, 82, 4, 252, 39, 36 },
+
                             UserName = "admin"
                         });
                 });
@@ -1468,10 +1488,12 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
+
                             Id = new Guid("8c504d0f-3c2a-4a48-ad7a-775874f4cc53"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OperationClaimId = 1,
                             UserId = new Guid("b5b08dc2-7c67-46cf-9c77-c7fc3f834325")
+
                         });
                 });
 
@@ -1601,6 +1623,7 @@ namespace Persistence.Migrations
                     b.Navigation("User");
                 });
 
+
             modelBuilder.Entity("Domain.Entities.Evaluation", b =>
                 {
                     b.HasOne("Domain.Entities.Lesson", "Lesson")
@@ -1621,6 +1644,7 @@ namespace Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Lesson");
+
                 });
 
             modelBuilder.Entity("Domain.Entities.OtpAuthenticator", b =>
@@ -1715,6 +1739,8 @@ namespace Persistence.Migrations
                     b.Navigation("BootcampComments");
 
                     b.Navigation("EmailAuthenticators");
+
+                    b.Navigation("Messages");
 
                     b.Navigation("OtpAuthenticators");
 
