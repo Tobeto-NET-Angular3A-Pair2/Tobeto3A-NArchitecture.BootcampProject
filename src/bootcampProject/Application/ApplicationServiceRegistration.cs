@@ -1,14 +1,20 @@
 using System.Reflection;
+using Application.Services.Announcements;
 using Application.Services.Applicants;
 using Application.Services.ApplicationInformations;
 using Application.Services.ApplicationStates;
 using Application.Services.AuthenticatorService;
 using Application.Services.AuthService;
 using Application.Services.Blacklists;
+using Application.Services.BootcampComments;
 using Application.Services.Bootcamps;
-using Application.Services.BootcampStates;
+using Application.Services.Contacts;
 using Application.Services.Employees;
+using Application.Services.Evaluations;
 using Application.Services.Instructors;
+using Application.Services.LessonContents;
+using Application.Services.Lessons;
+using Application.Services.Settings;
 using Application.Services.UsersService;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
@@ -74,17 +80,22 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IEmployeeService, EmployeeManager>();
         services.AddScoped<IInstructorService, InstructorManager>();
         services.AddScoped<IApplicationStateService, ApplicationStateManager>();
-        services.AddScoped<IBootcampStateService, BootcampStateManager>();
         services.AddScoped<IApplicationInformationService, ApplicationInformationManager>();
         services.AddScoped<IBlacklistService, BlacklistManager>();
+        services.AddScoped<ISettingService, SettingManager>();
+        services.AddScoped<IEvaluationService, EvaluationManager>();
+        services.AddScoped<ILessonService, LessonManager>();
+        services.AddScoped<ILessonContentService, LessonContentManager>();
         services.AddScoped<IBootcampService, BootcampManager>();
         services.AddScoped<IInstructorApplicationService, InstructorApplicationManager>();
-
-
+      
         services.AddScoped<IPasswordGenerateService, PasswordGenerateManager>();
-
-
+      
         services.AddScoped<IMessageService, MessageManager>();
+        services.AddScoped<IAnnouncementService, AnnouncementManager>();
+        services.AddScoped<IContactService, ContactManager>();
+        services.AddScoped<IBootcampCommentService, BootcampCommentManager>();
+      
         return services;
     }
 

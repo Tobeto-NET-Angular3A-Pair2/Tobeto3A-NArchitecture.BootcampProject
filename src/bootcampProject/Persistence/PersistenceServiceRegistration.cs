@@ -1,5 +1,6 @@
 using Application.Common.Interfaces;
 using Application.Services.Repositories;
+using Infrastructure.Adapters.ImageService;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,12 +33,20 @@ public static class PersistenceServiceRegistration
         services.AddScoped<IEmployeeRepository, EmployeeRepository>();
         services.AddScoped<IInstructorRepository, InstructorRepository>();
         services.AddScoped<IApplicationStateRepository, ApplicationStateRepository>();
-        services.AddScoped<IBootcampStateRepository, BootcampStateRepository>();
         services.AddScoped<IApplicationInformationRepository, ApplicationInformationRepository>();
         services.AddScoped<IBlacklistRepository, BlacklistRepository>();
+        services.AddScoped<ISettingRepository, SettingRepository>();
+        services.AddScoped<CloudinaryImageServiceAdapter>();
+        services.AddScoped<IEvaluationRepository, EvaluationRepository>();
+        services.AddScoped<ILessonRepository, LessonRepository>();
+        services.AddScoped<ILessonContentRepository, LessonContentRepository>();
         services.AddScoped<IBootcampRepository, BootcampRepository>();
         services.AddScoped<IInstructorApplicationRepository, InstructorApplicationRepository>();
         services.AddScoped<IMessageRepository, MessageRepository>();
+        services.AddScoped<IAnnouncementRepository, AnnouncementRepository>();
+        services.AddScoped<IContactRepository, ContactRepository>();
+        services.AddScoped<IBootcampCommentRepository, BootcampCommentRepository>();
+
         return services;
     }
 }

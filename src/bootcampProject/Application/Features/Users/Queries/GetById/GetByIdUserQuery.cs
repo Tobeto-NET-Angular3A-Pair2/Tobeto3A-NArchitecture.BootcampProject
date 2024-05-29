@@ -1,3 +1,5 @@
+using Application.Features.Bootcamps.Constants;
+using Application.Features.Instructors.Constants;
 using Application.Features.Users.Constants;
 using Application.Features.Users.Rules;
 using Application.Services.Repositories;
@@ -12,7 +14,7 @@ public class GetByIdUserQuery : IRequest<GetByIdUserResponse>, ISecuredRequest
 {
     public Guid Id { get; set; }
 
-    public string[] Roles => [UsersOperationClaims.Read];
+    public string[] Roles => [UsersOperationClaims.Read, InstructorsOperationClaims.Read];
 
     public class GetByIdUserQueryHandler : IRequestHandler<GetByIdUserQuery, GetByIdUserResponse>
     {

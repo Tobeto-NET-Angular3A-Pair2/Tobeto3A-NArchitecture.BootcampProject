@@ -1,13 +1,19 @@
+using Application.Features.Announcements.Constants;
 using Application.Features.Applicants.Constants;
 using Application.Features.ApplicationInformations.Constants;
 using Application.Features.ApplicationStates.Constants;
 using Application.Features.Auth.Constants;
 using Application.Features.Blacklists.Constants;
+using Application.Features.BootcampComments.Constants;
 using Application.Features.Bootcamps.Constants;
-using Application.Features.BootcampStates.Constants;
+using Application.Features.Contacts.Constants;
 using Application.Features.Employees.Constants;
+using Application.Features.Evaluations.Constants;
 using Application.Features.Instructors.Constants;
+using Application.Features.LessonContents.Constants;
+using Application.Features.Lessons.Constants;
 using Application.Features.OperationClaims.Constants;
+using Application.Features.Settings.Constants;
 using Application.Features.UserOperationClaims.Constants;
 using Application.Features.Users.Constants;
 using Domain.Entities;
@@ -166,21 +172,6 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
         #endregion
 
 
-
-        #region BootcampStates
-        featureOperationClaims.AddRange(
-            [
-                new() { Id = ++lastId, Name = BootcampStatesOperationClaims.Admin },
-                new() { Id = ++lastId, Name = BootcampStatesOperationClaims.Read },
-                new() { Id = ++lastId, Name = BootcampStatesOperationClaims.Write },
-                new() { Id = ++lastId, Name = BootcampStatesOperationClaims.Create },
-                new() { Id = ++lastId, Name = BootcampStatesOperationClaims.Update },
-                new() { Id = ++lastId, Name = BootcampStatesOperationClaims.Delete },
-            ]
-        );
-        #endregion
-
-
         #region ApplicationInformations
         featureOperationClaims.AddRange(
             [
@@ -204,6 +195,63 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
                 new() { Id = ++lastId, Name = BlacklistsOperationClaims.Create },
                 new() { Id = ++lastId, Name = BlacklistsOperationClaims.Update },
                 new() { Id = ++lastId, Name = BlacklistsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+
+        #region Settings
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = SettingsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = SettingsOperationClaims.Read },
+                new() { Id = ++lastId, Name = SettingsOperationClaims.Write },
+                new() { Id = ++lastId, Name = SettingsOperationClaims.Create },
+                new() { Id = ++lastId, Name = SettingsOperationClaims.Update },
+                new() { Id = ++lastId, Name = SettingsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+
+
+
+
+        #region Evaluations
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = EvaluationsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = EvaluationsOperationClaims.Read },
+                new() { Id = ++lastId, Name = EvaluationsOperationClaims.Write },
+                new() { Id = ++lastId, Name = EvaluationsOperationClaims.Create },
+                new() { Id = ++lastId, Name = EvaluationsOperationClaims.Update },
+                new() { Id = ++lastId, Name = EvaluationsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+
+
+        #region Lessons
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = LessonsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = LessonsOperationClaims.Read },
+                new() { Id = ++lastId, Name = LessonsOperationClaims.Write },
+                new() { Id = ++lastId, Name = LessonsOperationClaims.Create },
+                new() { Id = ++lastId, Name = LessonsOperationClaims.Update },
+                new() { Id = ++lastId, Name = LessonsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+
+
+        #region LessonContents
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = LessonContentsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = LessonContentsOperationClaims.Read },
+                new() { Id = ++lastId, Name = LessonContentsOperationClaims.Write },
+                new() { Id = ++lastId, Name = LessonContentsOperationClaims.Create },
+                new() { Id = ++lastId, Name = LessonContentsOperationClaims.Update },
+                new() { Id = ++lastId, Name = LessonContentsOperationClaims.Delete },
             ]
         );
         #endregion
@@ -249,7 +297,49 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
             ]
         );
         #endregion
-        
+
+
+        #region Announcements
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = AnnouncementsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = AnnouncementsOperationClaims.Read },
+                new() { Id = ++lastId, Name = AnnouncementsOperationClaims.Write },
+                new() { Id = ++lastId, Name = AnnouncementsOperationClaims.Create },
+                new() { Id = ++lastId, Name = AnnouncementsOperationClaims.Update },
+                new() { Id = ++lastId, Name = AnnouncementsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+
+
+        #region Contacts
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = ContactsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = ContactsOperationClaims.Read },
+                new() { Id = ++lastId, Name = ContactsOperationClaims.Write },
+                new() { Id = ++lastId, Name = ContactsOperationClaims.Create },
+                new() { Id = ++lastId, Name = ContactsOperationClaims.Update },
+                new() { Id = ++lastId, Name = ContactsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+
+
+        #region BootcampComments
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = BootcampCommentsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = BootcampCommentsOperationClaims.Read },
+                new() { Id = ++lastId, Name = BootcampCommentsOperationClaims.Write },
+                new() { Id = ++lastId, Name = BootcampCommentsOperationClaims.Create },
+                new() { Id = ++lastId, Name = BootcampCommentsOperationClaims.Update },
+                new() { Id = ++lastId, Name = BootcampCommentsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+
         return featureOperationClaims;
     }
 #pragma warning restore S1854 // Unused assignments should be removed

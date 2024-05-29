@@ -1,5 +1,6 @@
 using Application.Features.Bootcamps.Constants;
 using Application.Features.Bootcamps.Rules;
+using Application.Features.Instructors.Constants;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
@@ -22,11 +23,17 @@ public class UpdateBootcampCommand
     public int Id { get; set; }
     public string Name { get; set; }
     public Guid InstructorId { get; set; }
-    public DateTime StartDate { get; set; }
-    public DateTime EndDate { get; set; }
-    public int BootcampStateId { get; set; }
+    public Boolean BootcampState { get; set; }
+    public string BootcampImage { get; set; }
 
-    public string[] Roles => [Admin, Write, BootcampsOperationClaims.Update];
+    public string[] Roles =>
+        new[]
+        {
+            BootcampsOperationClaims.Admin,
+            BootcampsOperationClaims.Write,
+            BootcampsOperationClaims.Create,
+            InstructorsOperationClaims.Admin
+        };
 
     public bool BypassCache { get; }
     public string? CacheKey { get; }
