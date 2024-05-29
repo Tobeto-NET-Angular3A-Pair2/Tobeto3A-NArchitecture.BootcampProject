@@ -38,7 +38,7 @@ public class GetListMessageQuery : IRequest<GetListResponse<GetListMessageListIt
                 (p.ReceiverId == request.SenderId && p.SenderId == request.ReceiverId);
 
             // OrderBy tanýmlamasý (Sýralama)
-            Func<IQueryable<Message>, IOrderedQueryable<Message>> orderBy = q => q.OrderBy(p => p.CreatedDate);
+            Func<IQueryable<Message>, IOrderedQueryable<Message>> orderBy = q => q.OrderByDescending(p => p.CreatedDate);
 
 
             IPaginate<Message> messages = await _messageRepository.GetListAsync(
@@ -48,7 +48,6 @@ public class GetListMessageQuery : IRequest<GetListResponse<GetListMessageListIt
                 size: request.PageRequest.PageSize, 
                 cancellationToken: cancellationToken
             );
-            messages.Items.OrderByDescending(p => p.CreatedDate);
 
             GetListResponse <GetListMessageListItemDto> response = _mapper.Map<GetListResponse<GetListMessageListItemDto>>(messages);
             return response;

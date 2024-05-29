@@ -44,7 +44,7 @@ public class ChatsController : BaseController
         return Ok(response);
     }
 
-    [HttpDelete]
+    [HttpPost]
     public async Task<IActionResult> DeleteChat([FromBody] DeleteChatCommand command, CancellationToken cancellationToken)
     {
         DeletedChatResponse response = await Mediator.Send(command);
