@@ -2,12 +2,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
-
 namespace WebAPI.Hubs;
 
-public class ChatHub : Hub   
+public class ChatHub : Hub
 {
-
     public static Dictionary<string, Guid> UserConnections = new();
 
     public async Task Connect(Guid userId)
@@ -23,6 +21,4 @@ public class ChatHub : Hub
 
         await base.OnDisconnectedAsync(exception);
     }
-
-
 }

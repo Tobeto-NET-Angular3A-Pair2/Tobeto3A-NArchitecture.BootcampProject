@@ -66,11 +66,10 @@ public class UpdateInstructorCommand
                 passwordSalt: out byte[] passwordSalt
             );
 
-
             await _instructorBusinessRules.InstructorShouldExistWhenSelected(instructor);
             instructor = _mapper.Map(request, instructor);
 
-            instructor.PasswordHash = passwordHash; 
+            instructor.PasswordHash = passwordHash;
             instructor.PasswordSalt = passwordSalt;
 
             await _instructorRepository.UpdateAsync(instructor!);

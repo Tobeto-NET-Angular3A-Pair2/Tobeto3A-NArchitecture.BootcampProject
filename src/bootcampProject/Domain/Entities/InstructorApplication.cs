@@ -1,6 +1,7 @@
 ﻿using NArchitecture.Core.Persistence.Repositories;
 
 namespace Domain.Entities;
+
 public class InstructorApplication : Entity<int>
 {
     public string Email { get; set; }
@@ -13,7 +14,6 @@ public class InstructorApplication : Entity<int>
     public string? Comment { get; set; }
     public bool? IsApproved { get; set; }
 
-
     public InstructorApplication(
         int id,
         string email,
@@ -24,7 +24,8 @@ public class InstructorApplication : Entity<int>
         string? companyName,
         string? comment,
         string? additionalInformation,
-        bool? isApproved = null)
+        bool? isApproved = null
+    )
     {
         Id = id;
         Email = email;
@@ -37,7 +38,6 @@ public class InstructorApplication : Entity<int>
         IsApproved = isApproved;
         AdditionalInformation = additionalInformation;
     }
-    public InstructorApplication() {}
 
-
+    public InstructorApplication() { }
 }

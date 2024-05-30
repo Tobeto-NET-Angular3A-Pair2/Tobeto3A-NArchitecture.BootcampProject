@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Application.Common.Services;
+
 public class PasswordGenerateManager : IPasswordGenerateService
 {
     private const string Numbers = "0123456789";
@@ -19,12 +20,10 @@ public class PasswordGenerateManager : IPasswordGenerateService
     public PasswordGenerateManager()
     {
         _random = new Random();
-
     }
 
     public string GetRandomPassword()
     {
-
         //Generate first 4 characters containing numbers, lowercase, uppercase and special characters
         string password = "";
         password += GetRandomCharacter(Numbers);
@@ -42,11 +41,10 @@ public class PasswordGenerateManager : IPasswordGenerateService
         string shuffledPassword = new string(password.ToCharArray().OrderBy(x => _random.Next()).ToArray());
 
         return shuffledPassword;
-    }    
-    
+    }
+
     public string GetRandomPassword(int passwordLength)
     {
-
         //Generate first 4 characters containing numbers, lowercase, uppercase and special characters
         string password = "";
         password += GetRandomCharacter(Numbers);
@@ -65,7 +63,6 @@ public class PasswordGenerateManager : IPasswordGenerateService
 
         return shuffledPassword;
     }
-
 
     private char GetRandomCharacter(string characters)
     {

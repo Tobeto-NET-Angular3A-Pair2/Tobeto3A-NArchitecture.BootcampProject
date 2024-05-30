@@ -1,9 +1,9 @@
 using Application.Features.Messages.Constants;
 using Application.Services.Repositories;
+using Domain.Entities;
 using NArchitecture.Core.Application.Rules;
 using NArchitecture.Core.CrossCuttingConcerns.Exception.Types;
 using NArchitecture.Core.Localization.Abstraction;
-using Domain.Entities;
 
 namespace Application.Features.Messages.Rules;
 
@@ -29,6 +29,7 @@ public class MessageBusinessRules : BaseBusinessRules
         if (message == null)
             await throwBusinessException(MessagesBusinessMessages.MessageNotExists);
     }
+
     public async Task ChatShouldContainsMessageWhenSelected(List<Message>? messages)
     {
         if (messages == null)

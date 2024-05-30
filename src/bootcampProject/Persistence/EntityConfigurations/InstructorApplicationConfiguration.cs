@@ -24,7 +24,6 @@ public class InstructorApplicationConfiguration : IEntityTypeConfiguration<Instr
         builder.Property(ia => ia.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(ia => ia.DeletedDate).HasColumnName("DeletedDate");
 
-
         builder.HasQueryFilter(ia => !ia.DeletedDate.HasValue);
     }
 }

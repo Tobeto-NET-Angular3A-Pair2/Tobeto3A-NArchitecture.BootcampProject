@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
 
-
 namespace Application.Features.Messages.Commands.DeleteChat;
-public class DeletedChatCommandValidator: AbstractValidator<DeleteChatCommand>
+
+public class DeletedChatCommandValidator : AbstractValidator<DeleteChatCommand>
 {
     public DeletedChatCommandValidator()
     {

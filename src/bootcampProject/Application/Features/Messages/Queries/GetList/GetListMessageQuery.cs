@@ -1,13 +1,13 @@
+using System.Linq.Expressions;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using MediatR;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
 using NArchitecture.Core.Persistence.Paging;
-using MediatR;
 using static Application.Features.Messages.Constants.MessagesOperationClaims;
-using System.Linq.Expressions;
 
 namespace Application.Features.Messages.Queries.GetList;
 
@@ -30,26 +30,30 @@ public class GetListMessageQuery : IRequest<GetListResponse<GetListMessageListIt
             _mapper = mapper;
         }
 
-        public async Task<GetListResponse<GetListMessageListItemDto>> Handle(GetListMessageQuery request, CancellationToken cancellationToken)
+        public async Task<GetListResponse<GetListMessageListItemDto>> Handle(
+            GetListMessageQuery request,
+            CancellationToken cancellationToken
+        )
         {
-            // Predicate tanýmlamasý (Filtreleme)
+            // Predicate tanï¿½mlamasï¿½ (Filtreleme)
             Expression<Func<Message, bool>> predicate = p =>
-                (p.SenderId == request.SenderId && p.ReceiverId == request.ReceiverId) ||
-                (p.ReceiverId == request.SenderId && p.SenderId == request.ReceiverId);
+                (p.SenderId == request.SenderId && p.ReceiverId == request.ReceiverId)
+                || (p.ReceiverId == request.SenderId && p.SenderId == request.ReceiverId);
 
-            // OrderBy tanýmlamasý (Sýralama)
+            // OrderBy tanï¿½mlamasï¿½ (Sï¿½ralama)
             Func<IQueryable<Message>, IOrderedQueryable<Message>> orderBy = q => q.OrderByDescending(p => p.CreatedDate);
-
 
             IPaginate<Message> messages = await _messageRepository.GetListAsync(
                 predicate: predicate,
                 orderBy: orderBy,
                 index: request.PageRequest.PageIndex,
-                size: request.PageRequest.PageSize, 
+                size: request.PageRequest.PageSize,
                 cancellationToken: cancellationToken
             );
 
-            GetListResponse <GetListMessageListItemDto> response = _mapper.Map<GetListResponse<GetListMessageListItemDto>>(messages);
+            GetListResponse<GetListMessageListItemDto> response = _mapper.Map<GetListResponse<GetListMessageListItemDto>>(
+                messages
+            );
             return response;
         }
     }

@@ -1,10 +1,10 @@
 using Application.Features.InstructorApplications.Constants;
+using Application.Features.Users.Constants;
 using Application.Services.Repositories;
+using Domain.Entities;
 using NArchitecture.Core.Application.Rules;
 using NArchitecture.Core.CrossCuttingConcerns.Exception.Types;
 using NArchitecture.Core.Localization.Abstraction;
-using Domain.Entities;
-using Application.Features.Users.Constants;
 
 namespace Application.Features.InstructorApplications.Rules;
 
@@ -14,7 +14,10 @@ public class InstructorApplicationBusinessRules : BaseBusinessRules
     private readonly IUserRepository _userRepository;
     private readonly ILocalizationService _localizationService;
 
-    public InstructorApplicationBusinessRules(IInstructorApplicationRepository instructorApplicationRepository, ILocalizationService localizationService)
+    public InstructorApplicationBusinessRules(
+        IInstructorApplicationRepository instructorApplicationRepository,
+        ILocalizationService localizationService
+    )
     {
         _instructorApplicationRepository = instructorApplicationRepository;
         _localizationService = localizationService;
@@ -22,7 +25,10 @@ public class InstructorApplicationBusinessRules : BaseBusinessRules
 
     private async Task throwBusinessException(string messageKey)
     {
-        string message = await _localizationService.GetLocalizedAsync(messageKey, InstructorApplicationsBusinessMessages.SectionName);
+        string message = await _localizationService.GetLocalizedAsync(
+            messageKey,
+            InstructorApplicationsBusinessMessages.SectionName
+        );
         throw new BusinessException(message);
     }
 

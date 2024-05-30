@@ -1,14 +1,14 @@
+using Application.Common.Interfaces;
 using Application.Features.Messages.Constants;
 using Application.Features.Messages.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using MediatR;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Logging;
 using NArchitecture.Core.Application.Pipelines.Transaction;
-using MediatR;
 using static Application.Features.Messages.Constants.MessagesOperationClaims;
-using Application.Common.Interfaces;
 
 namespace Application.Features.Messages.Commands.Create;
 
@@ -27,8 +27,12 @@ public class CreateMessageCommand : IRequest<CreatedMessageResponse>, ISecuredRe
         private readonly MessageBusinessRules _messageBusinessRules;
         private readonly IChatHubService _chatHubService;
 
-        public CreateMessageCommandHandler(IMapper mapper, IMessageRepository messageRepository,
-                                         MessageBusinessRules messageBusinessRules, IChatHubService chatHubService)
+        public CreateMessageCommandHandler(
+            IMapper mapper,
+            IMessageRepository messageRepository,
+            MessageBusinessRules messageBusinessRules,
+            IChatHubService chatHubService
+        )
         {
             _mapper = mapper;
             _messageRepository = messageRepository;

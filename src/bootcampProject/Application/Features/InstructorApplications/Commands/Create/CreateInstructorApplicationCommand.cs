@@ -3,15 +3,18 @@ using Application.Features.InstructorApplications.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using MediatR;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Logging;
 using NArchitecture.Core.Application.Pipelines.Transaction;
-using MediatR;
 using static Application.Features.InstructorApplications.Constants.InstructorApplicationsOperationClaims;
 
 namespace Application.Features.InstructorApplications.Commands.Create;
 
-public class CreateInstructorApplicationCommand : IRequest<CreatedInstructorApplicationResponse>, ILoggableRequest, ITransactionalRequest
+public class CreateInstructorApplicationCommand
+    : IRequest<CreatedInstructorApplicationResponse>,
+        ILoggableRequest,
+        ITransactionalRequest
 {
     public string Email { get; set; }
     public string FirstName { get; set; }
@@ -22,22 +25,28 @@ public class CreateInstructorApplicationCommand : IRequest<CreatedInstructorAppl
     public string? AdditionalInformation { get; set; }
     public bool? IsApproved { get; set; }
 
-
-    public class CreateInstructorApplicationCommandHandler : IRequestHandler<CreateInstructorApplicationCommand, CreatedInstructorApplicationResponse>
+    public class CreateInstructorApplicationCommandHandler
+        : IRequestHandler<CreateInstructorApplicationCommand, CreatedInstructorApplicationResponse>
     {
         private readonly IMapper _mapper;
         private readonly IInstructorApplicationRepository _instructorApplicationRepository;
         private readonly InstructorApplicationBusinessRules _instructorApplicationBusinessRules;
 
-        public CreateInstructorApplicationCommandHandler(IMapper mapper, IInstructorApplicationRepository instructorApplicationRepository,
-                                         InstructorApplicationBusinessRules instructorApplicationBusinessRules)
+        public CreateInstructorApplicationCommandHandler(
+            IMapper mapper,
+            IInstructorApplicationRepository instructorApplicationRepository,
+            InstructorApplicationBusinessRules instructorApplicationBusinessRules
+        )
         {
             _mapper = mapper;
             _instructorApplicationRepository = instructorApplicationRepository;
             _instructorApplicationBusinessRules = instructorApplicationBusinessRules;
         }
 
-        public async Task<CreatedInstructorApplicationResponse> Handle(CreateInstructorApplicationCommand request, CancellationToken cancellationToken)
+        public async Task<CreatedInstructorApplicationResponse> Handle(
+            CreateInstructorApplicationCommand request,
+            CancellationToken cancellationToken
+        )
         {
             await _instructorApplicationBusinessRules.UserEmailShouldNotExistsWhenInsert(request.Email);
 
@@ -47,7 +56,9 @@ public class CreateInstructorApplicationCommand : IRequest<CreatedInstructorAppl
 
             await _instructorApplicationRepository.AddAsync(instructorApplication);
 
-            CreatedInstructorApplicationResponse response = _mapper.Map<CreatedInstructorApplicationResponse>(instructorApplication);
+            CreatedInstructorApplicationResponse response = _mapper.Map<CreatedInstructorApplicationResponse>(
+                instructorApplication
+            );
             return response;
         }
     }

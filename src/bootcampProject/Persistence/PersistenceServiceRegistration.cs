@@ -18,8 +18,6 @@ public static class PersistenceServiceRegistration
             options.UseSqlServer(configuration.GetConnectionString("BootcampProjectNArchitecture"))
         );
 
-        services.AddScoped<IBaseDbContext>(provider => provider.GetRequiredService<BaseDbContext>());
-
         services.AddDbMigrationApplier(buildServices => buildServices.GetRequiredService<BaseDbContext>());
 
         services.AddScoped<IEmailAuthenticatorRepository, EmailAuthenticatorRepository>();

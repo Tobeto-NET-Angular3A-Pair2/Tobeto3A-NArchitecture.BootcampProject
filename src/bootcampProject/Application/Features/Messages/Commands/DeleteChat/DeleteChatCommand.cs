@@ -10,6 +10,7 @@ using NArchitecture.Core.Application.Pipelines.Transaction;
 using static Application.Features.Messages.Constants.MessagesOperationClaims;
 
 namespace Application.Features.Messages.Commands.DeleteChat;
+
 public class DeleteChatCommand : IRequest<DeletedChatResponse>, ISecuredRequest, ILoggableRequest, ITransactionalRequest
 {
     public Guid SenderId { get; set; }
@@ -23,8 +24,11 @@ public class DeleteChatCommand : IRequest<DeletedChatResponse>, ISecuredRequest,
         private readonly MessageBusinessRules _messageBusinessRules;
         private readonly UserBusinessRules _userBusinessRules;
 
-        public DeleteChatCommandHandler(IMessageRepository messageRepository,
-                                         MessageBusinessRules messageBusinessRules, UserBusinessRules userBusinessRules)
+        public DeleteChatCommandHandler(
+            IMessageRepository messageRepository,
+            MessageBusinessRules messageBusinessRules,
+            UserBusinessRules userBusinessRules
+        )
         {
             _messageRepository = messageRepository;
             _messageBusinessRules = messageBusinessRules;
@@ -36,8 +40,11 @@ public class DeleteChatCommand : IRequest<DeletedChatResponse>, ISecuredRequest,
             await _userBusinessRules.UserIdShouldBeExistsWhenSelected(request.SenderId);
             await _userBusinessRules.UserIdShouldBeExistsWhenSelected(request.ReceiverId);
 
-            List<Message>? messages = await _messageRepository
-                .GetChatMessagesAsync(request.SenderId, request.ReceiverId, cancellationToken);
+            List<Message>? messages = await _messageRepository.GetChatMessagesAsync(
+                request.SenderId,
+                request.ReceiverId,
+                cancellationToken
+            );
 
             await _messageBusinessRules.ChatShouldContainsMessageWhenSelected(messages);
 

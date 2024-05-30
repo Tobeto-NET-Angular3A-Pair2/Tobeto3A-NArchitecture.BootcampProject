@@ -1,4 +1,5 @@
 ﻿namespace Application.Features.Auth.Commands.Register.Instructor;
+
 public class InstructorRegisterDto
 {
     public string Email { get; set; }

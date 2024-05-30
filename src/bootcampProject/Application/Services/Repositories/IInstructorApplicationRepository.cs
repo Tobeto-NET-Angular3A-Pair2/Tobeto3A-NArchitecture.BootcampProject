@@ -3,6 +3,6 @@ using NArchitecture.Core.Persistence.Repositories;
 
 namespace Application.Services.Repositories;
 
-public interface IInstructorApplicationRepository : IAsyncRepository<InstructorApplication, int>, IRepository<InstructorApplication, int>
-{
-}
+public interface IInstructorApplicationRepository
+    : IAsyncRepository<InstructorApplication, int>,
+        IRepository<InstructorApplication, int> { }

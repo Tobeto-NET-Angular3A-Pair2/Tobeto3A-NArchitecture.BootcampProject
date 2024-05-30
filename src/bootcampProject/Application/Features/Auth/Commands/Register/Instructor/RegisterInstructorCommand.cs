@@ -1,4 +1,5 @@
-﻿using Application.Common.Helpers;
+﻿using System.ComponentModel;
+using Application.Common.Helpers;
 using Application.Common.Services;
 using Application.Features.Auth.Rules;
 using Application.Features.Instructors.Constants;
@@ -10,11 +11,11 @@ using MimeKit;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Mailing;
 using NArchitecture.Core.Security.Hashing;
-using System.ComponentModel;
 using static Application.Features.Instructors.Constants.InstructorsOperationClaims;
 
 namespace Application.Features.Auth.Commands.Register.Instructor;
-public class RegisterInstructorCommand : IRequest<RegisteredInstructorResponse> , ISecuredRequest
+
+public class RegisterInstructorCommand : IRequest<RegisteredInstructorResponse>, ISecuredRequest
 {
     public InstructorRegisterDto InstructorForRegisterDto { get; set; }
     public string IpAddress { get; set; }
@@ -25,7 +26,8 @@ public class RegisterInstructorCommand : IRequest<RegisteredInstructorResponse> 
     {
         InstructorForRegisterDto = null;
         IpAddress = string.Empty;
-    }    
+    }
+
     public RegisterInstructorCommand(InstructorRegisterDto instructorForRegisterDto, string ipAddress)
     {
         InstructorForRegisterDto = instructorForRegisterDto;
@@ -42,7 +44,6 @@ public class RegisterInstructorCommand : IRequest<RegisteredInstructorResponse> 
         private readonly IUserOperationClaimRepository _userOperationClaimRepository;
         private readonly IMailService _mailService;
         private readonly IEmailTemplateFillerService _emailTemplateFillerService;
-
 
         public RegisterInstructorCommandHandler(
             IUserRepository userRepository,
@@ -64,7 +65,11 @@ public class RegisterInstructorCommand : IRequest<RegisteredInstructorResponse> 
             _mailService = mailService;
             _emailTemplateFillerService = emailTemplateFillerService;
         }
-        public async Task<RegisteredInstructorResponse> Handle(RegisterInstructorCommand request, CancellationToken cancellationToken)
+
+        public async Task<RegisteredInstructorResponse> Handle(
+            RegisterInstructorCommand request,
+            CancellationToken cancellationToken
+        )
         {
             await _authBusinessRules.UserEmailShouldBeNotExists(request.InstructorForRegisterDto.Email);
 
@@ -89,7 +94,6 @@ public class RegisterInstructorCommand : IRequest<RegisteredInstructorResponse> 
                     PasswordHash = passwordHash,
                     PasswordSalt = passwordSalt,
                 };
-            
 
             Domain.Entities.Instructor createdUser = await _instructorRepository.AddAsync(newUser);
 
@@ -103,29 +107,32 @@ public class RegisterInstructorCommand : IRequest<RegisteredInstructorResponse> 
 
             await _userOperationClaimRepository.AddRangeAsync(userOperationClaims);
 
-
-            // Mail 
+            // Mail
 
             var fullName = $"{createdUser.FirstName} {createdUser.LastName}";
             var email = createdUser.Email;
 
-            var toEmailList = new List<MailboxAddress>
-            {
-                new(fullName, email)
-            };
+            var toEmailList = new List<MailboxAddress> { new(fullName, email) };
 
-            var htmlContent = _emailTemplateFillerService
-                .PopulateInstructorApplicationApproveEmail(createdUser.FirstName, createdUser.LastName, email, password);
+            var htmlContent = _emailTemplateFillerService.PopulateInstructorApplicationApproveEmail(
+                createdUser.FirstName,
+                createdUser.LastName,
+                email,
+                password
+            );
 
-            _mailService.SendMail(new Mail
-            {
-                Subject = "New Instructor Account Information - Teach It Free",
-                TextBody = "",
-                HtmlBody = htmlContent,
-                ToList = toEmailList,
-            });
+            _mailService.SendMail(
+                new Mail
+                {
+                    Subject = "New Instructor Account Information - Teach It Free",
+                    TextBody = "",
+                    HtmlBody = htmlContent,
+                    ToList = toEmailList,
+                }
+            );
 
-            RegisteredInstructorResponse registeredInstructorResponse = new() {Email = request.InstructorForRegisterDto.Email, Password = password };
+            RegisteredInstructorResponse registeredInstructorResponse =
+                new() { Email = request.InstructorForRegisterDto.Email, Password = password };
 
             return registeredInstructorResponse;
         }

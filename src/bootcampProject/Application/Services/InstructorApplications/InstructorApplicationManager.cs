@@ -1,9 +1,9 @@
+using System.Linq.Expressions;
 using Application.Features.InstructorApplications.Rules;
 using Application.Services.Repositories;
-using NArchitecture.Core.Persistence.Paging;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore.Query;
-using System.Linq.Expressions;
+using NArchitecture.Core.Persistence.Paging;
 
 namespace Application.Services.InstructorApplications;
 
@@ -12,7 +12,10 @@ public class InstructorApplicationManager : IInstructorApplicationService
     private readonly IInstructorApplicationRepository _instructorApplicationRepository;
     private readonly InstructorApplicationBusinessRules _instructorApplicationBusinessRules;
 
-    public InstructorApplicationManager(IInstructorApplicationRepository instructorApplicationRepository, InstructorApplicationBusinessRules instructorApplicationBusinessRules)
+    public InstructorApplicationManager(
+        IInstructorApplicationRepository instructorApplicationRepository,
+        InstructorApplicationBusinessRules instructorApplicationBusinessRules
+    )
     {
         _instructorApplicationRepository = instructorApplicationRepository;
         _instructorApplicationBusinessRules = instructorApplicationBusinessRules;
@@ -26,7 +29,13 @@ public class InstructorApplicationManager : IInstructorApplicationService
         CancellationToken cancellationToken = default
     )
     {
-        InstructorApplication? instructorApplication = await _instructorApplicationRepository.GetAsync(predicate, include, withDeleted, enableTracking, cancellationToken);
+        InstructorApplication? instructorApplication = await _instructorApplicationRepository.GetAsync(
+            predicate,
+            include,
+            withDeleted,
+            enableTracking,
+            cancellationToken
+        );
         return instructorApplication;
     }
 
@@ -63,22 +72,28 @@ public class InstructorApplicationManager : IInstructorApplicationService
 
     public async Task<InstructorApplication> UpdateAsync(InstructorApplication instructorApplication)
     {
-        InstructorApplication updatedInstructorApplication = await _instructorApplicationRepository.UpdateAsync(instructorApplication);
+        InstructorApplication updatedInstructorApplication = await _instructorApplicationRepository.UpdateAsync(
+            instructorApplication
+        );
 
         return updatedInstructorApplication;
     }
 
     public async Task<InstructorApplication> DeleteAsync(InstructorApplication instructorApplication, bool permanent = false)
     {
-        InstructorApplication deletedInstructorApplication = await _instructorApplicationRepository.DeleteAsync(instructorApplication);
+        InstructorApplication deletedInstructorApplication = await _instructorApplicationRepository.DeleteAsync(
+            instructorApplication
+        );
 
         return deletedInstructorApplication;
     }
 
     public async Task<InstructorApplication> ApproveAsync(InstructorApplication instructorApplication)
     {
-        InstructorApplication approvedInstructorApplication = await _instructorApplicationRepository.UpdateAsync(instructorApplication);
-        
+        InstructorApplication approvedInstructorApplication = await _instructorApplicationRepository.UpdateAsync(
+            instructorApplication
+        );
+
         return approvedInstructorApplication;
     }
 }
