@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Application.Common.Services;
+
 public interface IPasswordGenerateService
 {
     string GetRandomPassword();

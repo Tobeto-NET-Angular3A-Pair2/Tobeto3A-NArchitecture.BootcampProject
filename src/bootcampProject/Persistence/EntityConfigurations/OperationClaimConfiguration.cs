@@ -9,9 +9,11 @@ using Application.Features.Bootcamps.Constants;
 using Application.Features.Contacts.Constants;
 using Application.Features.Employees.Constants;
 using Application.Features.Evaluations.Constants;
+using Application.Features.InstructorApplications.Constants;
 using Application.Features.Instructors.Constants;
 using Application.Features.LessonContents.Constants;
 using Application.Features.Lessons.Constants;
+using Application.Features.Messages.Constants;
 using Application.Features.OperationClaims.Constants;
 using Application.Features.Settings.Constants;
 using Application.Features.UserOperationClaims.Constants;
@@ -20,8 +22,6 @@ using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NArchitecture.Core.Security.Constants;
-using Application.Features.InstructorApplications.Constants;
-using Application.Features.Messages.Constants;
 
 namespace Persistence.EntityConfigurations;
 
@@ -270,7 +270,7 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
         );
         #endregion
 
-        
+
         #region InstructorApplications
         featureOperationClaims.AddRange(
             [
@@ -283,8 +283,8 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
             ]
         );
         #endregion
-        
-        
+
+
         #region Messages
         featureOperationClaims.AddRange(
             [

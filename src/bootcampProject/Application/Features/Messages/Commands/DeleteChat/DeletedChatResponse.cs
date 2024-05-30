@@ -1,6 +1,7 @@
 ﻿using NArchitecture.Core.Application.Responses;
 
 namespace Application.Features.Messages.Commands.DeleteChat;
+
 public class DeletedChatResponse : IResponse
 {
     public Guid SenderId { get; set; }

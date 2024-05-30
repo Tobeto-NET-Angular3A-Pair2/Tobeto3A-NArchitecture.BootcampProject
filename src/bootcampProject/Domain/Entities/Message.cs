@@ -1,11 +1,12 @@
-﻿using NArchitecture.Core.Persistence.Repositories;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NArchitecture.Core.Persistence.Repositories;
 
 namespace Domain.Entities;
+
 public class Message : Entity<int>
 {
     public Guid SenderId { get; set; }
@@ -23,8 +24,6 @@ public class Message : Entity<int>
         Content = content;
         IsRead = isRead;
     }
-    public Message()
-    {
-        
-    }
+
+    public Message() { }
 }

@@ -61,7 +61,7 @@ public class CreateInstructorCommand
             );
 
             Instructor instructor = _mapper.Map<Instructor>(request);
-            
+
             instructor.PasswordSalt = passwordSalt;
             instructor.PasswordHash = passwordHash;
 

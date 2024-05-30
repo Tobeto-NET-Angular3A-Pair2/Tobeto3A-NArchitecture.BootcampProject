@@ -3,9 +3,9 @@ using Application.Features.InstructorApplications.Commands.Delete;
 using Application.Features.InstructorApplications.Commands.Update;
 using Application.Features.InstructorApplications.Queries.GetById;
 using Application.Features.InstructorApplications.Queries.GetList;
+using Microsoft.AspNetCore.Mvc;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
-using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
 
@@ -48,7 +48,9 @@ public class InstructorApplicationsController : BaseController
     public async Task<IActionResult> GetList([FromQuery] PageRequest pageRequest)
     {
         GetListInstructorApplicationQuery getListInstructorApplicationQuery = new() { PageRequest = pageRequest };
-        GetListResponse<GetListInstructorApplicationListItemDto> response = await Mediator.Send(getListInstructorApplicationQuery);
+        GetListResponse<GetListInstructorApplicationListItemDto> response = await Mediator.Send(
+            getListInstructorApplicationQuery
+        );
         return Ok(response);
     }
 }

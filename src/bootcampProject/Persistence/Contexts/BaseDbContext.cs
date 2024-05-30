@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Persistence.Contexts;
 
-public class BaseDbContext : DbContext, IBaseDbContext
+public class BaseDbContext : DbContext
 {
     protected IConfiguration Configuration { get; set; }
     public DbSet<EmailAuthenticator> EmailAuthenticators { get; set; }
@@ -31,7 +31,6 @@ public class BaseDbContext : DbContext, IBaseDbContext
     public DbSet<Announcement> Announcements { get; set; }
     public DbSet<Contact> Contacts { get; set; }
     public DbSet<BootcampComment> BootcampComments { get; set; }
-
 
     public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration)
         : base(dbContextOptions)

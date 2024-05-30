@@ -19,16 +19,9 @@ public class MessageConfiguration : IEntityTypeConfiguration<Message>
         builder.Property(m => m.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(m => m.DeletedDate).HasColumnName("DeletedDate");
 
+        builder.HasOne(x => x.User).WithMany(x => x.Messages).HasForeignKey(x => x.SenderId).OnDelete(DeleteBehavior.Restrict);
 
-        builder.HasOne(x => x.User)
-            .WithMany(x => x.Messages)
-            .HasForeignKey(x => x.SenderId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        builder.HasOne(x => x.User)
-            .WithMany(x => x.Messages)
-            .HasForeignKey(x => x.ReceiverId)
-            .OnDelete(DeleteBehavior.Restrict);
+        builder.HasOne(x => x.User).WithMany(x => x.Messages).HasForeignKey(x => x.ReceiverId).OnDelete(DeleteBehavior.Restrict);
 
         builder.HasQueryFilter(m => !m.DeletedDate.HasValue);
     }

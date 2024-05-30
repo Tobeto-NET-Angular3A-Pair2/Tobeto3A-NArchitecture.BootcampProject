@@ -14,14 +14,20 @@ namespace WebAPI.Controllers;
 public class ChatsController : BaseController
 {
     [HttpGet]
-    public async Task<IActionResult> GetChats([FromQuery] GetListMessageQuery getListMessageQuery, CancellationToken cancellationToken)
+    public async Task<IActionResult> GetChats(
+        [FromQuery] GetListMessageQuery getListMessageQuery,
+        CancellationToken cancellationToken
+    )
     {
         GetListResponse<GetListMessageListItemDto> response = await Mediator.Send(getListMessageQuery);
         return Ok(response);
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetChatHistory([FromQuery] GetChatUserListQuery getChatUserListQuery, CancellationToken cancellationToken)
+    public async Task<IActionResult> GetChatHistory(
+        [FromQuery] GetChatUserListQuery getChatUserListQuery,
+        CancellationToken cancellationToken
+    )
     {
         GetListResponse<GetChatUserListItemDto> response = await Mediator.Send(getChatUserListQuery);
 
@@ -29,7 +35,10 @@ public class ChatsController : BaseController
     }
 
     [HttpPost]
-    public async Task<IActionResult> SendMessage([FromBody] CreateMessageCommand createMessageCommand, CancellationToken cancellationToken)
+    public async Task<IActionResult> SendMessage(
+        [FromBody] CreateMessageCommand createMessageCommand,
+        CancellationToken cancellationToken
+    )
     {
         CreatedMessageResponse response = await Mediator.Send(createMessageCommand);
 

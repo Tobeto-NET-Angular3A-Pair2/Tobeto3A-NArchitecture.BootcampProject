@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Application.Features.InstructorApplications.Commands.Approve;
+
 public class ApprovedInstructorApplicationResponse
 {
     public int Id { get; set; }

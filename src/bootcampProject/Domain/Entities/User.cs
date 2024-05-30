@@ -15,5 +15,4 @@ public class User : NArchitecture.Core.Security.Entities.User<Guid>
     public virtual ICollection<EmailAuthenticator> EmailAuthenticators { get; set; } = default!;
     public virtual ICollection<Message>? Messages { get; set; } = new HashSet<Message>();
     public virtual ICollection<BootcampComment> BootcampComments { get; set; }
-
 }
