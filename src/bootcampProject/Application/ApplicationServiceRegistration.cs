@@ -1,7 +1,6 @@
 using System.Reflection;
 using Application.Services.Applicants;
 using Application.Services.ApplicationInformations;
-using Application.Services.ApplicationStates;
 using Application.Services.AuthenticatorService;
 using Application.Services.AuthService;
 using Application.Services.Blacklists;
@@ -32,7 +31,6 @@ using NArchitecture.Core.Mailing.MailKit;
 using NArchitecture.Core.Security.DependencyInjection;
 using Application.Services.Announcements;
 using Application.Services.Contacts;
-
 namespace Application;
 
 public static class ApplicationServiceRegistration
@@ -75,7 +73,6 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IApplicantService, ApplicantManager>();
         services.AddScoped<IEmployeeService, EmployeeManager>();
         services.AddScoped<IInstructorService, InstructorManager>();
-        services.AddScoped<IApplicationStateService, ApplicationStateManager>();
         services.AddScoped<IApplicationInformationService, ApplicationInformationManager>();
         services.AddScoped<IBlacklistService, BlacklistManager>();
         services.AddScoped<ISettingService, SettingManager>();

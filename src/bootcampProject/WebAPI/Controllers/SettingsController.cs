@@ -1,3 +1,4 @@
+using Application.Features.Bootcamps.Commands.Delete;
 using Application.Features.Settings.Commands.Update;
 using Application.Features.Settings.Queries.GetById;
 using Infrastructure.Adapters.ImageService;
@@ -32,11 +33,18 @@ namespace WebAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(IFormFile formFile)
+        public async Task<IActionResult> UpdateImage(IFormFile formFile)
         {
             var result = await _cloudinaryImageServiceAdapter.UploadAsync(formFile);
             UpdatedSettingImageReponse settingsReponse = new UpdatedSettingImageReponse { Url = result };
             return Ok(settingsReponse);
+        }
+        [HttpPost("DeleteImage")]
+        public async Task<IActionResult> DeleteImage(DeleteSettingImageRequest deleteSettingImageRequest)
+        {
+            Console.WriteLine(deleteSettingImageRequest.Url);
+            await _cloudinaryImageServiceAdapter.DeleteAsync(deleteSettingImageRequest.Url);
+            return Ok(new DeleteSettingImageResponse { Response = "Image deleted successfully" });
         }
     }
 }

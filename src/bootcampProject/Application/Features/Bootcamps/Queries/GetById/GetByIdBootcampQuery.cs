@@ -1,3 +1,4 @@
+using Application.Features.Applicants.Constants;
 using Application.Features.Bootcamps.Constants;
 using Application.Features.Bootcamps.Rules;
 using Application.Features.Instructors.Constants;
@@ -20,7 +21,8 @@ public class GetByIdBootcampQuery : IRequest<GetByIdBootcampResponse>, ISecuredR
             BootcampsOperationClaims.Admin,
             BootcampsOperationClaims.Write,
             BootcampsOperationClaims.Create,
-            InstructorsOperationClaims.Admin
+            InstructorsOperationClaims.Admin,
+            ApplicantsOperationClaims.Admin,
        };
     public class GetByIdBootcampQueryHandler : IRequestHandler<GetByIdBootcampQuery, GetByIdBootcampResponse>
     {

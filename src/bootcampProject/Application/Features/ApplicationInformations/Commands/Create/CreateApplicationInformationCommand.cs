@@ -9,6 +9,8 @@ using NArchitecture.Core.Application.Pipelines.Caching;
 using NArchitecture.Core.Application.Pipelines.Logging;
 using NArchitecture.Core.Application.Pipelines.Transaction;
 using static Application.Features.ApplicationInformations.Constants.ApplicationInformationsOperationClaims;
+using static Application.Features.Applicants.Constants.ApplicantsOperationClaims;
+using Application.Features.Applicants.Constants;
 
 namespace Application.Features.ApplicationInformations.Commands.Create;
 
@@ -21,9 +23,10 @@ public class CreateApplicationInformationCommand
 {
     public Guid ApplicantId { get; set; }
     public int BootcampId { get; set; }
-    public int ApplicationStateId { get; set; }
 
-    public string[] Roles => [Admin, Write, ApplicationInformationsOperationClaims.Create];
+    public string[] Roles => [
+        ApplicationInformationsOperationClaims.Admin, 
+        ApplicantsOperationClaims.Admin];
 
     public bool BypassCache { get; }
     public string? CacheKey { get; }
@@ -53,7 +56,7 @@ public class CreateApplicationInformationCommand
         )
         {
             ApplicationInformation applicationInformation = _mapper.Map<ApplicationInformation>(request);
-
+            await _applicationInformationBusinessRules.CheckApplicationInformationDuplicate(applicationInformation.ApplicantId, applicationInformation.BootcampId);
             await _applicationInformationRepository.AddAsync(applicationInformation);
 
             CreatedApplicationInformationResponse response = _mapper.Map<CreatedApplicationInformationResponse>(

@@ -45,4 +45,12 @@ public class ApplicationInformationBusinessRules : BaseBusinessRules
         );
         await ApplicationInformationShouldExistWhenSelected(applicationInformation);
     }
+    public async Task CheckApplicationInformationDuplicate(Guid ApplicantId, int BootcampId)
+    {
+        var item = await _applicationInformationRepository.GetAsync(predicate: p => p.ApplicantId == ApplicantId && p.BootcampId == BootcampId);
+        if (item != null)
+        {
+            throw new BusinessException("You alread applied to this bootcamp!");
+        }
+    }
 }

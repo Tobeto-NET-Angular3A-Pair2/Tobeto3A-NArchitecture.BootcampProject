@@ -10,5 +10,7 @@ public class CreateBlacklistCommandValidator : AbstractValidator<CreateBlacklist
         RuleFor(c => c.Date).NotEmpty();
         RuleFor(c => c.ApplicantId).NotEmpty();
         RuleFor(c => c.Applicant).NotEmpty();
+        RuleFor(c => c.InstructorId).NotEmpty();
+        RuleFor(c => c.Instructor).NotEmpty();
     }
 }

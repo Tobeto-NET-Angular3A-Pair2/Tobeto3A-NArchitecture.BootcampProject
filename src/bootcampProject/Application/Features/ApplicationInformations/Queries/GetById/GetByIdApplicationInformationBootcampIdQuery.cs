@@ -1,4 +1,4 @@
-using Application.Features.Applicants.Constants;
+﻿using Application.Features.Applicants.Constants;
 using Application.Features.ApplicationInformations.Constants;
 using Application.Features.ApplicationInformations.Rules;
 using Application.Services.Repositories;
@@ -10,22 +10,22 @@ using static Application.Features.ApplicationInformations.Constants.ApplicationI
 
 namespace Application.Features.ApplicationInformations.Queries.GetById;
 
-public class GetByIdApplicationInformationQuery : IRequest<GetByIdApplicationInformationResponse>, ISecuredRequest
+public class GetByIdApplicationInformationBootcampIdQuery : IRequest<GetByIdApplicationInformationResponse>, ISecuredRequest
 {
-    public int Id { get; set; }
+    public int BootcampId { get; set; }
 
     public string[] Roles => [
         ApplicationInformationsOperationClaims.Admin,
-        ApplicantsOperationClaims.Read];
+        ApplicantsOperationClaims.Admin];
 
-    public class GetByIdApplicationInformationQueryHandler
-        : IRequestHandler<GetByIdApplicationInformationQuery, GetByIdApplicationInformationResponse>
+    public class GetByIdApplicationInformationBootcampIdQueryHandler
+        : IRequestHandler<GetByIdApplicationInformationBootcampIdQuery, GetByIdApplicationInformationResponse>
     {
         private readonly IMapper _mapper;
         private readonly IApplicationInformationRepository _applicationInformationRepository;
         private readonly ApplicationInformationBusinessRules _applicationInformationBusinessRules;
 
-        public GetByIdApplicationInformationQueryHandler(
+        public GetByIdApplicationInformationBootcampIdQueryHandler(
             IMapper mapper,
             IApplicationInformationRepository applicationInformationRepository,
             ApplicationInformationBusinessRules applicationInformationBusinessRules
@@ -37,12 +37,12 @@ public class GetByIdApplicationInformationQuery : IRequest<GetByIdApplicationInf
         }
 
         public async Task<GetByIdApplicationInformationResponse> Handle(
-            GetByIdApplicationInformationQuery request,
+            GetByIdApplicationInformationBootcampIdQuery request,
             CancellationToken cancellationToken
         )
         {
             ApplicationInformation? applicationInformation = await _applicationInformationRepository.GetAsync(
-                predicate: ai => ai.Id == request.Id,
+                predicate: ai => ai.BootcampId == request.BootcampId,
                 cancellationToken: cancellationToken
             );
             await _applicationInformationBusinessRules.ApplicationInformationShouldExistWhenSelected(applicationInformation);

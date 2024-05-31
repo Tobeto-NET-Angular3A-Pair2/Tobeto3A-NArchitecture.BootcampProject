@@ -1,8 +1,8 @@
-using NArchitecture.Core.Application.Dtos;
+﻿using NArchitecture.Core.Application.Dtos;
 
 namespace Application.Features.ApplicationInformations.Queries.GetList;
 
-public class GetListApplicationInformationListItemDto : IDto
+public class GetListApplicationInformationListBootcampIdItemDto : IDto
 {
     public int Id { get; set; }
     public Guid ApplicantId { get; set; }

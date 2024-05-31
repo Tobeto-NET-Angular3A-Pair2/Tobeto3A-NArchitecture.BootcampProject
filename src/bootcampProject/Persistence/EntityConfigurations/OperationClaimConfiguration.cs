@@ -1,6 +1,5 @@
 using Application.Features.Applicants.Constants;
 using Application.Features.ApplicationInformations.Constants;
-using Application.Features.ApplicationStates.Constants;
 using Application.Features.Auth.Constants;
 using Application.Features.Blacklists.Constants;
 using Application.Features.Bootcamps.Constants;
@@ -155,20 +154,6 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
 
 
 
-        #region ApplicationStates
-        featureOperationClaims.AddRange(
-            [
-                new() { Id = ++lastId, Name = ApplicationStatesOperationClaims.Admin },
-                new() { Id = ++lastId, Name = ApplicationStatesOperationClaims.Read },
-                new() { Id = ++lastId, Name = ApplicationStatesOperationClaims.Write },
-                new() { Id = ++lastId, Name = ApplicationStatesOperationClaims.Create },
-                new() { Id = ++lastId, Name = ApplicationStatesOperationClaims.Update },
-                new() { Id = ++lastId, Name = ApplicationStatesOperationClaims.Delete },
-            ]
-        );
-        #endregion
-
-
         #region ApplicationInformations
         featureOperationClaims.AddRange(
             [
@@ -295,6 +280,7 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
         );
         #endregion
         
+      
         return featureOperationClaims;
     }
 #pragma warning restore S1854 // Unused assignments should be removed

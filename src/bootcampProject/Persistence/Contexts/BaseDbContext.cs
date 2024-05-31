@@ -17,7 +17,6 @@ public class BaseDbContext : DbContext
     public DbSet<Applicant> Applicants { get; set; }
     public DbSet<Employee> Employees { get; set; }
     public DbSet<Instructor> Instructors { get; set; }
-    public DbSet<ApplicationState> ApplicationStates { get; set; }
     public DbSet<ApplicationInformation> ApplicationInformations { get; set; }
     public DbSet<Blacklist> Blacklists { get; set; }
     public DbSet<Bootcamp> Bootcamps { get; set; }

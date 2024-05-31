@@ -8,4 +8,6 @@ public class UpdatedBlacklistResponse : IResponse
     public string Reason { get; set; }
     public DateTime Date { get; set; }
     public Guid ApplicantId { get; set; }
+    public Guid InstructorId { get; set; }
+
 }

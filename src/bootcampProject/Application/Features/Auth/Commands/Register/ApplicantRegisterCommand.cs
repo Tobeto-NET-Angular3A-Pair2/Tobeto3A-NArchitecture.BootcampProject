@@ -36,17 +36,21 @@ public class ApplicantRegisterCommand : IRequest<RegisteredResponse>
         private readonly IAuthService _authService;
         private readonly AuthBusinessRules _authBusinessRules;
         private readonly IApplicantRepository _applicantRepository;
+        private readonly IUserOperationClaimRepository _userOperationClaimRepository;
 
         public RegisterCommandHandler(
             IUserRepository userRepository,
             IAuthService authService,
             AuthBusinessRules authBusinessRules,
-            IApplicantRepository applicantRepository)
+            IApplicantRepository applicantRepository,
+            IUserOperationClaimRepository userOperationClaimRepository)
         {
             _userRepository = userRepository;
             _authService = authService;
             _authBusinessRules = authBusinessRules;
             _applicantRepository = applicantRepository;
+            _userOperationClaimRepository = userOperationClaimRepository;
+
         }
 
         public async Task<RegisteredResponse> Handle(ApplicantRegisterCommand request, CancellationToken cancellationToken)
@@ -72,6 +76,13 @@ public class ApplicantRegisterCommand : IRequest<RegisteredResponse>
                     PasswordSalt = passwordSalt,
                 };
             Applicant createdUser = await _applicantRepository.AddAsync(newUser);
+
+            UserOperationClaim userOperationClaim1 = new() { UserId = createdUser.Id, OperationClaimId = 24 };
+            UserOperationClaim userOperationClaim2 = new() { UserId = createdUser.Id, OperationClaimId = 25 };
+
+            await _userOperationClaimRepository.AddAsync(userOperationClaim1);
+            await _userOperationClaimRepository.AddAsync(userOperationClaim2);
+
 
             AccessToken createdAccessToken = await _authService.CreateAccessToken(createdUser);
 

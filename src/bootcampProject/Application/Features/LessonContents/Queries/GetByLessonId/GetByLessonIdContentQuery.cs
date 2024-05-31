@@ -1,3 +1,4 @@
+using Application.Features.Applicants.Constants;
 using Application.Features.Bootcamps.Constants;
 using Application.Features.Instructors.Constants;
 using Application.Features.LessonContents.Constants;
@@ -21,7 +22,8 @@ public class GetByLessonIdContentQuery : IRequest<GetByLessonIdContentResponse>,
             LessonContentsOperationClaims.Admin,
             LessonContentsOperationClaims.Write,
             LessonContentsOperationClaims.Create,
-            InstructorsOperationClaims.Admin
+            InstructorsOperationClaims.Admin,
+            ApplicantsOperationClaims.Read
        };
 
     public class GetByLessonIdContentQueryHandler : IRequestHandler<GetByLessonIdContentQuery, GetByLessonIdContentResponse>
