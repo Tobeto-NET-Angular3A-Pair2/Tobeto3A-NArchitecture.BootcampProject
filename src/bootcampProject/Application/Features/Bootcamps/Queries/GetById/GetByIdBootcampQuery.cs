@@ -11,19 +11,10 @@ using static Application.Features.Bootcamps.Constants.BootcampsOperationClaims;
 
 namespace Application.Features.Bootcamps.Queries.GetById;
 
-public class GetByIdBootcampQuery : IRequest<GetByIdBootcampResponse>, ISecuredRequest
+public class GetByIdBootcampQuery : IRequest<GetByIdBootcampResponse>
 {
     public int Id { get; set; }
 
-    public string[] Roles =>
-       new[]
-       {
-            BootcampsOperationClaims.Admin,
-            BootcampsOperationClaims.Write,
-            BootcampsOperationClaims.Create,
-            InstructorsOperationClaims.Admin,
-            ApplicantsOperationClaims.Admin,
-       };
     public class GetByIdBootcampQueryHandler : IRequestHandler<GetByIdBootcampQuery, GetByIdBootcampResponse>
     {
         private readonly IMapper _mapper;

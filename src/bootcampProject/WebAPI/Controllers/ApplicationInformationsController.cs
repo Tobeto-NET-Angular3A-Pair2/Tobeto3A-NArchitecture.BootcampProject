@@ -51,6 +51,15 @@ public class ApplicationInformationsController : BaseController
         return Ok(response);
     }
 
+
+    [HttpGet("CheckRegistered")]
+    public async Task<IActionResult> CheckRegistered(int BootcampId,Guid ApplicantId)
+    {
+        bool result = await Mediator.Send(new CheckRegisteredApplicationInformationQuery { BootcampId = BootcampId,ApplicantId = ApplicantId}
+        );
+        return Ok(result);
+    }
+
     [HttpGet]
     public async Task<IActionResult> GetList([FromQuery] PageRequest pageRequest)
     {
