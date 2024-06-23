@@ -18,8 +18,6 @@ public class LessonConfiguration : IEntityTypeConfiguration<Lesson>
 
         builder.HasQueryFilter(l => !l.DeletedDate.HasValue);
 
-        builder.HasMany(l => l.Contents) 
-               .WithOne(c => c.Lesson)    
-               .HasForeignKey(c => c.LessonId); 
+        builder.HasMany(l => l.Contents).WithOne(c => c.Lesson).HasForeignKey(c => c.LessonId);
     }
 }

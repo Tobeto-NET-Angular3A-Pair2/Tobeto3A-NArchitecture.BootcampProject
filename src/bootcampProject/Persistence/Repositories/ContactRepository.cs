@@ -7,7 +7,6 @@ namespace Persistence.Repositories;
 
 public class ContactRepository : EfRepositoryBase<Contact, int, BaseDbContext>, IContactRepository
 {
-    public ContactRepository(BaseDbContext context) : base(context)
-    {
-    }
+    public ContactRepository(BaseDbContext context)
+        : base(context) { }
 }

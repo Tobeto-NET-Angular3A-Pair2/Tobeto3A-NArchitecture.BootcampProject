@@ -18,14 +18,19 @@ public class GetByIdLessonQuery : IRequest<GetByIdLessonResponse>, ISecuredReque
     public int Id { get; set; }
 
     public string[] Roles =>
-       new[]
-       {
+        new[]
+        {
             LessonContentsOperationClaims.Admin,
             LessonContentsOperationClaims.Write,
             LessonContentsOperationClaims.Create,
+<<<<<<< HEAD
             InstructorsOperationClaims.Admin,
             ApplicantsOperationClaims.Admin
        };
+=======
+            InstructorsOperationClaims.Admin
+        };
+>>>>>>> efe93d8cb976260f7ea3ffd6ead0f90e47294978
 
     public class GetByIdLessonQueryHandler : IRequestHandler<GetByIdLessonQuery, GetByIdLessonResponse>
     {

@@ -22,14 +22,19 @@ public class GetListLessonQuery : IRequest<GetListResponse<GetListLessonListItem
     public int BootcampId { get; set; }
 
     public string[] Roles =>
-       new[]
-       {
+        new[]
+        {
             LessonContentsOperationClaims.Admin,
             LessonContentsOperationClaims.Write,
             LessonContentsOperationClaims.Create,
+<<<<<<< HEAD
             InstructorsOperationClaims.Admin,
             ApplicantsOperationClaims.Admin
        };
+=======
+            InstructorsOperationClaims.Admin
+        };
+>>>>>>> efe93d8cb976260f7ea3ffd6ead0f90e47294978
 
     public bool BypassCache { get; }
     public string? CacheKey => $"GetListLessons({PageRequest.PageIndex},{PageRequest.PageSize})";
@@ -53,12 +58,11 @@ public class GetListLessonQuery : IRequest<GetListResponse<GetListLessonListItem
         )
         {
             IPaginate<Lesson> lessons = await _lessonRepository.GetListAsync(
-                 predicate: b => b.BootcampId == request.BootcampId,
-                 index: request.PageRequest.PageIndex,
-                 size: request.PageRequest.PageSize,
-                 cancellationToken: cancellationToken
+                predicate: b => b.BootcampId == request.BootcampId,
+                index: request.PageRequest.PageIndex,
+                size: request.PageRequest.PageSize,
+                cancellationToken: cancellationToken
             );
-           
 
             GetListResponse<GetListLessonListItemDto> response = _mapper.Map<GetListResponse<GetListLessonListItemDto>>(lessons);
             return response;

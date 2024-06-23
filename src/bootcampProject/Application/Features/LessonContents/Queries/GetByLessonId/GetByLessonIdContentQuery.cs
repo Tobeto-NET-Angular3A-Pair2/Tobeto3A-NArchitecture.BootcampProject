@@ -17,14 +17,19 @@ public class GetByLessonIdContentQuery : IRequest<GetByLessonIdContentResponse>,
     public int LessonId { get; set; }
 
     public string[] Roles =>
-       new[]
-       {
+        new[]
+        {
             LessonContentsOperationClaims.Admin,
             LessonContentsOperationClaims.Write,
             LessonContentsOperationClaims.Create,
+<<<<<<< HEAD
             InstructorsOperationClaims.Admin,
             ApplicantsOperationClaims.Read
        };
+=======
+            InstructorsOperationClaims.Admin
+        };
+>>>>>>> efe93d8cb976260f7ea3ffd6ead0f90e47294978
 
     public class GetByLessonIdContentQueryHandler : IRequestHandler<GetByLessonIdContentQuery, GetByLessonIdContentResponse>
     {
@@ -43,7 +48,10 @@ public class GetByLessonIdContentQuery : IRequest<GetByLessonIdContentResponse>,
             _lessonContentBusinessRules = lessonContentBusinessRules;
         }
 
-        public async Task<GetByLessonIdContentResponse> Handle(GetByLessonIdContentQuery request, CancellationToken cancellationToken)
+        public async Task<GetByLessonIdContentResponse> Handle(
+            GetByLessonIdContentQuery request,
+            CancellationToken cancellationToken
+        )
         {
             LessonContent? lessonContent = await _lessonContentRepository.GetAsync(
                 predicate: lc => lc.LessonId == request.LessonId,

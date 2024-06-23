@@ -1,4 +1,5 @@
 using System.Reflection;
+using Application.Common.Interfaces;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -20,12 +21,15 @@ public class BaseDbContext : DbContext
     public DbSet<ApplicationInformation> ApplicationInformations { get; set; }
     public DbSet<Blacklist> Blacklists { get; set; }
     public DbSet<Bootcamp> Bootcamps { get; set; }
+    public DbSet<InstructorApplication> InstructorApplications { get; set; }
+    public DbSet<Message> Messages { get; set; }
     public DbSet<Setting> Settings { get; set; }
     public DbSet<Evaluation> Evaluations { get; set; }
     public DbSet<Lesson> Lessons { get; set; }
     public DbSet<LessonContent> LessonContents { get; set; }
     public DbSet<Announcement> Announcements { get; set; }
     public DbSet<Contact> Contacts { get; set; }
+    public DbSet<BootcampComment> BootcampComments { get; set; }
 
     public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration)
         : base(dbContextOptions)

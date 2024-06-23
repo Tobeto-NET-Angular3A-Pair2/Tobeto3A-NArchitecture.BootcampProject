@@ -3,6 +3,7 @@ using Application.Features.Auth.Commands.EnableOtpAuthenticator;
 using Application.Features.Auth.Commands.Login;
 using Application.Features.Auth.Commands.RefreshToken;
 using Application.Features.Auth.Commands.Register;
+using Application.Features.Auth.Commands.Register.Instructor;
 using Application.Features.Auth.Commands.RevokeToken;
 using Application.Features.Auth.Commands.VerifyEmailAuthenticator;
 using Application.Features.Auth.Commands.VerifyOtpAuthenticator;
@@ -58,12 +59,12 @@ public class AuthController : BaseController
     }
 
     [HttpPost("RegisterInstructor")]
-    public async Task<IActionResult> Register([FromBody] InstructorRegisterDto userForRegisterDto)
+    public async Task<IActionResult> Register([FromBody] InstructorRegisterDto instructorForRegisterDto)
     {
-        InstructorRegisterCommand registerCommand = new() { UserForRegisterDto = userForRegisterDto, IpAddress = getIpAddress() };
-        RegisteredResponse result = await Mediator.Send(registerCommand);
-        setRefreshTokenToCookie(result.RefreshToken);
-        return Created(uri: "", result.AccessToken);
+        RegisterInstructorCommand registerCommand =
+            new() { InstructorForRegisterDto = instructorForRegisterDto, IpAddress = getIpAddress() };
+        RegisteredInstructorResponse result = await Mediator.Send(registerCommand);
+        return Created(uri: "", result);
     }
 
     [HttpGet("RefreshToken")]

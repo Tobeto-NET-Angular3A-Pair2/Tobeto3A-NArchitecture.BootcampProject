@@ -198,6 +198,49 @@ namespace Persistence.Migrations
                     b.ToTable("Bootcamps", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Entities.BootcampComment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BootcampId")
+                        .HasColumnType("int")
+                        .HasColumnName("BootcampId");
+
+                    b.Property<string>("Context")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Context");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreatedDate");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("DeletedDate");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("UpdatedDate");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BootcampId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("BootcampComments", (string)null);
+                });
+
             modelBuilder.Entity("Domain.Entities.Contact", b =>
                 {
                     b.Property<int>("Id")
@@ -324,6 +367,75 @@ namespace Persistence.Migrations
                     b.ToTable("Evaluations", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Entities.InstructorApplication", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AdditionalInformation")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)")
+                        .HasColumnName("AdditionalInformation");
+
+                    b.Property<string>("Comment")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("Comment");
+
+                    b.Property<string>("CompanyName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("CompanyName");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreatedDate");
+
+                    b.Property<DateTime?>("DateOfBirth")
+                        .IsRequired()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("DateOfBirth");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("DeletedDate");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Email");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("FirstName");
+
+                    b.Property<bool?>("IsApproved")
+                        .HasColumnType("bit")
+                        .HasColumnName("IsApproved");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("LastName");
+
+                    b.Property<string>("NationalIdentity")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("NationalIdentity");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("UpdatedDate");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("InstructorApplications", (string)null);
+                });
+
             modelBuilder.Entity("Domain.Entities.Lesson", b =>
                 {
                     b.Property<int>("Id")
@@ -396,6 +508,51 @@ namespace Persistence.Migrations
                     b.HasIndex("LessonId");
 
                     b.ToTable("LessonContents", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Content");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreatedDate");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("DeletedDate");
+
+                    b.Property<bool>("IsRead")
+                        .HasColumnType("bit")
+                        .HasColumnName("IsRead");
+
+                    b.Property<Guid>("ReceiverId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("ReceiverId");
+
+                    b.Property<Guid>("SenderId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("SenderId");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("UpdatedDate");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReceiverId");
+
+                    b.ToTable("Messages", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.OperationClaim", b =>
@@ -967,37 +1124,201 @@ namespace Persistence.Migrations
                         {
                             Id = 90,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+<<<<<<< HEAD
                             Name = "Contacts.Admin"
+=======
+                            Name = "InstructorApplications.Admin"
+>>>>>>> efe93d8cb976260f7ea3ffd6ead0f90e47294978
                         },
                         new
                         {
                             Id = 91,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+<<<<<<< HEAD
                             Name = "Contacts.Read"
+=======
+                            Name = "InstructorApplications.Read"
+>>>>>>> efe93d8cb976260f7ea3ffd6ead0f90e47294978
                         },
                         new
                         {
                             Id = 92,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+<<<<<<< HEAD
                             Name = "Contacts.Write"
+=======
+                            Name = "InstructorApplications.Write"
+>>>>>>> efe93d8cb976260f7ea3ffd6ead0f90e47294978
                         },
                         new
                         {
                             Id = 93,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+<<<<<<< HEAD
                             Name = "Contacts.Create"
+=======
+                            Name = "InstructorApplications.Create"
+>>>>>>> efe93d8cb976260f7ea3ffd6ead0f90e47294978
                         },
                         new
                         {
                             Id = 94,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+<<<<<<< HEAD
                             Name = "Contacts.Update"
+=======
+                            Name = "InstructorApplications.Update"
                         },
                         new
                         {
                             Id = 95,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "InstructorApplications.Delete"
+                        },
+                        new
+                        {
+                            Id = 96,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Messages.Admin"
+                        },
+                        new
+                        {
+                            Id = 97,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Messages.Read"
+                        },
+                        new
+                        {
+                            Id = 98,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Messages.Write"
+                        },
+                        new
+                        {
+                            Id = 99,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Messages.Create"
+                        },
+                        new
+                        {
+                            Id = 100,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Messages.Update"
+>>>>>>> efe93d8cb976260f7ea3ffd6ead0f90e47294978
+                        },
+                        new
+                        {
+                            Id = 95,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Messages.Delete"
+                        },
+                        new
+                        {
+                            Id = 102,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Announcements.Admin"
+                        },
+                        new
+                        {
+                            Id = 103,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Announcements.Read"
+                        },
+                        new
+                        {
+                            Id = 104,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Announcements.Write"
+                        },
+                        new
+                        {
+                            Id = 105,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Announcements.Create"
+                        },
+                        new
+                        {
+                            Id = 106,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Announcements.Update"
+                        },
+                        new
+                        {
+                            Id = 107,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Announcements.Delete"
+                        },
+                        new
+                        {
+                            Id = 108,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Contacts.Admin"
+                        },
+                        new
+                        {
+                            Id = 109,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Contacts.Read"
+                        },
+                        new
+                        {
+                            Id = 110,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Contacts.Write"
+                        },
+                        new
+                        {
+                            Id = 111,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Contacts.Create"
+                        },
+                        new
+                        {
+                            Id = 112,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Contacts.Update"
+                        },
+                        new
+                        {
+                            Id = 113,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Contacts.Delete"
+                        },
+                        new
+                        {
+                            Id = 114,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "BootcampComments.Admin"
+                        },
+                        new
+                        {
+                            Id = 115,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "BootcampComments.Read"
+                        },
+                        new
+                        {
+                            Id = 116,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "BootcampComments.Write"
+                        },
+                        new
+                        {
+                            Id = 117,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "BootcampComments.Create"
+                        },
+                        new
+                        {
+                            Id = 118,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "BootcampComments.Update"
+                        },
+                        new
+                        {
+                            Id = 119,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "BootcampComments.Delete"
                         });
                 });
 
@@ -1185,7 +1506,11 @@ namespace Persistence.Migrations
                         new
                         {
                             Id = 1,
+<<<<<<< HEAD
                             CreatedDate = new DateTime(2024, 5, 31, 0, 32, 54, 361, DateTimeKind.Local).AddTicks(6225),
+=======
+                            CreatedDate = new DateTime(2024, 5, 31, 16, 36, 58, 707, DateTimeKind.Local).AddTicks(7017),
+>>>>>>> efe93d8cb976260f7ea3ffd6ead0f90e47294978
                             Description = "Description",
                             Email = "Email",
                             FaviconUrl = "",
@@ -1273,16 +1598,27 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
+<<<<<<< HEAD
                             Id = new Guid("ad80adff-88a4-43f6-bc14-92607c597da8"),
                             AuthenticatorType = 0,
                             CreatedDate = new DateTime(2024, 5, 31, 0, 32, 54, 362, DateTimeKind.Local).AddTicks(2319),
+=======
+                            Id = new Guid("16272443-f506-4af3-a4e3-226df7d10c9d"),
+                            AuthenticatorType = 0,
+                            CreatedDate = new DateTime(2024, 5, 31, 16, 36, 58, 714, DateTimeKind.Local).AddTicks(5942),
+>>>>>>> efe93d8cb976260f7ea3ffd6ead0f90e47294978
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "narch@kodlama.io",
                             FirstName = "Ays",
                             LastName = "Ayd",
                             NationalIdentity = "",
+<<<<<<< HEAD
                             PasswordHash = new byte[] { 79, 239, 243, 70, 43, 32, 110, 10, 3, 196, 222, 49, 169, 3, 230, 121, 73, 122, 110, 118, 141, 78, 197, 214, 75, 208, 11, 152, 124, 196, 233, 245, 14, 72, 101, 81, 157, 208, 247, 152, 155, 18, 46, 146, 238, 177, 232, 99, 124, 66, 249, 161, 66, 96, 4, 196, 145, 131, 14, 145, 47, 117, 8, 113 },
                             PasswordSalt = new byte[] { 229, 0, 173, 8, 23, 59, 45, 198, 204, 102, 176, 18, 222, 247, 120, 6, 60, 252, 244, 15, 206, 141, 153, 237, 112, 7, 47, 127, 201, 208, 42, 98, 26, 192, 112, 125, 212, 164, 178, 42, 232, 117, 41, 225, 206, 129, 4, 43, 185, 86, 7, 144, 61, 158, 109, 180, 77, 255, 40, 165, 100, 225, 50, 162, 161, 166, 55, 209, 178, 24, 54, 79, 0, 10, 249, 211, 175, 176, 178, 179, 217, 98, 162, 137, 30, 105, 173, 87, 90, 50, 245, 205, 170, 92, 242, 174, 28, 245, 214, 217, 50, 168, 19, 252, 15, 40, 16, 120, 147, 222, 137, 114, 70, 232, 220, 246, 239, 33, 192, 115, 76, 194, 101, 87, 68, 202, 82, 79 },
+=======
+                            PasswordHash = new byte[] { 165, 147, 246, 1, 252, 226, 195, 88, 55, 171, 229, 105, 200, 62, 142, 254, 39, 29, 225, 23, 37, 228, 163, 116, 84, 169, 191, 100, 255, 137, 92, 248, 75, 224, 143, 206, 231, 58, 174, 178, 155, 216, 90, 54, 78, 117, 187, 252, 179, 0, 218, 233, 73, 114, 193, 31, 207, 71, 98, 89, 105, 176, 160, 55 },
+                            PasswordSalt = new byte[] { 85, 255, 255, 85, 221, 88, 145, 29, 218, 251, 123, 219, 252, 168, 113, 234, 199, 178, 223, 148, 46, 159, 220, 181, 84, 233, 26, 180, 79, 50, 55, 251, 230, 193, 177, 55, 171, 240, 213, 113, 72, 252, 213, 128, 104, 105, 179, 54, 207, 109, 91, 74, 145, 152, 34, 204, 151, 191, 200, 174, 4, 95, 253, 233, 105, 50, 134, 109, 237, 81, 213, 221, 242, 34, 27, 123, 140, 23, 29, 233, 202, 131, 136, 151, 242, 121, 7, 20, 73, 131, 6, 26, 185, 212, 64, 42, 131, 255, 194, 147, 105, 40, 20, 82, 186, 147, 81, 153, 133, 109, 52, 205, 10, 217, 229, 222, 63, 29, 177, 34, 46, 69, 16, 118, 144, 140, 46, 17 },
+>>>>>>> efe93d8cb976260f7ea3ffd6ead0f90e47294978
                             UserName = "admin"
                         });
                 });
@@ -1325,10 +1661,17 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
+<<<<<<< HEAD
                             Id = new Guid("b3cdbe5b-bdd6-47b6-bb09-5b26f164dcdd"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OperationClaimId = 1,
                             UserId = new Guid("ad80adff-88a4-43f6-bc14-92607c597da8")
+=======
+                            Id = new Guid("0746607d-c275-41c1-82f8-a798b25a369c"),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OperationClaimId = 1,
+                            UserId = new Guid("16272443-f506-4af3-a4e3-226df7d10c9d")
+>>>>>>> efe93d8cb976260f7ea3ffd6ead0f90e47294978
                         });
                 });
 
@@ -1371,7 +1714,7 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.Announcement", b =>
                 {
                     b.HasOne("Domain.Entities.Instructor", "Instructor")
-                        .WithMany()
+                        .WithMany("Announcements")
                         .HasForeignKey("InstructorId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -1428,6 +1771,25 @@ namespace Persistence.Migrations
                     b.Navigation("Instructor");
                 });
 
+            modelBuilder.Entity("Domain.Entities.BootcampComment", b =>
+                {
+                    b.HasOne("Domain.Entities.Bootcamp", "Bootcamp")
+                        .WithMany("BootcampComments")
+                        .HasForeignKey("BootcampId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.User", "User")
+                        .WithMany("BootcampComments")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Bootcamp");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Domain.Entities.EmailAuthenticator", b =>
                 {
                     b.HasOne("Domain.Entities.User", "User")
@@ -1459,6 +1821,17 @@ namespace Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Lesson");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Message", b =>
+                {
+                    b.HasOne("Domain.Entities.User", "User")
+                        .WithMany("Messages")
+                        .HasForeignKey("ReceiverId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Domain.Entities.OtpAuthenticator", b =>
@@ -1532,6 +1905,8 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.Bootcamp", b =>
                 {
                     b.Navigation("Applications");
+
+                    b.Navigation("BootcampComments");
                 });
 
             modelBuilder.Entity("Domain.Entities.Lesson", b =>
@@ -1543,7 +1918,11 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.User", b =>
                 {
+                    b.Navigation("BootcampComments");
+
                     b.Navigation("EmailAuthenticators");
+
+                    b.Navigation("Messages");
 
                     b.Navigation("OtpAuthenticators");
 
@@ -1561,6 +1940,8 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.Instructor", b =>
                 {
+                    b.Navigation("Announcements");
+
                     b.Navigation("Bootcamps");
                 });
 #pragma warning restore 612, 618

@@ -1,3 +1,4 @@
+using Application.Common.Interfaces;
 using Application.Services.Repositories;
 using Infrastructure.Adapters.ImageService;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,7 @@ public static class PersistenceServiceRegistration
         services.AddDbContext<BaseDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("BootcampProjectNArchitecture"))
         );
+
         services.AddDbMigrationApplier(buildServices => buildServices.GetRequiredService<BaseDbContext>());
 
         services.AddScoped<IEmailAuthenticatorRepository, EmailAuthenticatorRepository>();
@@ -35,8 +37,12 @@ public static class PersistenceServiceRegistration
         services.AddScoped<ILessonRepository, LessonRepository>();
         services.AddScoped<ILessonContentRepository, LessonContentRepository>();
         services.AddScoped<IBootcampRepository, BootcampRepository>();
+        services.AddScoped<IInstructorApplicationRepository, InstructorApplicationRepository>();
+        services.AddScoped<IMessageRepository, MessageRepository>();
         services.AddScoped<IAnnouncementRepository, AnnouncementRepository>();
         services.AddScoped<IContactRepository, ContactRepository>();
+        services.AddScoped<IBootcampCommentRepository, BootcampCommentRepository>();
+
         return services;
     }
 }

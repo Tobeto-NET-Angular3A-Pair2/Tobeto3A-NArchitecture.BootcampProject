@@ -26,7 +26,5 @@ public class MappingProfiles : Profile
         CreateMap<Lesson, GetListBootcampLessonItemDto>().ReverseMap();
         CreateMap<Paginate<Lesson>, GetListResponse<GetListBootcampLessonItemDto>>();
         CreateMap<IPaginate<Lesson>, GetListResponse<GetListLessonListItemDto>>().ReverseMap();
-     
-
     }
 }

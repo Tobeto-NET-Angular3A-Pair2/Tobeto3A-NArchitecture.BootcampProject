@@ -1,4 +1,5 @@
 using Application;
+using Application.Common.Interfaces;
 using Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -15,6 +16,8 @@ using NArchitecture.Core.Security.WebApi.Swagger.Extensions;
 using Persistence;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using WebAPI;
+using WebAPI.Hubs;
+using WebAPI.Services;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -30,7 +33,7 @@ builder.Services.AddApplicationServices(
         ?? throw new InvalidOperationException("ElasticSearchConfig section cannot found in configuration.")
 );
 builder.Services.AddPersistenceServices(builder.Configuration);
-builder.Services.AddInfrastructureServices();
+builder.Services.AddInfrastructureServices(builder.Environment.WebRootPath);
 builder.Services.AddHttpContextAccessor();
 
 const string tokenOptionsConfigurationSection = "TokenOptions";
@@ -81,6 +84,10 @@ builder.Services.AddSwaggerGen(opt =>
     opt.OperationFilter<BearerSecurityRequirementOperationFilter>();
 });
 
+builder.Services.AddSignalR();
+
+builder.Services.AddScoped<IChatHubService, ChatHubManager>();
+
 WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -98,6 +105,8 @@ if (app.Environment.IsProduction())
 
 app.UseDbMigrationApplier();
 
+app.UseStaticFiles();
+
 app.UseAuthentication();
 app.UseAuthorization();
 
@@ -110,5 +119,7 @@ WebApiConfiguration webApiConfiguration =
 app.UseCors(opt => opt.WithOrigins(webApiConfiguration.AllowedOrigins).AllowAnyHeader().AllowAnyMethod().AllowCredentials());
 
 app.UseResponseLocalization();
+
+app.MapHub<ChatHub>("/Hubs/ChatHub");
 
 app.Run();

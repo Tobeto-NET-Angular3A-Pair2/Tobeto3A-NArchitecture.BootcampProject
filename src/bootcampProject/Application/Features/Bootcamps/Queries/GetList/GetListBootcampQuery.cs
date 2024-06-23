@@ -17,6 +17,18 @@ public class GetListBootcampQuery : IRequest<GetListResponse<GetListBootcampList
 {
     public PageRequest PageRequest { get; set; }
 
+<<<<<<< HEAD
+=======
+    public string[] Roles =>
+        new[]
+        {
+            BootcampsOperationClaims.Admin,
+            BootcampsOperationClaims.Write,
+            BootcampsOperationClaims.Create,
+            InstructorsOperationClaims.Admin
+        };
+
+>>>>>>> efe93d8cb976260f7ea3ffd6ead0f90e47294978
     public bool BypassCache { get; }
     public string? CacheKey => $"GetListBootcamps({PageRequest.PageIndex},{PageRequest.PageSize})";
     public string? CacheGroupKey => "GetBootcamps";

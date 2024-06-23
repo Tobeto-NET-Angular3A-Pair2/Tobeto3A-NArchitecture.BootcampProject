@@ -8,6 +8,7 @@ using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Caching;
 using NArchitecture.Core.Application.Pipelines.Logging;
 using NArchitecture.Core.Application.Pipelines.Transaction;
+using NArchitecture.Core.Security.Hashing;
 using static Application.Features.Instructors.Constants.InstructorsOperationClaims;
 
 namespace Application.Features.Instructors.Commands.Update;
@@ -27,6 +28,7 @@ public class UpdateInstructorCommand
     public string NationalIdentity { get; set; }
     public string Email { get; set; }
     public string CompanyName { get; set; }
+    public string Password { get; set; }
 
     public string[] Roles => [Admin, Write, InstructorsOperationClaims.Update];
 
@@ -57,8 +59,18 @@ public class UpdateInstructorCommand
                 predicate: i => i.Id == request.Id,
                 cancellationToken: cancellationToken
             );
+
+            HashingHelper.CreatePasswordHash(
+                request.Password,
+                passwordHash: out byte[] passwordHash,
+                passwordSalt: out byte[] passwordSalt
+            );
+
             await _instructorBusinessRules.InstructorShouldExistWhenSelected(instructor);
             instructor = _mapper.Map(request, instructor);
+
+            instructor.PasswordHash = passwordHash;
+            instructor.PasswordSalt = passwordSalt;
 
             await _instructorRepository.UpdateAsync(instructor!);
 

@@ -21,14 +21,19 @@ public class GetListBootcampLessonQuery : IRequest<GetListResponse<GetListBootca
     public PageRequest PageRequest { get; set; }
 
     public string[] Roles =>
-       new[]
-       {
+        new[]
+        {
             LessonContentsOperationClaims.Admin,
             LessonContentsOperationClaims.Write,
             LessonContentsOperationClaims.Create,
+<<<<<<< HEAD
             InstructorsOperationClaims.Admin,
             ApplicantsOperationClaims.Read
        };
+=======
+            InstructorsOperationClaims.Admin
+        };
+>>>>>>> efe93d8cb976260f7ea3ffd6ead0f90e47294978
 
     public bool BypassCache { get; }
     public string? CacheKey => $"GetListBootcampLesson({PageRequest.PageIndex},{PageRequest.PageSize})";
@@ -60,9 +65,9 @@ public class GetListBootcampLessonQuery : IRequest<GetListResponse<GetListBootca
             );
             Console.WriteLine($"Retrieved Bootcamps Count: {lessons.Items.Count}");
 
-            GetListResponse<GetListBootcampLessonItemDto> response = _mapper.Map<
-                GetListResponse<GetListBootcampLessonItemDto>
-            >(lessons);
+            GetListResponse<GetListBootcampLessonItemDto> response = _mapper.Map<GetListResponse<GetListBootcampLessonItemDto>>(
+                lessons
+            );
             return response;
         }
     }

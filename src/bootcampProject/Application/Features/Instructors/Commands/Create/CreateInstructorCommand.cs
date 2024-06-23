@@ -8,6 +8,7 @@ using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Application.Pipelines.Caching;
 using NArchitecture.Core.Application.Pipelines.Logging;
 using NArchitecture.Core.Application.Pipelines.Transaction;
+using NArchitecture.Core.Security.Hashing;
 using static Application.Features.Instructors.Constants.InstructorsOperationClaims;
 
 namespace Application.Features.Instructors.Commands.Create;
@@ -26,6 +27,7 @@ public class CreateInstructorCommand
     public string NationalIdentity { get; set; }
     public string Email { get; set; }
     public string CompanyName { get; set; }
+    public string Password { get; set; }
 
     public string[] Roles => [Admin, Write, InstructorsOperationClaims.Create];
 
@@ -52,7 +54,16 @@ public class CreateInstructorCommand
 
         public async Task<CreatedInstructorResponse> Handle(CreateInstructorCommand request, CancellationToken cancellationToken)
         {
+            HashingHelper.CreatePasswordHash(
+                request.Password,
+                passwordHash: out byte[] passwordHash,
+                passwordSalt: out byte[] passwordSalt
+            );
+
             Instructor instructor = _mapper.Map<Instructor>(request);
+
+            instructor.PasswordSalt = passwordSalt;
+            instructor.PasswordHash = passwordHash;
 
             await _instructorRepository.AddAsync(instructor);
 

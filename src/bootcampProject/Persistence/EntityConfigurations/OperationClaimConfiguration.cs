@@ -1,13 +1,18 @@
+using Application.Features.Announcements.Constants;
 using Application.Features.Applicants.Constants;
 using Application.Features.ApplicationInformations.Constants;
 using Application.Features.Auth.Constants;
 using Application.Features.Blacklists.Constants;
+using Application.Features.BootcampComments.Constants;
 using Application.Features.Bootcamps.Constants;
+using Application.Features.Contacts.Constants;
 using Application.Features.Employees.Constants;
 using Application.Features.Evaluations.Constants;
+using Application.Features.InstructorApplications.Constants;
 using Application.Features.Instructors.Constants;
 using Application.Features.LessonContents.Constants;
 using Application.Features.Lessons.Constants;
+using Application.Features.Messages.Constants;
 using Application.Features.OperationClaims.Constants;
 using Application.Features.Settings.Constants;
 using Application.Features.UserOperationClaims.Constants;
@@ -16,8 +21,6 @@ using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NArchitecture.Core.Security.Constants;
-using Application.Features.Announcements.Constants;
-using Application.Features.Contacts.Constants;
 
 namespace Persistence.EntityConfigurations;
 
@@ -252,7 +255,35 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
         );
         #endregion
 
-        
+
+        #region InstructorApplications
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = InstructorApplicationsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = InstructorApplicationsOperationClaims.Read },
+                new() { Id = ++lastId, Name = InstructorApplicationsOperationClaims.Write },
+                new() { Id = ++lastId, Name = InstructorApplicationsOperationClaims.Create },
+                new() { Id = ++lastId, Name = InstructorApplicationsOperationClaims.Update },
+                new() { Id = ++lastId, Name = InstructorApplicationsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+
+
+        #region Messages
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = MessagesOperationClaims.Admin },
+                new() { Id = ++lastId, Name = MessagesOperationClaims.Read },
+                new() { Id = ++lastId, Name = MessagesOperationClaims.Write },
+                new() { Id = ++lastId, Name = MessagesOperationClaims.Create },
+                new() { Id = ++lastId, Name = MessagesOperationClaims.Update },
+                new() { Id = ++lastId, Name = MessagesOperationClaims.Delete },
+            ]
+        );
+        #endregion
+
+
         #region Announcements
         featureOperationClaims.AddRange(
             [
@@ -265,8 +296,8 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
             ]
         );
         #endregion
-        
-        
+
+
         #region Contacts
         featureOperationClaims.AddRange(
             [
@@ -279,8 +310,26 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
             ]
         );
         #endregion
+<<<<<<< HEAD
         
       
+=======
+
+
+        #region BootcampComments
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = BootcampCommentsOperationClaims.Admin },
+                new() { Id = ++lastId, Name = BootcampCommentsOperationClaims.Read },
+                new() { Id = ++lastId, Name = BootcampCommentsOperationClaims.Write },
+                new() { Id = ++lastId, Name = BootcampCommentsOperationClaims.Create },
+                new() { Id = ++lastId, Name = BootcampCommentsOperationClaims.Update },
+                new() { Id = ++lastId, Name = BootcampCommentsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+
+>>>>>>> efe93d8cb976260f7ea3ffd6ead0f90e47294978
         return featureOperationClaims;
     }
 #pragma warning restore S1854 // Unused assignments should be removed

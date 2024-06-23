@@ -1,4 +1,9 @@
-﻿using Application.Features.Auth.Commands.Register;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Application.Features.Auth.Commands.Register;
 using Application.Features.Auth.Rules;
 using Application.Services.AuthService;
 using Application.Services.Repositories;
@@ -6,13 +11,9 @@ using Domain.Entities;
 using MediatR;
 using NArchitecture.Core.Security.Hashing;
 using NArchitecture.Core.Security.JWT;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Features.Auth.Commands.RefreshToken;
+
 public class ApplicantRegisterCommand : IRequest<RegisteredResponse>
 {
     public ApplicantRegisterDto UserForRegisterDto { get; set; }
@@ -42,8 +43,13 @@ public class ApplicantRegisterCommand : IRequest<RegisteredResponse>
             IUserRepository userRepository,
             IAuthService authService,
             AuthBusinessRules authBusinessRules,
+<<<<<<< HEAD
             IApplicantRepository applicantRepository,
             IUserOperationClaimRepository userOperationClaimRepository)
+=======
+            IApplicantRepository applicantRepository
+        )
+>>>>>>> efe93d8cb976260f7ea3ffd6ead0f90e47294978
         {
             _userRepository = userRepository;
             _authService = authService;

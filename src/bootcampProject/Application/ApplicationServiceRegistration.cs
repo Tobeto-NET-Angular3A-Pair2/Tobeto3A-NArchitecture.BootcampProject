@@ -1,15 +1,21 @@
 using System.Reflection;
+using Application.Common.Services;
+using Application.Services.Announcements;
 using Application.Services.Applicants;
 using Application.Services.ApplicationInformations;
 using Application.Services.AuthenticatorService;
 using Application.Services.AuthService;
 using Application.Services.Blacklists;
+using Application.Services.BootcampComments;
 using Application.Services.Bootcamps;
+using Application.Services.Contacts;
 using Application.Services.Employees;
 using Application.Services.Evaluations;
+using Application.Services.InstructorApplications;
 using Application.Services.Instructors;
 using Application.Services.LessonContents;
 using Application.Services.Lessons;
+using Application.Services.Messages;
 using Application.Services.Settings;
 using Application.Services.UsersService;
 using FluentValidation;
@@ -29,8 +35,12 @@ using NArchitecture.Core.Localization.Resource.Yaml.DependencyInjection;
 using NArchitecture.Core.Mailing;
 using NArchitecture.Core.Mailing.MailKit;
 using NArchitecture.Core.Security.DependencyInjection;
+<<<<<<< HEAD
 using Application.Services.Announcements;
 using Application.Services.Contacts;
+=======
+
+>>>>>>> efe93d8cb976260f7ea3ffd6ead0f90e47294978
 namespace Application;
 
 public static class ApplicationServiceRegistration
@@ -80,8 +90,15 @@ public static class ApplicationServiceRegistration
         services.AddScoped<ILessonService, LessonManager>();
         services.AddScoped<ILessonContentService, LessonContentManager>();
         services.AddScoped<IBootcampService, BootcampManager>();
+        services.AddScoped<IInstructorApplicationService, InstructorApplicationManager>();
+
+        services.AddScoped<IPasswordGenerateService, PasswordGenerateManager>();
+
+        services.AddScoped<IMessageService, MessageManager>();
         services.AddScoped<IAnnouncementService, AnnouncementManager>();
         services.AddScoped<IContactService, ContactManager>();
+        services.AddScoped<IBootcampCommentService, BootcampCommentManager>();
+
         return services;
     }
 
