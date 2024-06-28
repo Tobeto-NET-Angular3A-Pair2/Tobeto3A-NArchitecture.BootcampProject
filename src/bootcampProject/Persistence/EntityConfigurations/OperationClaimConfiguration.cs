@@ -1,7 +1,6 @@
 using Application.Features.Announcements.Constants;
 using Application.Features.Applicants.Constants;
 using Application.Features.ApplicationInformations.Constants;
-using Application.Features.ApplicationStates.Constants;
 using Application.Features.Auth.Constants;
 using Application.Features.Blacklists.Constants;
 using Application.Features.BootcampComments.Constants;
@@ -152,21 +151,6 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
                 new() { Id = ++lastId, Name = InstructorsOperationClaims.Create },
                 new() { Id = ++lastId, Name = InstructorsOperationClaims.Update },
                 new() { Id = ++lastId, Name = InstructorsOperationClaims.Delete },
-            ]
-        );
-        #endregion
-
-
-
-        #region ApplicationStates
-        featureOperationClaims.AddRange(
-            [
-                new() { Id = ++lastId, Name = ApplicationStatesOperationClaims.Admin },
-                new() { Id = ++lastId, Name = ApplicationStatesOperationClaims.Read },
-                new() { Id = ++lastId, Name = ApplicationStatesOperationClaims.Write },
-                new() { Id = ++lastId, Name = ApplicationStatesOperationClaims.Create },
-                new() { Id = ++lastId, Name = ApplicationStatesOperationClaims.Update },
-                new() { Id = ++lastId, Name = ApplicationStatesOperationClaims.Delete },
             ]
         );
         #endregion

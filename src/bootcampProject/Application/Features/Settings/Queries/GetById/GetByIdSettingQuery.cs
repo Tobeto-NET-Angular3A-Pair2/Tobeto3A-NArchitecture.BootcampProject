@@ -9,11 +9,10 @@ using static Application.Features.Settings.Constants.SettingsOperationClaims;
 
 namespace Application.Features.Settings.Queries.GetById;
 
-public class GetByIdSettingQuery : IRequest<GetByIdSettingResponse>, ISecuredRequest
+public class GetByIdSettingQuery : IRequest<GetByIdSettingResponse>
 {
     public int Id { get; set; }
 
-    public string[] Roles => [Admin, Read];
 
     public class GetByIdSettingQueryHandler : IRequestHandler<GetByIdSettingQuery, GetByIdSettingResponse>
     {

@@ -7,6 +7,7 @@ public class CreateBootcampCommandValidator : AbstractValidator<CreateBootcampCo
     public CreateBootcampCommandValidator()
     {
         RuleFor(c => c.Name).NotEmpty();
+        RuleFor(c => c.Description).NotEmpty();
         RuleFor(c => c.InstructorId).NotEmpty();
         RuleFor(c => c.BootcampState).NotEmpty();
     }

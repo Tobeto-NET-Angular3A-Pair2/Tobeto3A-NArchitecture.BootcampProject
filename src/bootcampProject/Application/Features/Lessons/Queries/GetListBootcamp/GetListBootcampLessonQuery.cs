@@ -1,3 +1,4 @@
+using Application.Features.Applicants.Constants;
 using Application.Features.Bootcamps.Constants;
 using Application.Features.Instructors.Constants;
 using Application.Features.LessonContents.Constants;
@@ -25,7 +26,8 @@ public class GetListBootcampLessonQuery : IRequest<GetListResponse<GetListBootca
             LessonContentsOperationClaims.Admin,
             LessonContentsOperationClaims.Write,
             LessonContentsOperationClaims.Create,
-            InstructorsOperationClaims.Admin
+            InstructorsOperationClaims.Admin,
+            ApplicantsOperationClaims.Read
         };
 
     public bool BypassCache { get; }

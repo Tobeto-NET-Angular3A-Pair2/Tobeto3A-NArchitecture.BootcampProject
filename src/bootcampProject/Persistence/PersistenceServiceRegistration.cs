@@ -30,7 +30,6 @@ public static class PersistenceServiceRegistration
         services.AddScoped<IApplicantRepository, ApplicantRepository>();
         services.AddScoped<IEmployeeRepository, EmployeeRepository>();
         services.AddScoped<IInstructorRepository, InstructorRepository>();
-        services.AddScoped<IApplicationStateRepository, ApplicationStateRepository>();
         services.AddScoped<IApplicationInformationRepository, ApplicationInformationRepository>();
         services.AddScoped<IBlacklistRepository, BlacklistRepository>();
         services.AddScoped<ISettingRepository, SettingRepository>();

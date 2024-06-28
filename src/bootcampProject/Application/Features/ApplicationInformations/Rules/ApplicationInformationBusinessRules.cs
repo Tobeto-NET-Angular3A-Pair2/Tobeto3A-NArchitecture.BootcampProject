@@ -20,6 +20,14 @@ public class ApplicationInformationBusinessRules : BaseBusinessRules
         _applicationInformationRepository = applicationInformationRepository;
         _localizationService = localizationService;
     }
+    public async Task CheckApplicationInformationDuplicate(Guid ApplicantId, int BootcampId)
+    {
+        var item = await _applicationInformationRepository.GetAsync(predicate: p => p.ApplicantId == ApplicantId && p.BootcampId == BootcampId);
+        if (item != null)
+        {
+            throw new BusinessException("You already applied to this bootcamp!");
+        }
+    }
 
     private async Task throwBusinessException(string messageKey)
     {

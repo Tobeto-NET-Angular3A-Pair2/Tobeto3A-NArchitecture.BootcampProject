@@ -12,7 +12,7 @@ using Persistence.Contexts;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
-    [Migration("20240531133702_InitialCreate")]
+    [Migration("20240626181747_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -80,10 +80,6 @@ namespace Persistence.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("ApplicantId");
 
-                    b.Property<int>("ApplicationStateId")
-                        .HasColumnType("int")
-                        .HasColumnName("ApplicationStateId");
-
                     b.Property<int>("BootcampId")
                         .HasColumnType("int")
                         .HasColumnName("BootcampId");
@@ -104,43 +100,9 @@ namespace Persistence.Migrations
 
                     b.HasIndex("ApplicantId");
 
-                    b.HasIndex("ApplicationStateId")
-                        .IsUnique();
-
                     b.HasIndex("BootcampId");
 
                     b.ToTable("ApplicationInformations", (string)null);
-                });
-
-            modelBuilder.Entity("Domain.Entities.ApplicationState", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("Id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CreatedDate");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("DeletedDate");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Name");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("UpdatedDate");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ApplicationStates", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Blacklist", b =>
@@ -209,6 +171,10 @@ namespace Persistence.Migrations
                     b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2")
                         .HasColumnName("DeletedDate");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("InstructorId")
                         .HasColumnType("uniqueidentifier")
@@ -868,467 +834,431 @@ namespace Persistence.Migrations
                         {
                             Id = 42,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ApplicationStates.Admin"
+                            Name = "ApplicationInformations.Admin"
                         },
                         new
                         {
                             Id = 43,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ApplicationStates.Read"
+                            Name = "ApplicationInformations.Read"
                         },
                         new
                         {
                             Id = 44,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ApplicationStates.Write"
+                            Name = "ApplicationInformations.Write"
                         },
                         new
                         {
                             Id = 45,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ApplicationStates.Create"
+                            Name = "ApplicationInformations.Create"
                         },
                         new
                         {
                             Id = 46,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ApplicationStates.Update"
+                            Name = "ApplicationInformations.Update"
                         },
                         new
                         {
                             Id = 47,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ApplicationStates.Delete"
+                            Name = "ApplicationInformations.Delete"
                         },
                         new
                         {
                             Id = 48,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ApplicationInformations.Admin"
+                            Name = "Blacklists.Admin"
                         },
                         new
                         {
                             Id = 49,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ApplicationInformations.Read"
+                            Name = "Blacklists.Read"
                         },
                         new
                         {
                             Id = 50,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ApplicationInformations.Write"
+                            Name = "Blacklists.Write"
                         },
                         new
                         {
                             Id = 51,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ApplicationInformations.Create"
+                            Name = "Blacklists.Create"
                         },
                         new
                         {
                             Id = 52,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ApplicationInformations.Update"
+                            Name = "Blacklists.Update"
                         },
                         new
                         {
                             Id = 53,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ApplicationInformations.Delete"
+                            Name = "Blacklists.Delete"
                         },
                         new
                         {
                             Id = 54,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Blacklists.Admin"
+                            Name = "Settings.Admin"
                         },
                         new
                         {
                             Id = 55,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Blacklists.Read"
+                            Name = "Settings.Read"
                         },
                         new
                         {
                             Id = 56,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Blacklists.Write"
+                            Name = "Settings.Write"
                         },
                         new
                         {
                             Id = 57,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Blacklists.Create"
+                            Name = "Settings.Create"
                         },
                         new
                         {
                             Id = 58,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Blacklists.Update"
+                            Name = "Settings.Update"
                         },
                         new
                         {
                             Id = 59,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Blacklists.Delete"
+                            Name = "Settings.Delete"
                         },
                         new
                         {
                             Id = 60,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Settings.Admin"
+                            Name = "Evaluations.Admin"
                         },
                         new
                         {
                             Id = 61,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Settings.Read"
+                            Name = "Evaluations.Read"
                         },
                         new
                         {
                             Id = 62,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Settings.Write"
+                            Name = "Evaluations.Write"
                         },
                         new
                         {
                             Id = 63,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Settings.Create"
+                            Name = "Evaluations.Create"
                         },
                         new
                         {
                             Id = 64,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Settings.Update"
+                            Name = "Evaluations.Update"
                         },
                         new
                         {
                             Id = 65,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Settings.Delete"
+                            Name = "Evaluations.Delete"
                         },
                         new
                         {
                             Id = 66,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Evaluations.Admin"
+                            Name = "Lessons.Admin"
                         },
                         new
                         {
                             Id = 67,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Evaluations.Read"
+                            Name = "Lessons.Read"
                         },
                         new
                         {
                             Id = 68,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Evaluations.Write"
+                            Name = "Lessons.Write"
                         },
                         new
                         {
                             Id = 69,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Evaluations.Create"
+                            Name = "Lessons.Create"
                         },
                         new
                         {
                             Id = 70,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Evaluations.Update"
+                            Name = "Lessons.Update"
                         },
                         new
                         {
                             Id = 71,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Evaluations.Delete"
+                            Name = "Lessons.Delete"
                         },
                         new
                         {
                             Id = 72,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Lessons.Admin"
+                            Name = "LessonContents.Admin"
                         },
                         new
                         {
                             Id = 73,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Lessons.Read"
+                            Name = "LessonContents.Read"
                         },
                         new
                         {
                             Id = 74,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Lessons.Write"
+                            Name = "LessonContents.Write"
                         },
                         new
                         {
                             Id = 75,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Lessons.Create"
+                            Name = "LessonContents.Create"
                         },
                         new
                         {
                             Id = 76,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Lessons.Update"
+                            Name = "LessonContents.Update"
                         },
                         new
                         {
                             Id = 77,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Lessons.Delete"
+                            Name = "LessonContents.Delete"
                         },
                         new
                         {
                             Id = 78,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "LessonContents.Admin"
+                            Name = "Bootcamps.Admin"
                         },
                         new
                         {
                             Id = 79,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "LessonContents.Read"
+                            Name = "Bootcamps.Read"
                         },
                         new
                         {
                             Id = 80,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "LessonContents.Write"
+                            Name = "Bootcamps.Write"
                         },
                         new
                         {
                             Id = 81,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "LessonContents.Create"
+                            Name = "Bootcamps.Create"
                         },
                         new
                         {
                             Id = 82,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "LessonContents.Update"
+                            Name = "Bootcamps.Update"
                         },
                         new
                         {
                             Id = 83,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "LessonContents.Delete"
+                            Name = "Bootcamps.Delete"
                         },
                         new
                         {
                             Id = 84,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Bootcamps.Admin"
+                            Name = "InstructorApplications.Admin"
                         },
                         new
                         {
                             Id = 85,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Bootcamps.Read"
+                            Name = "InstructorApplications.Read"
                         },
                         new
                         {
                             Id = 86,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Bootcamps.Write"
+                            Name = "InstructorApplications.Write"
                         },
                         new
                         {
                             Id = 87,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Bootcamps.Create"
+                            Name = "InstructorApplications.Create"
                         },
                         new
                         {
                             Id = 88,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Bootcamps.Update"
+                            Name = "InstructorApplications.Update"
                         },
                         new
                         {
                             Id = 89,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Bootcamps.Delete"
+                            Name = "InstructorApplications.Delete"
                         },
                         new
                         {
                             Id = 90,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "InstructorApplications.Admin"
+                            Name = "Messages.Admin"
                         },
                         new
                         {
                             Id = 91,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "InstructorApplications.Read"
+                            Name = "Messages.Read"
                         },
                         new
                         {
                             Id = 92,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "InstructorApplications.Write"
+                            Name = "Messages.Write"
                         },
                         new
                         {
                             Id = 93,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "InstructorApplications.Create"
+                            Name = "Messages.Create"
                         },
                         new
                         {
                             Id = 94,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "InstructorApplications.Update"
+                            Name = "Messages.Update"
                         },
                         new
                         {
                             Id = 95,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "InstructorApplications.Delete"
+                            Name = "Messages.Delete"
                         },
                         new
                         {
                             Id = 96,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Messages.Admin"
+                            Name = "Announcements.Admin"
                         },
                         new
                         {
                             Id = 97,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Messages.Read"
+                            Name = "Announcements.Read"
                         },
                         new
                         {
                             Id = 98,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Messages.Write"
+                            Name = "Announcements.Write"
                         },
                         new
                         {
                             Id = 99,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Messages.Create"
+                            Name = "Announcements.Create"
                         },
                         new
                         {
                             Id = 100,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Messages.Update"
+                            Name = "Announcements.Update"
                         },
                         new
                         {
                             Id = 101,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Messages.Delete"
+                            Name = "Announcements.Delete"
                         },
                         new
                         {
                             Id = 102,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Announcements.Admin"
+                            Name = "Contacts.Admin"
                         },
                         new
                         {
                             Id = 103,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Announcements.Read"
+                            Name = "Contacts.Read"
                         },
                         new
                         {
                             Id = 104,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Announcements.Write"
+                            Name = "Contacts.Write"
                         },
                         new
                         {
                             Id = 105,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Announcements.Create"
+                            Name = "Contacts.Create"
                         },
                         new
                         {
                             Id = 106,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Announcements.Update"
+                            Name = "Contacts.Update"
                         },
                         new
                         {
                             Id = 107,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Announcements.Delete"
+                            Name = "Contacts.Delete"
                         },
                         new
                         {
                             Id = 108,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Contacts.Admin"
+                            Name = "BootcampComments.Admin"
                         },
                         new
                         {
                             Id = 109,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Contacts.Read"
+                            Name = "BootcampComments.Read"
                         },
                         new
                         {
                             Id = 110,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Contacts.Write"
+                            Name = "BootcampComments.Write"
                         },
                         new
                         {
                             Id = 111,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Contacts.Create"
+                            Name = "BootcampComments.Create"
                         },
                         new
                         {
                             Id = 112,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Contacts.Update"
-                        },
-                        new
-                        {
-                            Id = 113,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Contacts.Delete"
-                        },
-                        new
-                        {
-                            Id = 114,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "BootcampComments.Admin"
-                        },
-                        new
-                        {
-                            Id = 115,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "BootcampComments.Read"
-                        },
-                        new
-                        {
-                            Id = 116,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "BootcampComments.Write"
-                        },
-                        new
-                        {
-                            Id = 117,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "BootcampComments.Create"
-                        },
-                        new
-                        {
-                            Id = 118,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "BootcampComments.Update"
                         },
                         new
                         {
-                            Id = 119,
+                            Id = 113,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "BootcampComments.Delete"
                         });
@@ -1518,7 +1448,7 @@ namespace Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 5, 31, 16, 36, 58, 707, DateTimeKind.Local).AddTicks(7017),
+                            CreatedDate = new DateTime(2024, 6, 26, 21, 17, 47, 279, DateTimeKind.Local).AddTicks(9048),
                             Description = "Description",
                             Email = "Email",
                             FaviconUrl = "",
@@ -1606,16 +1536,16 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("16272443-f506-4af3-a4e3-226df7d10c9d"),
+                            Id = new Guid("bf5998fa-b33e-4087-b76a-e2d65557423c"),
                             AuthenticatorType = 0,
-                            CreatedDate = new DateTime(2024, 5, 31, 16, 36, 58, 714, DateTimeKind.Local).AddTicks(5942),
+                            CreatedDate = new DateTime(2024, 6, 26, 21, 17, 47, 280, DateTimeKind.Local).AddTicks(8929),
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "narch@kodlama.io",
                             FirstName = "Ays",
                             LastName = "Ayd",
                             NationalIdentity = "",
-                            PasswordHash = new byte[] { 165, 147, 246, 1, 252, 226, 195, 88, 55, 171, 229, 105, 200, 62, 142, 254, 39, 29, 225, 23, 37, 228, 163, 116, 84, 169, 191, 100, 255, 137, 92, 248, 75, 224, 143, 206, 231, 58, 174, 178, 155, 216, 90, 54, 78, 117, 187, 252, 179, 0, 218, 233, 73, 114, 193, 31, 207, 71, 98, 89, 105, 176, 160, 55 },
-                            PasswordSalt = new byte[] { 85, 255, 255, 85, 221, 88, 145, 29, 218, 251, 123, 219, 252, 168, 113, 234, 199, 178, 223, 148, 46, 159, 220, 181, 84, 233, 26, 180, 79, 50, 55, 251, 230, 193, 177, 55, 171, 240, 213, 113, 72, 252, 213, 128, 104, 105, 179, 54, 207, 109, 91, 74, 145, 152, 34, 204, 151, 191, 200, 174, 4, 95, 253, 233, 105, 50, 134, 109, 237, 81, 213, 221, 242, 34, 27, 123, 140, 23, 29, 233, 202, 131, 136, 151, 242, 121, 7, 20, 73, 131, 6, 26, 185, 212, 64, 42, 131, 255, 194, 147, 105, 40, 20, 82, 186, 147, 81, 153, 133, 109, 52, 205, 10, 217, 229, 222, 63, 29, 177, 34, 46, 69, 16, 118, 144, 140, 46, 17 },
+                            PasswordHash = new byte[] { 45, 29, 253, 11, 143, 106, 94, 208, 18, 207, 115, 254, 128, 45, 175, 105, 19, 90, 203, 96, 37, 87, 3, 29, 179, 121, 179, 134, 122, 156, 107, 138, 50, 39, 26, 9, 120, 12, 231, 0, 163, 71, 59, 25, 76, 255, 129, 46, 127, 237, 194, 200, 95, 154, 225, 35, 131, 40, 60, 170, 243, 213, 124, 142 },
+                            PasswordSalt = new byte[] { 42, 111, 191, 166, 161, 243, 79, 254, 16, 151, 110, 47, 16, 217, 158, 68, 208, 149, 167, 214, 198, 78, 76, 54, 216, 93, 207, 173, 71, 35, 212, 4, 109, 81, 79, 130, 38, 65, 1, 50, 191, 251, 240, 247, 251, 191, 168, 61, 79, 211, 85, 13, 158, 43, 76, 32, 161, 227, 170, 61, 146, 222, 229, 237, 171, 58, 23, 17, 76, 156, 71, 41, 219, 231, 55, 5, 116, 236, 6, 234, 17, 243, 99, 242, 38, 96, 223, 59, 51, 18, 170, 187, 249, 242, 117, 213, 17, 245, 89, 23, 231, 76, 58, 232, 172, 146, 205, 97, 221, 98, 54, 104, 51, 64, 186, 54, 103, 254, 72, 239, 209, 113, 108, 141, 60, 129, 174, 166 },
                             UserName = "admin"
                         });
                 });
@@ -1658,10 +1588,10 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("0746607d-c275-41c1-82f8-a798b25a369c"),
+                            Id = new Guid("03e3928b-68be-4596-a867-812a52c58c63"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OperationClaimId = 1,
-                            UserId = new Guid("16272443-f506-4af3-a4e3-226df7d10c9d")
+                            UserId = new Guid("bf5998fa-b33e-4087-b76a-e2d65557423c")
                         });
                 });
 
@@ -1720,12 +1650,6 @@ namespace Persistence.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.ApplicationState", "ApplicationState")
-                        .WithOne("Application")
-                        .HasForeignKey("Domain.Entities.ApplicationInformation", "ApplicationStateId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("Domain.Entities.Bootcamp", "Bootcamp")
                         .WithMany("Applications")
                         .HasForeignKey("BootcampId")
@@ -1733,8 +1657,6 @@ namespace Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Applicant");
-
-                    b.Navigation("ApplicationState");
 
                     b.Navigation("Bootcamp");
                 });
@@ -1890,11 +1812,6 @@ namespace Persistence.Migrations
                         .HasForeignKey("Domain.Entities.Instructor", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Domain.Entities.ApplicationState", b =>
-                {
-                    b.Navigation("Application");
                 });
 
             modelBuilder.Entity("Domain.Entities.Bootcamp", b =>

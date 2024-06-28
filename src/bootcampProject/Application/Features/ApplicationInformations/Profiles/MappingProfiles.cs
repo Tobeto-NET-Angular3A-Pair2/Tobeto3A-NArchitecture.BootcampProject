@@ -21,7 +21,11 @@ public class MappingProfiles : Profile
         CreateMap<ApplicationInformation, DeleteApplicationInformationCommand>().ReverseMap();
         CreateMap<ApplicationInformation, DeletedApplicationInformationResponse>().ReverseMap();
         CreateMap<ApplicationInformation, GetByIdApplicationInformationResponse>().ReverseMap();
+        CreateMap<ApplicationInformation, GetByIdApplicationInformationQuery>().ReverseMap();
+        CreateMap<ApplicationInformation, GetByIdApplicationInformationBootcampIdQuery>().ReverseMap();
         CreateMap<ApplicationInformation, GetListApplicationInformationListItemDto>().ReverseMap();
+        CreateMap<ApplicationInformation, GetListApplicationInformationListBootcampIdItemDto>().ReverseMap();
         CreateMap<IPaginate<ApplicationInformation>, GetListResponse<GetListApplicationInformationListItemDto>>().ReverseMap();
+        CreateMap<IPaginate<ApplicationInformation>, GetListResponse<GetListApplicationInformationListBootcampIdItemDto>>().ReverseMap();
     }
 }

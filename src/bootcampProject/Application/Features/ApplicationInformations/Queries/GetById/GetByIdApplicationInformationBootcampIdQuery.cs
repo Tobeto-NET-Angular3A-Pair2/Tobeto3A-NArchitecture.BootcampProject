@@ -1,3 +1,4 @@
+﻿using Application.Features.Applicants.Constants;
 using Application.Features.ApplicationInformations.Constants;
 using Application.Features.ApplicationInformations.Rules;
 using Application.Services.Repositories;
@@ -5,38 +6,26 @@ using AutoMapper;
 using Domain.Entities;
 using MediatR;
 using NArchitecture.Core.Application.Pipelines.Authorization;
-using NArchitecture.Core.Application.Pipelines.Caching;
-using NArchitecture.Core.Application.Pipelines.Logging;
-using NArchitecture.Core.Application.Pipelines.Transaction;
 using static Application.Features.ApplicationInformations.Constants.ApplicationInformationsOperationClaims;
 
-namespace Application.Features.ApplicationInformations.Commands.Update;
+namespace Application.Features.ApplicationInformations.Queries.GetById;
 
-public class UpdateApplicationInformationCommand
-    : IRequest<UpdatedApplicationInformationResponse>,
-        ISecuredRequest,
-        ICacheRemoverRequest,
-        ILoggableRequest,
-        ITransactionalRequest
+public class GetByIdApplicationInformationBootcampIdQuery : IRequest<GetByIdApplicationInformationResponse>, ISecuredRequest
 {
-    public int Id { get; set; }
-    public Guid ApplicantId { get; set; }
     public int BootcampId { get; set; }
 
-    public string[] Roles => [Admin, Write, ApplicationInformationsOperationClaims.Update];
+    public string[] Roles => [
+        ApplicationInformationsOperationClaims.Admin,
+        ApplicantsOperationClaims.Admin];
 
-    public bool BypassCache { get; }
-    public string? CacheKey { get; }
-    public string[]? CacheGroupKey => ["GetApplicationInformations"];
-
-    public class UpdateApplicationInformationCommandHandler
-        : IRequestHandler<UpdateApplicationInformationCommand, UpdatedApplicationInformationResponse>
+    public class GetByIdApplicationInformationBootcampIdQueryHandler
+        : IRequestHandler<GetByIdApplicationInformationBootcampIdQuery, GetByIdApplicationInformationResponse>
     {
         private readonly IMapper _mapper;
         private readonly IApplicationInformationRepository _applicationInformationRepository;
         private readonly ApplicationInformationBusinessRules _applicationInformationBusinessRules;
 
-        public UpdateApplicationInformationCommandHandler(
+        public GetByIdApplicationInformationBootcampIdQueryHandler(
             IMapper mapper,
             IApplicationInformationRepository applicationInformationRepository,
             ApplicationInformationBusinessRules applicationInformationBusinessRules
@@ -47,21 +36,18 @@ public class UpdateApplicationInformationCommand
             _applicationInformationBusinessRules = applicationInformationBusinessRules;
         }
 
-        public async Task<UpdatedApplicationInformationResponse> Handle(
-            UpdateApplicationInformationCommand request,
+        public async Task<GetByIdApplicationInformationResponse> Handle(
+            GetByIdApplicationInformationBootcampIdQuery request,
             CancellationToken cancellationToken
         )
         {
             ApplicationInformation? applicationInformation = await _applicationInformationRepository.GetAsync(
-                predicate: ai => ai.Id == request.Id,
+                predicate: ai => ai.BootcampId == request.BootcampId,
                 cancellationToken: cancellationToken
             );
             await _applicationInformationBusinessRules.ApplicationInformationShouldExistWhenSelected(applicationInformation);
-            applicationInformation = _mapper.Map(request, applicationInformation);
 
-            await _applicationInformationRepository.UpdateAsync(applicationInformation!);
-
-            UpdatedApplicationInformationResponse response = _mapper.Map<UpdatedApplicationInformationResponse>(
+            GetByIdApplicationInformationResponse response = _mapper.Map<GetByIdApplicationInformationResponse>(
                 applicationInformation
             );
             return response;
