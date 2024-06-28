@@ -38,5 +38,12 @@ namespace WebAPI.Controllers
             UpdatedSettingImageReponse settingsReponse = new UpdatedSettingImageReponse { Url = result };
             return Ok(settingsReponse);
         }
+        [HttpPost("DeleteImage")]
+        public async Task<IActionResult> DeleteImage(DeleteSettingImageRequest deleteSettingImageRequest)
+        {
+            Console.WriteLine(deleteSettingImageRequest.Url);
+            await _cloudinaryImageServiceAdapter.DeleteAsync(deleteSettingImageRequest.Url);
+            return Ok(new DeleteSettingImageResponse { Response = "Image deleted successfully" });
+        }
     }
 }

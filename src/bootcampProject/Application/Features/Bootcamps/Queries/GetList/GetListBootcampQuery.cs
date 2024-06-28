@@ -13,18 +13,10 @@ using static Application.Features.Bootcamps.Constants.BootcampsOperationClaims;
 
 namespace Application.Features.Bootcamps.Queries.GetList;
 
-public class GetListBootcampQuery : IRequest<GetListResponse<GetListBootcampListItemDto>>, ISecuredRequest, ICachableRequest
+public class GetListBootcampQuery : IRequest<GetListResponse<GetListBootcampListItemDto>>
 {
     public PageRequest PageRequest { get; set; }
 
-    public string[] Roles =>
-        new[]
-        {
-            BootcampsOperationClaims.Admin,
-            BootcampsOperationClaims.Write,
-            BootcampsOperationClaims.Create,
-            InstructorsOperationClaims.Admin
-        };
 
     public bool BypassCache { get; }
     public string? CacheKey => $"GetListBootcamps({PageRequest.PageIndex},{PageRequest.PageSize})";

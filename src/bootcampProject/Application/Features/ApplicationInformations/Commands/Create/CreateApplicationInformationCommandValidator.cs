@@ -8,6 +8,5 @@ public class CreateApplicationInformationCommandValidator : AbstractValidator<Cr
     {
         RuleFor(c => c.ApplicantId).NotEmpty();
         RuleFor(c => c.BootcampId).NotEmpty();
-        RuleFor(c => c.ApplicationStateId).NotEmpty();
     }
 }
